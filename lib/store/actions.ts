@@ -4,12 +4,12 @@ import useStore from "./state";
 
 const useActions = () => {
 
-    const getTeams = async () => {
+    /* const getTeams = async () => {
         useStore.setState(state => ({ ...state, IS_LOADING: true }));
         const teams = await api.teams.fetch();
 
         return useStore.setState(state => ({ ...state, TEAMS: teams, IS_LOADING: false }));
-    }
+    } */
 
     const getLogos = async () => {
         useStore.setState(state => ({ ...state, IS_LOADING: true }));

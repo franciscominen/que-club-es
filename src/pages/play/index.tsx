@@ -48,9 +48,9 @@ const Play = () => {
     teamName.length ? setDisable(false) : setDisable(true);
   }, [teamName]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     getLogos();
-  }, []);
+  }, []); */
 
   return (
     <>
