@@ -8,14 +8,14 @@ const Play = () => {
   const router = useRouter();
   const IS_LOADING = useStore((state) => state.IS_LOADING);
   const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
-  const { getLogos, incrementPoints } = useActions();
+  const { fetchTeams, incrementPoints } = useActions();
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [disable, setDisable] = useState(false);
   const [teamName, setTeamName] = useState("");
   const [chances, setChances] = useState(1);
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     setTeamName(e.target.value);
   };
 
@@ -45,12 +45,13 @@ const Play = () => {
   };
 
   useEffect(() => {
+    fetchTeams();
+    // console.log(RANDOM_TEAMS);
+  }, []);
+
+  useEffect(() => {
     teamName.length ? setDisable(false) : setDisable(true);
   }, [teamName]);
-
-  /* useEffect(() => {
-    getLogos();
-  }, []); */
 
   return (
     <>

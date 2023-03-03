@@ -1,51 +1,63 @@
 import { database } from "lib/firebase";
+import firebase from 'firebase/compat/app';
+
 import { ITeam } from "lib/types";
 import Papa from "papaparse";
 
 const api = {
-    teams: {
-        fetchFiveRandomTeams: async () => {
-            const res = await fetch(
-                "https://docs.google.com/spreadsheets/d/e/2PACX-1vRzKkddmHZtcXKO6ZZ8wIZqqu7xb0gM-euRHEMeOTS7lIBKdzWMbubVmsYrB1jMbrlySqk1we4F6_QH/pub?gid=0&output=csv"
-            );
-            const data = await res.text();
-            const teams = await new Promise<ITeam[]>((resolve, reject) => {
-                Papa.parse<ITeam>(data, {
-                    header: true,
-                    complete: (result) => resolve(result.data),
-                    error: reject,
-                });
+    setFiveRandomTeams: async () => {
+
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_ALL_TEAMS}`
+        );
+        const data = await res.text();
+        const teams = await new Promise<ITeam[]>((resolve, reject) => {
+            Papa.parse<ITeam>(data, {
+                header: true,
+                complete: (result) => resolve(result.data),
+                error: reject,
             });
+        });
 
-            const randomArray: ITeam[] = [];
-            let difficultyLevels: any = [];
+        const randomArray: ITeam[] = [];
+        let difficultyLevels: any = [];
 
-            while (randomArray.length < 5) {
-                const randomIndex = Math.floor(Math.random() * teams.length);
-                const randomElement = teams[randomIndex];
+        while (randomArray.length < 5) {
+            const randomIndex = Math.floor(Math.random() * teams.length);
+            const randomElement = teams[randomIndex];
 
-                if (!randomArray.includes(randomElement) && !difficultyLevels.includes(randomElement.difficultyLevel)) {
-                    randomArray.push(randomElement);
-                    difficultyLevels.push(randomElement.difficultyLevel);
-                }
+            if (!randomArray.includes(randomElement) && !difficultyLevels.includes(randomElement.difficultyLevel)) {
+                randomArray.push(randomElement);
+                difficultyLevels.push(randomElement.difficultyLevel);
             }
+        }
 
-            try {
-                await database
-                    .collection("TEAMS_OF_THE_DAY")
-                    .doc()
-                    .set({
-                        randomArray
-                    });
+        try {
+            await database
+                .collection("TEAMS_OF_THE_DAY")
+                .doc()
+                .set({
+                    teams: [...randomArray],
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
 
-                console.log('Created!');
+            console.log('Created!');
 
-            } catch {
-                console.log("error");
-            }
-        },
-
+        } catch {
+            console.log("error");
+        }
+    },
+    getFiveRandomTeams: (callback: (teams: ITeam[]) => void) => {
+        database
+            .collection('TEAMS_OF_THE_DAY')
+            .orderBy('createdAt', 'desc')
+            .limit(1)
+            .onSnapshot(snapshot => callback(
+                snapshot.docs.map(doc => ({ ...(doc.data() as ITeam), id: doc.id }))
+            ))
     }
 }
+
+
 
 export default api

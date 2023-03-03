@@ -4,31 +4,16 @@ import useStore from "./state";
 
 const useActions = () => {
 
-    /* const getTeams = async () => {
-        useStore.setState(state => ({ ...state, IS_LOADING: true }));
-        const teams = await api.teams.fetch();
-
-        return useStore.setState(state => ({ ...state, TEAMS: teams, IS_LOADING: false }));
-    } */
-
-    const getLogos = async () => {
-        useStore.setState(state => ({ ...state, IS_LOADING: true }));
-
-        const teams = await api.teams.fetch();
-        const randomArray: ITeam[] = [];
-        let difficultyLevels: any = [];
-
-        while (randomArray.length < 5) {
-            const randomIndex = Math.floor(Math.random() * teams.length);
-            const randomElement = teams[randomIndex];
-
-            if (!randomArray.includes(randomElement) && !difficultyLevels.includes(randomElement.difficultyLevel)) {
-                randomArray.push(randomElement);
-                difficultyLevels.push(randomElement.difficultyLevel);
-            }
+    const fetchTeams = () => {
+        useStore.setState({ IS_LOADING: true });
+        try {
+            return api.getFiveRandomTeams((teams: ITeam[]) => {                
+                useStore.setState((state) => ({ ...state, RANDOM_TEAMS: teams[0]?.teams }))
+                useStore.setState({ IS_LOADING: false });
+            });
+        } catch {
+            console.log('Firestore Error');
         }
-
-        return useStore.setState(state => ({ ...state, RANDOM_TEAMS: randomArray, IS_LOADING: false }));
     }
 
     const incrementPoints = () => {
@@ -36,8 +21,7 @@ const useActions = () => {
     }
 
     return {
-        getTeams,
-        getLogos,
+        fetchTeams,
         incrementPoints
     }
 }

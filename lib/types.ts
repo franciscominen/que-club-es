@@ -1,5 +1,5 @@
 export interface ITeam {
-    id: number
+    id: string
     name: string
     img: string
     difficultyLevel: number
