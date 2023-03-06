@@ -1,11 +1,12 @@
 import Countdown from "@/components/Countdown";
+import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import { useRouter } from "next/router";
 
 const Result = () => {
   const router = useRouter();
   const POINTS = useStore((state) => state.POINTS);
-  const PLAYED = useStore((state) => state.PLAYED);
+  const { checkIsPlayed } = useActions();
 
   const goToPlay = () => {
     return router.push("/play");
@@ -13,7 +14,7 @@ const Result = () => {
 
   return (
     <>
-      {PLAYED ? (
+      {checkIsPlayed() ? (
         <>
           <Countdown />
           <h3>Resultado:</h3>

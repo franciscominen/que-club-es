@@ -3,6 +3,8 @@ import { Actions, ITeam } from "lib/types";
 import useStore from "./state";
 
 const useActions = () => {
+    const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
+    const PLAYED_TEAMS = useStore((state) => state.PLAYED_TEAMS);
 
     const fetchTeams = async () => {
         useStore.setState({ IS_LOADING: true });
@@ -25,15 +27,27 @@ const useActions = () => {
         return useStore.setState(state => ({ ...state, PLAYED: true }));
     }
 
-    const setPlayedTeams = (randomTeams: ITeam[]) => {        
+    const setPlayedTeams = (randomTeams: ITeam[]) => {
         return useStore.setState(state => ({ ...state, PLAYED_TEAMS: randomTeams }));
+    }
+
+    const checkIsPlayed = () => {
+        const array1Ids = RANDOM_TEAMS.map((obj) => obj.id).sort();
+        const array2Ids = PLAYED_TEAMS.map((obj) => obj.id).sort();
+
+        if (JSON.stringify(array1Ids) === JSON.stringify(array2Ids)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     return {
         fetchTeams,
         incrementPoints,
         setToPlayed,
-        setPlayedTeams
+        setPlayedTeams,
+        checkIsPlayed
     }
 }
 

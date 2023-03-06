@@ -1,6 +1,5 @@
 import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -8,9 +7,8 @@ const Play = () => {
   const router = useRouter();
   const IS_LOADING = useStore((state) => state.IS_LOADING);
   const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
-  const PLAYED_TEAMS = useStore((state) => state.PLAYED_TEAMS);
 
-  const { fetchTeams, incrementPoints, setToPlayed, setPlayedTeams } =
+  const { checkIsPlayed, incrementPoints, setToPlayed, setPlayedTeams } =
     useActions();
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -58,15 +56,10 @@ const Play = () => {
   };
 
   useEffect(() => {
-    const array1Ids = RANDOM_TEAMS.map((obj) => obj.id).sort();
-    const array2Ids = PLAYED_TEAMS.map((obj) => obj.id).sort();
-
-    console.log(array1Ids, array2Ids);
-
-    if (JSON.stringify(array1Ids) === JSON.stringify(array2Ids)) {
-      router.push("/result");
+    if (checkIsPlayed()) {
+      router.push("result");
     }
-  }, [RANDOM_TEAMS, PLAYED_TEAMS, router]);
+  }, [checkIsPlayed, router]);
 
   useEffect(() => {
     teamName.length ? setDisable(false) : setDisable(true);

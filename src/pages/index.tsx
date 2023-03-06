@@ -1,18 +1,17 @@
-import useStore from "lib/store/state";
+import useActions from "lib/store/actions";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const PLAYED = useStore((state) => state.PLAYED);
+  const { checkIsPlayed } = useActions();
 
   const onClickPlay = () => {
-   /*  if (PLAYED) {
+    if (checkIsPlayed()) {
       return router.push("result");
     } else {
-    } */
-    return router.push("play");
+      return router.push("play");
+    }
   };
 
   return (
