@@ -8,7 +8,10 @@ const Play = () => {
   const router = useRouter();
   const IS_LOADING = useStore((state) => state.IS_LOADING);
   const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
-  const { fetchTeams, incrementPoints } = useActions();
+  const PLAYED_TEAMS = useStore((state) => state.PLAYED_TEAMS);
+
+  const { fetchTeams, incrementPoints, setToPlayed, setPlayedTeams } =
+    useActions();
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [disable, setDisable] = useState(false);
@@ -20,34 +23,50 @@ const Play = () => {
   };
 
   const handleClick = () => {
-    if (teamName === RANDOM_TEAMS[currentIndex].name.toLowerCase()) {
+    const isCorrectAnswer =
+      teamName.toLowerCase() === RANDOM_TEAMS[currentIndex].name.toLowerCase();
+
+    if (isCorrectAnswer) {
+      incrementPoints();
+
       if (currentIndex < RANDOM_TEAMS.length - 1) {
-        incrementPoints();
         setCurrentIndex(currentIndex + 1);
         setTeamName("");
         setChances(1);
-      }
-      if (currentIndex === 4) {
-        incrementPoints();
-        router.push("result");
-      }
-    } else if (chances === 3) {
-      if (currentIndex === 4) {
-        router.push("result");
       } else {
-        setCurrentIndex(currentIndex + 1);
-        setTeamName("");
-        setChances(1);
+        setPlayedTeams(RANDOM_TEAMS);
+        setToPlayed();
+        router.push("result");
       }
     } else {
-      setChances(chances + 1);
+      const maxChances = 2;
+
+      if (chances < maxChances) {
+        setChances(chances + 1);
+      } else {
+        if (currentIndex < RANDOM_TEAMS.length - 1) {
+          setCurrentIndex(currentIndex + 1);
+          setTeamName("");
+          setChances(1);
+        } else {
+          setPlayedTeams(RANDOM_TEAMS);
+          setToPlayed();
+          router.push("result");
+        }
+      }
     }
   };
 
   useEffect(() => {
-    fetchTeams();
-    // console.log(RANDOM_TEAMS);
-  }, []);
+    const array1Ids = RANDOM_TEAMS.map((obj) => obj.id).sort();
+    const array2Ids = PLAYED_TEAMS.map((obj) => obj.id).sort();
+
+    console.log(array1Ids, array2Ids);
+
+    if (JSON.stringify(array1Ids) === JSON.stringify(array2Ids)) {
+      router.push("/result");
+    }
+  }, [RANDOM_TEAMS, PLAYED_TEAMS, router]);
 
   useEffect(() => {
     teamName.length ? setDisable(false) : setDisable(true);
@@ -69,7 +88,7 @@ const Play = () => {
           <button disabled={disable} onClick={handleClick}>
             SIGUIENTE
           </button>
-          <p>Chances: {chances}/3</p>
+          <p>Chances: {chances}/2</p>
         </div>
       )}
     </>

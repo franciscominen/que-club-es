@@ -6,45 +6,39 @@ import Papa from "papaparse";
 
 const api = {
     setFiveRandomTeams: async () => {
-
-        const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API_ALL_TEAMS}`
-        );
+        const teamsUrl = process.env.NEXT_PUBLIC_API_ALL_TEAMS;
+        const res = await fetch(`${teamsUrl}`);
         const data = await res.text();
-        const teams = await new Promise<ITeam[]>((resolve, reject) => {
-            Papa.parse<ITeam>(data, {
-                header: true,
-                complete: (result) => resolve(result.data),
-                error: reject,
-            });
-        });
+        const teams: ITeam[] = Papa.parse<ITeam>(data, {
+            header: true,
+            dynamicTyping: true,
+            skipEmptyLines: true,
+        }).data;
 
-        const randomArray: ITeam[] = [];
-        let difficultyLevels: any = [];
+        const selectedTeams: ITeam[] = [];
+        const difficultyLevels: string[] = [];
 
-        while (randomArray.length < 5) {
+        while (selectedTeams.length < 5 && teams.length > 0) {
             const randomIndex = Math.floor(Math.random() * teams.length);
-            const randomElement = teams[randomIndex];
+            const randomTeam = teams[randomIndex];
+            teams.splice(randomIndex, 1);
 
-            if (!randomArray.includes(randomElement) && !difficultyLevels.includes(randomElement.difficultyLevel)) {
-                randomArray.push(randomElement);
-                difficultyLevels.push(randomElement.difficultyLevel);
+            if (
+                !selectedTeams.includes(randomTeam) &&
+                !difficultyLevels.includes(randomTeam.difficultyLevel)
+            ) {
+                selectedTeams.push(randomTeam);
+                difficultyLevels.push(randomTeam.difficultyLevel);
             }
         }
 
         try {
-            await database
-                .collection("TEAMS_OF_THE_DAY")
-                .doc()
-                .set({
-                    teams: [...randomArray],
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-
-            console.log('Created!');
-
-        } catch {
-            console.log("error");
+            await database.collection("TEAMS_OF_THE_DAY").add({
+                teams: selectedTeams,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+        } catch (error) {
+            console.log("Error:", error);
         }
     },
     getFiveRandomTeams: (callback: (teams: ITeam[]) => void) => {
@@ -57,7 +51,5 @@ const api = {
             ))
     }
 }
-
-
 
 export default api
