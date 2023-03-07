@@ -1,3 +1,4 @@
+import InputAndKeyboard from "@/components/InputAndKeyboard";
 import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import { useRouter } from "next/router";
@@ -15,10 +16,6 @@ const Play = () => {
   const [disable, setDisable] = useState(false);
   const [teamName, setTeamName] = useState("");
   const [chances, setChances] = useState(1);
-
-  const handleChange = (e: any) => {
-    setTeamName(e.target.value);
-  };
 
   const handleClick = () => {
     const isCorrectAnswer =
@@ -58,6 +55,9 @@ const Play = () => {
   useEffect(() => {
     if (checkIsPlayed()) {
       router.push("result");
+    } else {
+      useStore.setState((state) => ({ ...state, POINTS: 0 }));
+      localStorage.clear();
     }
   }, [checkIsPlayed, router]);
 
@@ -77,11 +77,12 @@ const Play = () => {
             alt="Please Reload"
             style={{ width: "150px" }}
           />
-          <input type="text" value={teamName} onChange={handleChange} />
           <button disabled={disable} onClick={handleClick}>
             SIGUIENTE
           </button>
           <p>Chances: {chances}/2</p>
+
+          <InputAndKeyboard teamName={teamName} setTeamName={setTeamName} />
         </div>
       )}
     </>
