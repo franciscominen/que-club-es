@@ -6,7 +6,7 @@ const useActions = () => {
     const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
     const PLAYED_TEAMS = useStore((state) => state.PLAYED_TEAMS);
 
-    const fetchTeams = async () => {
+    const fetchTeams = () => {
         useStore.setState({ IS_LOADING: true });
         try {
             return api.getFiveRandomTeams((teams: ITeam[]) => {
@@ -23,6 +23,10 @@ const useActions = () => {
         return useStore.setState(state => ({ ...state, POINTS: state.POINTS + 1 }));
     }
 
+    const resetPoints = () => {
+        return useStore.setState(state => ({ ...state, POINTS: 0 }));
+    }
+
     const setToPlayed = () => {
         return useStore.setState(state => ({ ...state, PLAYED: true }));
     }
@@ -36,9 +40,9 @@ const useActions = () => {
         const array2Ids = PLAYED_TEAMS.map((obj) => obj.id).sort();
 
         if (JSON.stringify(array1Ids) === JSON.stringify(array2Ids)) {
-            return true;
+            return useStore.setState(state => ({ ...state, PLAYED: true }));
         } else {
-            return false;
+            return useStore.setState(state => ({ ...state, PLAYED: false }));
         }
     }
 
@@ -47,7 +51,8 @@ const useActions = () => {
         incrementPoints,
         setToPlayed,
         setPlayedTeams,
-        checkIsPlayed
+        checkIsPlayed,
+        resetPoints
     }
 }
 

@@ -6,11 +6,10 @@ import { useEffect, useState } from "react";
 
 const Play = () => {
   const router = useRouter();
-  const IS_LOADING = useStore((state) => state.IS_LOADING);
   const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
+  const PLAYED = useStore((state) => state.PLAYED);
 
-  const { checkIsPlayed, incrementPoints, setToPlayed, setPlayedTeams } =
-    useActions();
+  const { incrementPoints, setToPlayed, setPlayedTeams } = useActions();
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [disable, setDisable] = useState(false);
@@ -53,13 +52,8 @@ const Play = () => {
   };
 
   useEffect(() => {
-    if (checkIsPlayed()) {
-      router.push("result");
-    } else {
-      useStore.setState((state) => ({ ...state, POINTS: 0 }));
-      localStorage.clear();
-    }
-  }, [checkIsPlayed, router]);
+    PLAYED ? router.push("result") : null;
+  }, [PLAYED, router]);
 
   useEffect(() => {
     teamName.length ? setDisable(false) : setDisable(true);
@@ -67,24 +61,20 @@ const Play = () => {
 
   return (
     <>
-      {IS_LOADING ? (
-        <h1>CARGANDO...</h1>
-      ) : (
-        <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-          <h3>{currentIndex + 1} </h3>
-          <img
-            src={RANDOM_TEAMS[currentIndex]?.img}
-            alt="Please Reload"
-            style={{ width: "150px" }}
-          />
-          <button disabled={disable} onClick={handleClick}>
-            SIGUIENTE
-          </button>
-          <p>Chances: {chances}/2</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+        <h3>{currentIndex + 1} </h3>
+        <img
+          src={RANDOM_TEAMS[currentIndex]?.img}
+          alt="Please Reload"
+          style={{ width: "150px" }}
+        />
+        <button disabled={disable} onClick={handleClick}>
+          SIGUIENTE
+        </button>
+        <p>Chances: {chances}/2</p>
 
-          <InputAndKeyboard teamName={teamName} setTeamName={setTeamName} />
-        </div>
-      )}
+        <InputAndKeyboard teamName={teamName} setTeamName={setTeamName} />
+      </div>
     </>
   );
 };

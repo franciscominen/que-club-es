@@ -9,6 +9,7 @@ export interface ITeam {
 export interface State {
     RANDOM_TEAMS: ITeam[]
     PLAYED_TEAMS: ITeam[]
+    PLAYED: boolean
     STEPS: number | null
     POINTS: number
     IS_LOADING: boolean
