@@ -1,18 +1,11 @@
 import Countdown from "@/components/Countdown";
-import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 const Result = () => {
   const router = useRouter();
   const POINTS = useStore((state) => state.POINTS);
-  const { checkIsPlayed } = useActions();
   const PLAYED = useStore((state) => state.PLAYED);
-
-/*   useEffect(() => {
-    checkIsPlayed();
-  }, []); */
 
   const goToPlay = () => {
     return router.push("/play");
