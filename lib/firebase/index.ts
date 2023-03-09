@@ -2,6 +2,8 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 
 const firebaseConfig = {
+    experimentalForceLongPolling: true, // this line
+    useFetchStreams: false, // and this line
     apiKey: process.env.NEXT_PUBLIC_FB_API_KEY,
     authDomain: process.env.NEXT_PUBLIC_FB_AUTH_DOMAIN,
     projectId: process.env.NEXT_PUBLIC_FB_PROJECT_ID,
