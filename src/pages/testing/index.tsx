@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Papa from "papaparse";
 
 const Testing = () => {
-  const teamsUrl = process.env.NEXT_PUBLIC_API_ALL_TEAMS;
+/*   const teamsUrl = process.env.NEXT_PUBLIC_API_ALL_TEAMS;
   const [teams, setTeams] = useState([]);
 
   useEffect(() => {
@@ -20,18 +20,18 @@ const Testing = () => {
       // return console.log(teams);
     };
     fetchData();
-  }, []);
+  }, []); */
 
   return (
     <>
-      {teams.map((team) => {
+{/*       {teams.map((team) => {
         return (
           <div key={team.id}>
             <h3>{team.name}</h3>
             <img src={team.img} alt="" style={{ width: "150px" }} />
           </div>
         );
-      })}
+      })} */}
     </>
   );
 };
