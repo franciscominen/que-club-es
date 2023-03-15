@@ -1,3 +1,6 @@
+import styled from "styled-components";
+import { countdownBar } from "@/styles/animations";
+
 type Props = {
   teamName: string;
   setTeamName: React.Dispatch<React.SetStateAction<string>>;
@@ -21,19 +24,82 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
   ];
 
   return (
-    <div>
-      <input type="text" value={teamName} />
+    <Wrapper>
+      <div style={{ height: "67px" }}>
+        <TeamNameInput
+          type="text"
+          value={teamName}
+          placeholder="¿Qué club e'?"
+        />
+        <CountdownBar></CountdownBar>
+      </div>
       {keys.map((row, i) => (
-        <div key={i}>
+        <KeysWrapper key={i}>
           {row.map((key, j) => (
-            <button key={j} value={key} onClick={handleKeyClick}>
+            <KeyButton key={j} value={key} onClick={handleKeyClick}>
               {key}
-            </button>
+            </KeyButton>
           ))}
-        </div>
+        </KeysWrapper>
       ))}
-    </div>
+    </Wrapper>
   );
 };
 
 export default InputAndKeyboard;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const TeamNameInput = styled.input`
+  color: var(--dark);
+  background-color: #ffffff42;
+  width: 100%;
+  font-size: 24px;
+  padding: 4px;
+  border-radius: 8px;
+  border: 4px solid var(--light);
+  text-align: center;
+  text-transform: capitalize;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 2;
+  &:focus {
+    outline: none;
+  }
+`;
+
+const CountdownBar = styled.figure`
+  background-color: var(--light);
+  width: 99%;
+  margin: 0 auto;
+  height: 44px;
+  position: relative;
+  bottom: 3.5em;
+  z-index: 1;
+  animation: ${countdownBar} 15s linear;
+  transform-origin: center left;
+`;
+
+const KeysWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 8px;
+`;
+
+const KeyButton = styled.button`
+  width: 100%;
+  height: 48px;
+  color: var(--light);
+  background-color: transparent;
+  border: 2px solid var(--light);
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: var(--alternativeFont);
+  font-weight: 500;
+`;

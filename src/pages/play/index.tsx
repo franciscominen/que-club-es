@@ -1,8 +1,10 @@
 import InputAndKeyboard from "@/components/InputAndKeyboard";
+import PlayButtonsAndChances from "@/components/PlayButtonsAndChances";
 import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 const Play = () => {
   const router = useRouter();
@@ -15,8 +17,9 @@ const Play = () => {
   const [disable, setDisable] = useState(false);
   const [teamName, setTeamName] = useState("");
   const [chances, setChances] = useState(1);
+  const [countdown, setCountdown] = useState(10);
 
-  const handleClick = () => {
+  const onTryToAnswer = () => {
     const isCorrectAnswer =
       teamName.toLowerCase() === RANDOM_TEAMS[currentIndex].name.toLowerCase();
 
@@ -27,6 +30,7 @@ const Play = () => {
         setCurrentIndex(currentIndex + 1);
         setTeamName("");
         setChances(1);
+        setCountdown(10);
       } else {
         setPlayedTeams(RANDOM_TEAMS);
         setToPlayed();
@@ -42,12 +46,26 @@ const Play = () => {
           setCurrentIndex(currentIndex + 1);
           setTeamName("");
           setChances(1);
+          setCountdown(10);
         } else {
           setPlayedTeams(RANDOM_TEAMS);
           setToPlayed();
           router.push("result");
         }
       }
+    }
+  };
+
+  const onPass = () => {
+    if (currentIndex < RANDOM_TEAMS.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+      setTeamName("");
+      setChances(1);
+      setCountdown(10);
+    } else {
+      setPlayedTeams(RANDOM_TEAMS);
+      setToPlayed();
+      router.push("result");
     }
   };
 
@@ -59,24 +77,66 @@ const Play = () => {
     teamName.length ? setDisable(false) : setDisable(true);
   }, [teamName]);
 
+  /*   useEffect(() => {
+    const interval = setInterval(() => {
+      setCountdown(countdown - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [countdown]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      onPass();
+      setCountdown(10);
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [currentIndex]); */
+
   return (
     <>
-      <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-        <h3>{currentIndex + 1} </h3>
-        <img
-          src={RANDOM_TEAMS[currentIndex]?.img}
-          alt="Please Reload"
-          style={{ width: "150px" }}
-        />
-        <button disabled={disable} onClick={handleClick}>
-          SIGUIENTE
-        </button>
-        <p>Chances: {chances}/2</p>
-
-        <InputAndKeyboard teamName={teamName} setTeamName={setTeamName} />
-      </div>
+      <MainContainer>
+        <PlayWrapper>
+          <img
+            src={RANDOM_TEAMS[currentIndex]?.img}
+            alt="Please Reload"
+            style={{ width: "150px" }}
+          />
+          <PlayButtonsAndChances
+            onTryToAnswer={onTryToAnswer}
+            onPass={onPass}
+          />
+          <InputAndKeyboard teamName={teamName} setTeamName={setTeamName} />
+        </PlayWrapper>
+      </MainContainer>
     </>
   );
 };
 
 export default Play;
+
+const MainContainer = styled.main`
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  background-image: url("/assets/backgrounds/bg-play.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const PlayWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 500px;
+  padding: 0 4%;
+`;
