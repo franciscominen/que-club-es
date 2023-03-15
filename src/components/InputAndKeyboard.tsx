@@ -31,7 +31,7 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
           value={teamName}
           placeholder="¿Qué club e'?"
         />
-        <CountdownBar></CountdownBar>
+        <CountdownBar />
       </div>
       {keys.map((row, i) => (
         <KeysWrapper key={i}>

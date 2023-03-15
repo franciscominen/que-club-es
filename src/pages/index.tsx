@@ -1,13 +1,18 @@
+import BackToHomeButton from "@/components/BackToHomeButton";
+import HowToPlay from "@/components/HowToPlay";
 import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import styled from "styled-components";
 
 const Home: NextPage = () => {
   const router = useRouter();
   const { resetPoints } = useActions();
   const PLAYED = useStore((state) => state.PLAYED);
+
+  const [howToPlay, setHowToPlay] = useState(false);
 
   const onClickPlay = () => {
     if (PLAYED) {
@@ -20,9 +25,24 @@ const Home: NextPage = () => {
 
   return (
     <MainContainer>
-      <HomeTitle>¿Qué club e’?</HomeTitle>
-      <StartButton onClick={onClickPlay}>Empezar</StartButton>
-      <TutorialButton href="">¿Qué es esto?</TutorialButton>
+      <HomeTitle howToPlay={howToPlay}>¿Qué club e’?</HomeTitle>
+      {howToPlay ? (
+        <>
+          <BackToHomeButton howToPlay={howToPlay} setHowToPlay={setHowToPlay} />
+          <HowToPlay />
+        </>
+      ) : (
+        <>
+          <StartButton onClick={onClickPlay}>Empezar</StartButton>
+          <TutorialButton
+            onClick={() => {
+              setHowToPlay(!howToPlay);
+            }}
+          >
+            ¿Qué es esto?
+          </TutorialButton>
+        </>
+      )}
     </MainContainer>
   );
 };
@@ -43,8 +63,8 @@ const MainContainer = styled.main`
   align-items: center;
 `;
 
-const HomeTitle = styled.h1`
-  font-size: 3.5em;
+const HomeTitle = styled.h1<{ howToPlay: boolean }>`
+  font-size: ${(props) => (props.howToPlay ? "2.2em" : "3.5em")};
   color: var(--light);
   font-weight: 100;
   margin-bottom: 1em;
@@ -63,7 +83,8 @@ const StartButton = styled.button`
   }
 `;
 
-const TutorialButton = styled.a`
+const TutorialButton = styled.button`
+  background-color: transparent;
   color: var(--light);
   text-decoration: underline;
   font-size: 22px;

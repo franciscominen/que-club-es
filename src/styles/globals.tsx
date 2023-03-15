@@ -23,6 +23,10 @@ const GlobalStyle = createGlobalStyle`
         cursor: pointer;
         border: none;
     }
+
+    ul {
+        list-style: none;
+    }
 `;
 
 export default GlobalStyle;

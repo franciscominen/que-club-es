@@ -1,5 +1,6 @@
 import moment from "moment-timezone";
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 
 const Countdown: React.FC = () => {
   const [countdown, setCountdown] = useState<string>("");
@@ -16,9 +17,7 @@ const Countdown: React.FC = () => {
       const diff = moment.duration(countDownDate.diff(now));
 
       // Mostramos el contador en un elemento HTML
-      setCountdown(
-        `${diff.hours()}:${diff.minutes()}:${diff.seconds()}hs`
-      );
+      setCountdown(`${diff.hours()}:${diff.minutes()}:${diff.seconds()}hs`);
 
       // Si el contador llega a cero, reiniciamos la hora objetivo y el contador
       if (diff.asMilliseconds() <= 0) {
@@ -30,10 +29,29 @@ const Countdown: React.FC = () => {
   }, [countDownDate]);
 
   return (
-    <div>
-      <p>{countdown}</p>
-    </div>
+    <CountdownWrapper>
+      <h3>Próxima fecha en:</h3>
+      <h2>{countdown}</h2>
+    </CountdownWrapper>
   );
 };
 
 export default Countdown;
+
+const CountdownWrapper = styled.div`
+  color: var(--light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h3 {
+    font-weight: 300;
+    font-size: 20px;
+  }
+
+  h2 {
+    font-weight: 300;
+    font-size: 32px;
+  }
+`
