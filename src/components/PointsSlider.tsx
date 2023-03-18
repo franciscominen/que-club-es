@@ -1,6 +1,7 @@
 import useStore from "lib/store/state";
 import { useState } from "react";
 import styled from "styled-components";
+import Scoreboard from "./Scoreboard";
 
 const PointsSlider = ({ points }: any) => {
   const PLAYED_TEAMS = useStore((state) => state.PLAYED_TEAMS);
@@ -30,12 +31,13 @@ const PointsSlider = ({ points }: any) => {
         </PointsWrapper>
       ) : (
         <PointsWrapper>
-          <div>
-            <Title>Resultado:</Title>
+            <ResultTitle>Resultado:</ResultTitle>
+          <div style={{position: 'relative', bottom: '1em'}}>
             <Points>
               {points}
               <span>Pts</span>
             </Points>
+            <Scoreboard small={true} />
           </div>
           <ShowAnswersBtn onClick={handleToggle}>Ver respuestas</ShowAnswersBtn>
         </PointsWrapper>
@@ -51,7 +53,7 @@ const PointsWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 43vh;
+  height: 20em;
 `;
 
 const Title = styled.h1`
@@ -61,11 +63,21 @@ const Title = styled.h1`
   text-align: center;
 `;
 
+const ResultTitle = styled.h1`
+  color: var(--light);
+  font-size: 28px;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 8px;
+`;
+
 const Points = styled.div`
   color: var(--light);
-  font-size: 120px;
+  font-size: 140px;
   line-height: 1;
-
+  text-align: center;
+  margin-bottom: 8px;
+  font-weight: 100;
   span {
     font-size: 26px;
   }

@@ -35,6 +35,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <>
       <Head>
+        <link rel="icon" type="image/png" href="/assets/favicon.png" />
         <title>¿Qué club e?</title>
       </Head>
       <GlobalStyle />

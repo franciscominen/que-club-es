@@ -1,5 +1,6 @@
 import InputAndKeyboard from "@/components/InputAndKeyboard";
 import PlayButtonsAndChances from "@/components/PlayButtonsAndChances";
+import Scoreboard from "@/components/Scoreboard";
 import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import { useRouter } from "next/router";
@@ -11,12 +12,13 @@ const Play = () => {
   const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
   const PLAYED = useStore((state) => state.PLAYED);
 
-  const { incrementPoints, setToPlayed, setPlayedTeams } = useActions();
+  const { incrementPoints, setToPlayed, setPlayedTeams, updateScoreboard } =
+    useActions();
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [disable, setDisable] = useState(false);
   const [teamName, setTeamName] = useState("");
-  const [chances, setChances] = useState(1);
+  const [chances, setChances] = useState<number>(1);
   const [countdown, setCountdown] = useState(10);
 
   const onTryToAnswer = () => {
@@ -25,6 +27,7 @@ const Play = () => {
 
     if (isCorrectAnswer) {
       incrementPoints();
+      updateScoreboard("O");
 
       if (currentIndex < RANDOM_TEAMS.length - 1) {
         setCurrentIndex(currentIndex + 1);
@@ -37,17 +40,21 @@ const Play = () => {
         router.push("result");
       }
     } else {
-      const maxChances = 2;
+      // const maxChances = 2;
+      console.log(chances);
 
-      if (chances < maxChances) {
-        setChances(chances + 1);
+      if (chances > 0) {
+        setChances(chances - 1);
       } else {
         if (currentIndex < RANDOM_TEAMS.length - 1) {
           setCurrentIndex(currentIndex + 1);
           setTeamName("");
           setChances(1);
           setCountdown(10);
+          updateScoreboard("X");
         } else {
+          updateScoreboard("X");
+
           setPlayedTeams(RANDOM_TEAMS);
           setToPlayed();
           router.push("result");
@@ -62,9 +69,12 @@ const Play = () => {
       setTeamName("");
       setChances(1);
       setCountdown(10);
+      updateScoreboard("X");
     } else {
       setPlayedTeams(RANDOM_TEAMS);
       setToPlayed();
+      updateScoreboard("X");
+
       router.push("result");
     }
   };
@@ -98,6 +108,7 @@ const Play = () => {
     <>
       <MainContainer>
         <PlayWrapper>
+          <Scoreboard small={false} />
           <img
             src={RANDOM_TEAMS[currentIndex]?.img}
             alt="Please Reload"
@@ -106,6 +117,7 @@ const Play = () => {
           <PlayButtonsAndChances
             onTryToAnswer={onTryToAnswer}
             onPass={onPass}
+            chances={chances}
           />
           <InputAndKeyboard teamName={teamName} setTeamName={setTeamName} />
         </PlayWrapper>

@@ -4,17 +4,22 @@ import styled from "styled-components";
 interface Props {
   onTryToAnswer: () => void;
   onPass: () => void;
+  chances: number;
 }
 
-const PlayButtonsAndChances = ({ onTryToAnswer, onPass }: Props) => {
+const PlayButtonsAndChances = ({ onTryToAnswer, onPass, chances }: Props) => {
   return (
     <Wrapper>
       <PlayButton continueButton={false} onClick={onPass}>
         PASO
       </PlayButton>
       <ChancesWrapper>
-        <Image src="/assets/chances-icon.svg" alt="" width={40} height={40} />
-        <Image src="/assets/chances-icon.svg" alt="" width={40} height={40} />
+        {chances === 1 ? (
+          <Image src="/assets/chances-icon.svg" alt="" width={40} height={40} />
+        ) : null}
+        {chances >= 0 ? (
+          <Image src="/assets/chances-icon.svg" alt="" width={40} height={40} />
+        ) : null}
       </ChancesWrapper>
       <PlayButton continueButton={true} onClick={onTryToAnswer}>
         OK
@@ -47,4 +52,8 @@ const ChancesWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 4px;
+`;
+
+const ChancesIcon = styled.img<{ show: boolean }>`
+  display: ${(props) => (props.show ? `none` : `block`)};
 `;

@@ -13,6 +13,7 @@ export interface State {
     STEPS: number | null
     POINTS: number
     IS_LOADING: boolean
+    SCOREBOARD: string[]
 }
 
 export interface Actions {

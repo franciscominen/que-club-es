@@ -5,6 +5,7 @@ import useStore from "./state";
 const useActions = () => {
     const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
     const PLAYED_TEAMS = useStore((state) => state.PLAYED_TEAMS);
+    const SCOREBOARD = useStore((state) => state.SCOREBOARD);
 
     const fetchTeams = () => {
         useStore.setState({ IS_LOADING: true });
@@ -46,13 +47,18 @@ const useActions = () => {
         }
     }
 
+    const updateScoreboard = (value: string) => {
+        return useStore.setState(state => ({ ...state, SCOREBOARD: SCOREBOARD.concat(value) }));
+    }
+
     return {
         fetchTeams,
         incrementPoints,
         setToPlayed,
         setPlayedTeams,
         checkIsPlayed,
-        resetPoints
+        resetPoints,
+        updateScoreboard
     }
 }
 
