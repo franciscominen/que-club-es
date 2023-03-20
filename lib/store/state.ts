@@ -8,7 +8,7 @@ const useStore = create<State>()(
             RANDOM_TEAMS: [],
             PLAYED_TEAMS: [],
             PLAYED: false,
-            STEPS: null,
+            STEPS: 0,
             POINTS: 0,
             IS_LOADING: false,
             SCOREBOARD: [],
@@ -16,7 +16,7 @@ const useStore = create<State>()(
         {
             name: 'PLAYED',
             partialize: (state) => ({
-                POINTS: state.POINTS, PLAYED_TEAMS: state.PLAYED_TEAMS, SCOREBOARD: state.SCOREBOARD
+                POINTS: state.POINTS, PLAYED_TEAMS: state.PLAYED_TEAMS, SCOREBOARD: state.SCOREBOARD, STEPS: state.STEPS
             }),
         }
     )

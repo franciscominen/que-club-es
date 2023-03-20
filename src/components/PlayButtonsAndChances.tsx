@@ -5,9 +5,15 @@ interface Props {
   onTryToAnswer: () => void;
   onPass: () => void;
   chances: number;
+  teamName: string;
 }
 
-const PlayButtonsAndChances = ({ onTryToAnswer, onPass, chances }: Props) => {
+const PlayButtonsAndChances = ({
+  onTryToAnswer,
+  onPass,
+  chances,
+  teamName,
+}: Props) => {
   return (
     <Wrapper>
       <PlayButton continueButton={false} onClick={onPass}>
@@ -21,7 +27,11 @@ const PlayButtonsAndChances = ({ onTryToAnswer, onPass, chances }: Props) => {
           <Image src="/assets/chances-icon.svg" alt="" width={40} height={40} />
         ) : null}
       </ChancesWrapper>
-      <PlayButton continueButton={true} onClick={onTryToAnswer}>
+      <PlayButton
+        continueButton={true}
+        onClick={onTryToAnswer}
+        disabled={!teamName}
+      >
         OK
       </PlayButton>
     </Wrapper>
@@ -45,6 +55,11 @@ const PlayButton = styled.button<{ continueButton: boolean }>`
   width: 5em;
   padding: 10px 0;
   border-radius: 8px;
+  transition: all 0.2s;
+
+  &:disabled {
+    background-color: #797979;
+  }
 `;
 
 const ChancesWrapper = styled.div`

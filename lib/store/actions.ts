@@ -20,6 +20,10 @@ const useActions = () => {
         }
     }
 
+    const nextStep = () => {
+        return useStore.setState(state => ({ ...state, STEPS: state.STEPS + 1 }));
+    }
+
     const incrementPoints = () => {
         return useStore.setState(state => ({ ...state, POINTS: state.POINTS + 1 }));
     }
@@ -53,6 +57,7 @@ const useActions = () => {
 
     return {
         fetchTeams,
+        nextStep,
         incrementPoints,
         setToPlayed,
         setPlayedTeams,
