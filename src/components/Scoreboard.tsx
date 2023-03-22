@@ -17,11 +17,11 @@ const Scoreboard = ({ small }: Props) => {
         small={small}
       />
       <ScorboardWrapper small={small}>
-        {SCOREBOARD.map((score: string) => {
-          return score === "O" ? (
-            <img src="/assets/circle.svg" alt="O" />
+        {SCOREBOARD.map((score: string, index: number) => {
+          return score === "✅" ? (
+            <img src="/assets/circle.svg" alt="✅" key={index} />
           ) : (
-            <img src="/assets/cross.svg" alt="X" />
+            <img src="/assets/cross.svg" alt="❌" key={index} />
           );
         })}
       </ScorboardWrapper>

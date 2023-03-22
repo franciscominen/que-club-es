@@ -31,7 +31,7 @@ const Play = () => {
 
     if (isCorrectAnswer) {
       incrementPoints();
-      updateScoreboard("O");
+      updateScoreboard("✅");
 
       if (STEPS < RANDOM_TEAMS.length - 1) {
         nextStep();
@@ -52,9 +52,9 @@ const Play = () => {
           setTeamName("");
           setChances(1);
           setCountdown(10);
-          updateScoreboard("X");
+          updateScoreboard("❌");
         } else {
-          updateScoreboard("X");
+          updateScoreboard("❌");
 
           setPlayedTeams(RANDOM_TEAMS);
           setToPlayed();
@@ -70,23 +70,19 @@ const Play = () => {
       setTeamName("");
       setChances(1);
       setCountdown(10);
-      updateScoreboard("X");
+      updateScoreboard("❌");
     } else {
       setPlayedTeams(RANDOM_TEAMS);
       setToPlayed();
-      updateScoreboard("X");
+      updateScoreboard("❌");
 
       router.push("result");
     }
   };
 
-/*   useEffect(() => {
+  useEffect(() => {
     PLAYED ? router.push("result") : null;
   }, [PLAYED, router]);
-
-  useEffect(() => {
-    teamName.length ? setDisable(false) : setDisable(true);
-  }, [teamName]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -103,7 +99,7 @@ const Play = () => {
     }, 10000);
 
     return () => clearInterval(interval);
-  }, [STEPS]); */
+  }, [STEPS]);
 
   return (
     <>

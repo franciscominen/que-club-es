@@ -17,18 +17,8 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (/^[a-zA-Z0-9]$/.test(e.key) || e.key === " ") {
-      setTeamName(teamName + e.key);
-    } else if (e.key === "Backspace") {
-      setTeamName(teamName.slice(0, -1));
-    }
-  };
-  
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === " ") {
-      setTeamName(teamName + " ");
-    }
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTeamName(e.target.value);
   };
 
   const keys = [
@@ -42,10 +32,9 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
       <div style={{ height: "67px" }}>
         <TeamNameInput
           type="text"
-          value={teamName}
+          value={teamName.toLocaleLowerCase()}
           placeholder="¿Qué club e'?"
-          onKeyDown={handleKeyDown}
-          onKeyPress={handleKeyPress}
+          onChange={handleOnChange}
         />
         <CountdownBar />
       </div>

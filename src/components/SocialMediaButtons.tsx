@@ -1,12 +1,25 @@
+import useStore from "lib/store/state";
 import Image from "next/image";
 import styled from "styled-components";
 
 const SocialMediaButtons = () => {
+  const SCOREBOARD = useStore((state) => state.SCOREBOARD);
+  const POINTS = useStore((state) => state.POINTS);
+  const appUrl = `https://queclube.vercel.app/`;
+
+  const tweetScoreboard = SCOREBOARD.join("");
+  const twitterMessage = `https://twitter.com/intent/tweet?text=${tweetScoreboard}%0ALe pegué a ${POINTS} de los 5 escudos de la fecha de hoy. A ver vos que onda? ${appUrl}`;
+  const wspMessage = `whatsapp://send?text=${tweetScoreboard}%0ALe pegué a ${POINTS} de los 5 escudos de la fecha de hoy. A ver vos que onda? ${appUrl}`;
+
   return (
     <div>
       <Title>Compartir</Title>
       <ButtonsWrapper>
-        <SocialMediaButton continueButton={false}>
+        <SocialMediaButton
+          continueButton={false}
+          href={twitterMessage}
+          target="_blank"
+        >
           <Image
             src={"/assets/twitter-icon.svg"}
             alt="Twitter"
@@ -14,7 +27,11 @@ const SocialMediaButtons = () => {
             height={35}
           />
         </SocialMediaButton>
-        <SocialMediaButton continueButton={true}>
+        <SocialMediaButton
+          continueButton={true}
+          href={wspMessage}
+          target="_blank"
+        >
           <Image
             src={"/assets/wsp-icon.svg"}
             alt="WhatsApp"
@@ -30,12 +47,12 @@ const SocialMediaButtons = () => {
 export default SocialMediaButtons;
 
 const Title = styled.h1`
-    color: var(--light);
-    text-align: center;
-    font-size: 24px;
-    font-weight: 300;
-    margin-bottom: 8px;
-`
+  color: var(--light);
+  text-align: center;
+  font-size: 24px;
+  font-weight: 300;
+  margin-bottom: 8px;
+`;
 
 const ButtonsWrapper = styled.div`
   display: flex;
@@ -45,7 +62,7 @@ const ButtonsWrapper = styled.div`
   width: 13em;
 `;
 
-const SocialMediaButton = styled.button<{ continueButton: boolean }>`
+const SocialMediaButton = styled.a<{ continueButton: boolean }>`
   border-radius: 8px;
   background-color: ${(props) =>
     props.continueButton ? `#27AE60` : `#2D9CDB`};
