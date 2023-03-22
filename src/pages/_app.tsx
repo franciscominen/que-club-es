@@ -5,6 +5,7 @@ import Head from "next/head";
 import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import GlobalStyle from "@/styles/globals";
+import Loader from "@/components/Loader";
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -30,7 +31,6 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   }, [RANDOM_TEAMS]);
 
   if (isSSR) return null;
-  if (IS_LOADING) return <h1>Cargando...</h1>;
 
   return (
     <>
@@ -39,7 +39,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <title>¿Qué club e?</title>
       </Head>
       <GlobalStyle />
-      <Component {...pageProps} />
+      {IS_LOADING ? <Loader /> : <Component {...pageProps} />}
     </>
   );
 }

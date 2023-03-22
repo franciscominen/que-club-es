@@ -19,6 +19,13 @@ const GlobalStyle = createGlobalStyle`
         font-family: var(--principalFont);
     }
 
+    body {
+        background-image: url("/assets/backgrounds/bg-loader.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position-y: center;
+    }
+
     button {
         cursor: pointer;
         border: none;

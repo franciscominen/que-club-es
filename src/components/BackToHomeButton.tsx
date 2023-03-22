@@ -1,14 +1,10 @@
 import Image from "next/image";
 import styled from "styled-components";
 
-const BackToHomeButton = ({ howToPlay, setHowToPlay }: any) => {
+const BackToHomeButton = ({ handleHowToPlay }: any) => {
   return (
-    <BackButton
-      onClick={() => {
-        setHowToPlay(!howToPlay);
-      }}
-    >
-      <Image src="/assets/back-icon.svg" alt="<" width={24} height={24} />
+    <BackButton onClick={handleHowToPlay}>
+      <Image src="/assets/back-icon.svg" alt="<" width={22} height={22} />
     </BackButton>
   );
 };
@@ -16,8 +12,8 @@ const BackToHomeButton = ({ howToPlay, setHowToPlay }: any) => {
 export default BackToHomeButton;
 
 const BackButton = styled.button`
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   border-radius: 100px;
   display: flex;
   justify-content: center;

@@ -1,5 +1,6 @@
 import BackToHomeButton from "@/components/BackToHomeButton";
 import HowToPlay from "@/components/HowToPlay";
+import { homeTitle, fadeIn } from "@/styles/animations";
 import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import { NextPage } from "next";
@@ -13,6 +14,10 @@ const Home: NextPage = () => {
   const PLAYED = useStore((state) => state.PLAYED);
 
   const [howToPlay, setHowToPlay] = useState(false);
+
+  const handleHowToPlay = () => {
+    return setHowToPlay(!howToPlay);
+  };
 
   const onClickPlay = () => {
     if (PLAYED) {
@@ -28,19 +33,20 @@ const Home: NextPage = () => {
       <HomeTitle howToPlay={howToPlay}>¿Qué club e’?</HomeTitle>
       {howToPlay ? (
         <>
-          <BackToHomeButton howToPlay={howToPlay} setHowToPlay={setHowToPlay} />
-          <HowToPlay />
+          <BackToHomeButton handleHowToPlay={handleHowToPlay} />
+          <HowToPlay handleHowToPlay={handleHowToPlay} />
         </>
       ) : (
         <>
           <StartButton onClick={onClickPlay}>Empezar</StartButton>
-          <TutorialButton
-            onClick={() => {
-              setHowToPlay(!howToPlay);
-            }}
-          >
+          <TutorialButton onClick={handleHowToPlay}>
             ¿Qué es esto?
           </TutorialButton>
+
+          <Footer>
+            <span>¿Qué club e’?</span> © 2023 v1.0.0 All rights reserved |
+            <FooterLink> developed by Esk4s</FooterLink>.
+          </Footer>
         </>
       )}
     </MainContainer>
@@ -68,6 +74,8 @@ const HomeTitle = styled.h1<{ howToPlay: boolean }>`
   color: var(--light);
   font-weight: 100;
   margin-bottom: 1em;
+  transition: all 0.2s;
+  animation: ${homeTitle} 1.2s ease-in 0.2s both;
 `;
 
 const StartButton = styled.button`
@@ -78,6 +86,7 @@ const StartButton = styled.button`
   font-size: 28px;
   mix-blend-mode: screen;
   transition: all 0.2s;
+  animation: ${fadeIn} 0.4s ease-in 1s both;
   &:hover {
     transform: scale(1.05);
   }
@@ -90,8 +99,30 @@ const TutorialButton = styled.button`
   font-size: 22px;
   transition: all 0.2s;
   margin-bottom: 4em;
+  animation: ${fadeIn} 0.4s ease-in 1.4s both;
 
   &:hover {
     transform: scale(1.05);
+  }
+`;
+
+const Footer = styled.footer`
+  text-align: center;
+  background-color: var(--dark);
+  color: var(--light);
+  font-family: var(--alternativeFont);
+  font-size: 12px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  padding: 4px 0;
+`;
+
+const FooterLink = styled.a`
+  color: var(--light);
+  font-family: var(--alternativeFont);
+  cursor: pointer;
+  &:hover {
+    color: #2a96bb;
   }
 `;
