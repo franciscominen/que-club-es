@@ -84,7 +84,7 @@ const Play = () => {
     PLAYED ? router.push("result") : null;
   }, [PLAYED, router]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     const interval = setInterval(() => {
       setCountdown(countdown - 1);
     }, 1000);
@@ -99,7 +99,7 @@ const Play = () => {
     }, 10000);
 
     return () => clearInterval(interval);
-  }, [STEPS]);
+  }, [STEPS]); */
 
   return (
     <>
@@ -134,10 +134,12 @@ const MainContainer = styled.main`
   background-size: cover;
   background-repeat: no-repeat;
   background-position-y: center;
+  background-position-x: right;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  padding-top: 16px;
 `;
 
 const PlayWrapper = styled.div`
