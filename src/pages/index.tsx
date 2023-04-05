@@ -111,7 +111,7 @@ const Footer = styled.footer`
   background-color: var(--dark);
   color: var(--light);
   font-family: var(--alternativeFont);
-  font-size: 12px;
+  font-size: 10px;
   width: 100%;
   position: fixed;
   bottom: 0;
@@ -119,10 +119,7 @@ const Footer = styled.footer`
 `;
 
 const FooterLink = styled.a`
-  color: var(--light);
   font-family: var(--alternativeFont);
   cursor: pointer;
-  &:hover {
-    color: #2a96bb;
-  }
+  color: #3296b8;
 `;

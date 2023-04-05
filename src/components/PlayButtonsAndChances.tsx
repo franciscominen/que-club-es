@@ -6,6 +6,7 @@ interface Props {
   onPass: () => void;
   chances: number;
   teamName: string;
+  passDisabled: boolean;
 }
 
 const PlayButtonsAndChances = ({
@@ -13,10 +14,11 @@ const PlayButtonsAndChances = ({
   onPass,
   chances,
   teamName,
+  passDisabled,
 }: Props) => {
   return (
     <Wrapper>
-      <PlayButton continueButton={false} onClick={onPass}>
+      <PlayButton continueButton={false} onClick={onPass} disabled={passDisabled}>
         PASO
       </PlayButton>
       <ChancesWrapper>

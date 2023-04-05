@@ -1,6 +1,9 @@
+import AnswerAnimation from "@/components/AnswerAnimation";
+import ClubImage from "@/components/ClubImage";
 import InputAndKeyboard from "@/components/InputAndKeyboard";
 import PlayButtonsAndChances from "@/components/PlayButtonsAndChances";
 import Scoreboard from "@/components/Scoreboard";
+import { slideInBottom } from "@/styles/animations";
 import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import { useRouter } from "next/router";
@@ -24,6 +27,8 @@ const Play = () => {
   const [teamName, setTeamName] = useState("");
   const [chances, setChances] = useState<number>(1);
   const [countdown, setCountdown] = useState(10);
+  const [correct, setCorrect] = useState(false);
+  const [showClub, setShowClub] = useState(false);
 
   const onTryToAnswer = () => {
     const isCorrectAnswer =
@@ -31,34 +36,52 @@ const Play = () => {
 
     if (isCorrectAnswer) {
       incrementPoints();
-      updateScoreboard("✅");
+      setCorrect(true);
+      setShowClub(true);
+      setTimeout(() => {
+        setShowClub(false);
+        updateScoreboard("✅");
+      }, 2500);
 
       if (STEPS < RANDOM_TEAMS.length - 1) {
-        nextStep();
-        setTeamName("");
-        setChances(1);
-        setCountdown(10);
+        setTimeout(() => {
+          nextStep();
+          setTeamName("");
+          setChances(1);
+          setCountdown(10);
+        }, 2500);
       } else {
-        setPlayedTeams(RANDOM_TEAMS);
-        setToPlayed();
-        router.push("result");
+        setTimeout(() => {
+          setPlayedTeams(RANDOM_TEAMS);
+          setToPlayed();
+          router.push("result");
+        }, 2400);
       }
     } else {
       if (chances > 0) {
         setChances(chances - 1);
       } else {
         if (STEPS < RANDOM_TEAMS.length - 1) {
-          nextStep();
-          setTeamName("");
           setChances(1);
           setCountdown(10);
-          updateScoreboard("❌");
+          setCorrect(false);
+          setShowClub(true);
+          setTimeout(() => {
+            setShowClub(false);
+            updateScoreboard("❌");
+            setTeamName("");
+            nextStep();
+          }, 2500);
         } else {
-          updateScoreboard("❌");
-
-          setPlayedTeams(RANDOM_TEAMS);
-          setToPlayed();
-          router.push("result");
+          setCorrect(false);
+          setShowClub(true);
+          setTimeout(() => {
+            setShowClub(false);
+            updateScoreboard("❌");
+            setPlayedTeams(RANDOM_TEAMS);
+            setToPlayed();
+            router.push("result");
+          }, 2500);
         }
       }
     }
@@ -66,16 +89,24 @@ const Play = () => {
 
   const onPass = () => {
     if (STEPS < RANDOM_TEAMS.length - 1) {
-      nextStep();
       setTeamName("");
       setChances(1);
       setCountdown(10);
-      updateScoreboard("❌");
+      setCorrect(false);
+      setShowClub(true);
+      setTimeout(() => {
+        setShowClub(false);
+        updateScoreboard("❌");
+        nextStep();
+      }, 2500);
     } else {
       setPlayedTeams(RANDOM_TEAMS);
       setToPlayed();
       updateScoreboard("❌");
-
+      setCorrect(false);
+      setTimeout(() => {
+        setShowClub(true);
+      }, 1300);
       router.push("result");
     }
   };
@@ -106,18 +137,19 @@ const Play = () => {
       <MainContainer>
         <PlayWrapper>
           <Scoreboard small={false} />
-          <img
-            src={RANDOM_TEAMS[STEPS]?.img}
-            alt="Please Reload"
-            style={{ width: "150px" }}
-          />
-          <PlayButtonsAndChances
-            onTryToAnswer={onTryToAnswer}
-            onPass={onPass}
-            chances={chances}
-            teamName={teamName}
-          />
-          <InputAndKeyboard teamName={teamName} setTeamName={setTeamName} />
+
+          {showClub ? <AnswerAnimation isCorrect={correct} /> : <ClubImage />}
+
+          <BottomContainer>
+            <PlayButtonsAndChances
+              onTryToAnswer={onTryToAnswer}
+              onPass={onPass}
+              chances={chances}
+              teamName={teamName}
+              passDisabled={showClub}
+            />
+            <InputAndKeyboard teamName={teamName} setTeamName={setTeamName} />
+          </BottomContainer>
         </PlayWrapper>
       </MainContainer>
     </>
@@ -128,7 +160,7 @@ export default Play;
 
 const MainContainer = styled.main`
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   margin: 0 auto;
   background-image: url("/assets/backgrounds/bg-play.png");
   background-size: cover;
@@ -140,6 +172,7 @@ const MainContainer = styled.main`
   justify-content: flex-start;
   align-items: center;
   padding-top: 16px;
+  overflow-y: hidden;
 `;
 
 const PlayWrapper = styled.div`
@@ -151,4 +184,12 @@ const PlayWrapper = styled.div`
   width: 100%;
   max-width: 500px;
   padding: 0 4%;
+`;
+
+const BottomContainer = styled.div`
+  width: 100%;
+  animation: ${slideInBottom} 0.7s ease both;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 `;

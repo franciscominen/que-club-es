@@ -107,4 +107,9 @@ const KeyButton = styled.button`
   font-size: 16px;
   font-family: var(--alternativeFont);
   font-weight: 500;
+  transition: all .1s;
+  &:hover {
+    background-color: var(--light);
+    color: var(--dark);
+  }
 `;

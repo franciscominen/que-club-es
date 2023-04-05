@@ -30,6 +30,10 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     checkIsPlayed();
   }, [RANDOM_TEAMS]);
 
+
+  console.log(RANDOM_TEAMS);
+  
+
   if (isSSR) return null;
 
   return (

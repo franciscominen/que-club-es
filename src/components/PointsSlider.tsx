@@ -102,8 +102,8 @@ const TeamsList = styled.ul`
     color: var(--light);
 
     h3 {
-      font-weight: 300;
-      font-size: 20px;
+      font-weight: 100;
+      font-size: 18px;
     }
   }
 `;

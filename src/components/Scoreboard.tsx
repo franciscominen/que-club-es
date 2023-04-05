@@ -1,3 +1,4 @@
+import { clubAnimation, slideInTop } from "@/styles/animations";
 import useStore from "lib/store/state";
 import styled from "styled-components";
 
@@ -10,26 +11,32 @@ const Scoreboard = ({ small }: Props) => {
 
   return (
     <>
-      <ScoreboardImg
-        src="/assets/scoreboard.svg"
-        alt=""
-        style={{ position: "absolute" }}
-        small={small}
-      />
-      <ScorboardWrapper small={small}>
-        {SCOREBOARD.map((score: string, index: number) => {
-          return score === "✅" ? (
-            <img src="/assets/circle.svg" alt="✅" key={index} />
-          ) : (
-            <img src="/assets/cross.svg" alt="❌" key={index} />
-          );
-        })}
-      </ScorboardWrapper>
+      <ScoreboardContainer>
+        <ScoreboardImg
+          src="/assets/scoreboard.svg"
+          alt=""
+          style={{ position: "absolute" }}
+          small={small}
+        />
+        <ScorboardWrapper small={small}>
+          {SCOREBOARD.map((score: string, index: number) => {
+            return score === "✅" ? (
+              <img src="/assets/circle.svg" alt="✅" key={index} />
+            ) : (
+              <img src="/assets/cross.svg" alt="❌" key={index} />
+            );
+          })}
+        </ScorboardWrapper>
+      </ScoreboardContainer>
     </>
   );
 };
 
 export default Scoreboard;
+
+const ScoreboardContainer = styled.div`
+  animation: ${slideInTop} 0.8s ease both;
+`
 
 const ScoreboardImg = styled.img<{ small: boolean }>`
   max-width: ${(props) => (props.small ? `10.5em` : `none`)};
@@ -45,5 +52,6 @@ const ScorboardWrapper = styled.div<{ small: boolean }>`
     width: ${(props) => (props.small ? `19px` : `26px`)};
     position: relative;
     left: 9px;
+    animation: ${clubAnimation} .3s ease-in both;
   }
 `;

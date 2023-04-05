@@ -81,8 +81,8 @@ const fadeIn = keyframes`
 
 const slideInBottom = keyframes`
   0% {
-    -webkit-transform: translateY(1000px);
-            transform: translateY(1000px);
+    -webkit-transform: translateY(100%);
+        transform: translateY(100%);
     opacity: 0;
   }
   100% {
@@ -92,4 +92,57 @@ const slideInBottom = keyframes`
   }
 `;
 
-export { countdownBar, loader, homeTitle, fadeIn, slideInBottom };
+const imageLoader = keyframes`
+  0% {
+    -webkit-transform: scale(0.2);
+            transform: scale(0.2);
+    opacity: 0.8;
+  }
+  80% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: scale(2.2);
+            transform: scale(2.2);
+    opacity: 0;
+  }
+`;
+
+const clubAnimation = keyframes`
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+`;
+
+const slideInTop = keyframes`
+  0% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+`;
+
+export {
+  countdownBar,
+  loader,
+  homeTitle,
+  fadeIn,
+  slideInBottom,
+  imageLoader,
+  clubAnimation,
+  slideInTop,
+};
