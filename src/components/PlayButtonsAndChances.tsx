@@ -2,7 +2,7 @@ import Image from "next/image";
 import styled from "styled-components";
 
 interface Props {
-  onTryToAnswer: () => void;
+  handleAnswer: () => void;
   onPass: () => void;
   chances: number;
   teamName: string;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const PlayButtonsAndChances = ({
-  onTryToAnswer,
+  handleAnswer,
   onPass,
   chances,
   teamName,
@@ -31,7 +31,7 @@ const PlayButtonsAndChances = ({
       </ChancesWrapper>
       <PlayButton
         continueButton={true}
-        onClick={onTryToAnswer}
+        onClick={handleAnswer}
         disabled={!teamName}
       >
         OK

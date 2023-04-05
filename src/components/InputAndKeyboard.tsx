@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { countdownBar } from "@/styles/animations";
+import useStore from "lib/store/state";
 
 type Props = {
   teamName: string;
@@ -7,6 +8,8 @@ type Props = {
 };
 
 const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
+  const STEPS = useStore((state) => state.STEPS);
+
   const handleKeyClick = (e: any) => {
     if (e.target.value === "<") {
       setTeamName(teamName.slice(0, -1));
@@ -36,7 +39,7 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
           placeholder="¿Qué club e'?"
           onChange={handleOnChange}
         />
-        <CountdownBar />
+        <CountdownBar key={STEPS} />
       </div>
       {keys.map((row, i) => (
         <KeysWrapper key={i}>
@@ -85,7 +88,7 @@ const CountdownBar = styled.figure`
   position: relative;
   bottom: 3.5em;
   z-index: 1;
-  animation: ${countdownBar} 15s linear;
+  animation: ${countdownBar} 10s linear 3.5s;
   transform-origin: center left;
 `;
 
@@ -107,7 +110,7 @@ const KeyButton = styled.button`
   font-size: 16px;
   font-family: var(--alternativeFont);
   font-weight: 500;
-  transition: all .1s;
+  transition: all 0.1s;
   &:hover {
     background-color: var(--light);
     color: var(--dark);

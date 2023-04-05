@@ -26,14 +26,34 @@ const Play = () => {
 
   const [teamName, setTeamName] = useState("");
   const [chances, setChances] = useState<number>(1);
-  const [countdown, setCountdown] = useState(10);
   const [correct, setCorrect] = useState(false);
   const [showClub, setShowClub] = useState(false);
 
-  const onTryToAnswer = () => {
-    const isCorrectAnswer =
-      teamName.toLowerCase() === RANDOM_TEAMS[STEPS].name.toLowerCase();
+  const onPass = () => {
+    if (STEPS < RANDOM_TEAMS.length - 1) {
+      setTeamName("");
+      setChances(1);
+      setCorrect(false);
+      setShowClub(true);
+      setTimeout(() => {
+        setShowClub(false);
+        updateScoreboard("❌");
+        nextStep();
+      }, 2500);
+    } else {
+      setCorrect(false);
+      setShowClub(true);
+      setTimeout(() => {
+        setShowClub(false);
+        updateScoreboard("❌");
+        setPlayedTeams(RANDOM_TEAMS);
+        setToPlayed();
+        router.push("result");
+      }, 2450);
+    }
+  };
 
+  const ifIsCorrect = (isCorrectAnswer: boolean) => {
     if (isCorrectAnswer) {
       incrementPoints();
       setCorrect(true);
@@ -48,89 +68,40 @@ const Play = () => {
           nextStep();
           setTeamName("");
           setChances(1);
-          setCountdown(10);
         }, 2500);
       } else {
         setTimeout(() => {
           setPlayedTeams(RANDOM_TEAMS);
           setToPlayed();
           router.push("result");
-        }, 2400);
+        }, 2450);
       }
-    } else {
+    }
+    return;
+  };
+
+  const ifIsNotCorrect = (isCorrectAnswer: boolean) => {
+    if (!isCorrectAnswer) {
       if (chances > 0) {
         setChances(chances - 1);
       } else {
-        if (STEPS < RANDOM_TEAMS.length - 1) {
-          setChances(1);
-          setCountdown(10);
-          setCorrect(false);
-          setShowClub(true);
-          setTimeout(() => {
-            setShowClub(false);
-            updateScoreboard("❌");
-            setTeamName("");
-            nextStep();
-          }, 2500);
-        } else {
-          setCorrect(false);
-          setShowClub(true);
-          setTimeout(() => {
-            setShowClub(false);
-            updateScoreboard("❌");
-            setPlayedTeams(RANDOM_TEAMS);
-            setToPlayed();
-            router.push("result");
-          }, 2500);
-        }
+        onPass();
       }
     }
+    return;
   };
 
-  const onPass = () => {
-    if (STEPS < RANDOM_TEAMS.length - 1) {
-      setTeamName("");
-      setChances(1);
-      setCountdown(10);
-      setCorrect(false);
-      setShowClub(true);
-      setTimeout(() => {
-        setShowClub(false);
-        updateScoreboard("❌");
-        nextStep();
-      }, 2500);
-    } else {
-      setPlayedTeams(RANDOM_TEAMS);
-      setToPlayed();
-      updateScoreboard("❌");
-      setCorrect(false);
-      setTimeout(() => {
-        setShowClub(true);
-      }, 1300);
-      router.push("result");
-    }
+  const handleAnswer = () => {
+    const isCorrectAnswer =
+      teamName.toLowerCase() === RANDOM_TEAMS[STEPS].name.toLowerCase();
+
+    ifIsCorrect(isCorrectAnswer);
+    ifIsNotCorrect(isCorrectAnswer);
   };
 
   useEffect(() => {
     PLAYED ? router.push("result") : null;
   }, [PLAYED, router]);
-
-  /* useEffect(() => {
-    const interval = setInterval(() => {
-      setCountdown(countdown - 1);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [countdown]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      onPass();
-      setCountdown(10);
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, [STEPS]); */
 
   return (
     <>
@@ -142,7 +113,7 @@ const Play = () => {
 
           <BottomContainer>
             <PlayButtonsAndChances
-              onTryToAnswer={onTryToAnswer}
+              handleAnswer={handleAnswer}
               onPass={onPass}
               chances={chances}
               teamName={teamName}
