@@ -28,6 +28,7 @@ const Play = () => {
   const [chances, setChances] = useState<number>(1);
   const [correct, setCorrect] = useState(false);
   const [showClub, setShowClub] = useState(false);
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 
   const onPass = () => {
     if (STEPS < RANDOM_TEAMS.length - 1) {
@@ -35,6 +36,7 @@ const Play = () => {
       setChances(1);
       setCorrect(false);
       setShowClub(true);
+      clearInterval(intervalId as NodeJS.Timeout);
       setTimeout(() => {
         setShowClub(false);
         updateScoreboard("❌");
@@ -43,6 +45,7 @@ const Play = () => {
     } else {
       setCorrect(false);
       setShowClub(true);
+      clearInterval(intervalId as NodeJS.Timeout);
       setTimeout(() => {
         setShowClub(false);
         updateScoreboard("❌");
@@ -58,6 +61,7 @@ const Play = () => {
       incrementPoints();
       setCorrect(true);
       setShowClub(true);
+      clearInterval(intervalId as NodeJS.Timeout);
       setTimeout(() => {
         setShowClub(false);
         updateScoreboard("✅");
@@ -70,6 +74,7 @@ const Play = () => {
           setChances(1);
         }, 2500);
       } else {
+        clearInterval(intervalId as NodeJS.Timeout);
         setTimeout(() => {
           setPlayedTeams(RANDOM_TEAMS);
           setToPlayed();
@@ -102,6 +107,20 @@ const Play = () => {
   useEffect(() => {
     PLAYED ? router.push("result") : null;
   }, [PLAYED, router]);
+
+  useEffect(() => {
+    console.log("start timer");
+
+    const newIntervalId = setInterval(() => {
+      console.log("onPass");
+      onPass();
+    }, 33000);
+    setIntervalId(newIntervalId);
+
+    return () => {
+      clearInterval(newIntervalId);
+    };
+  }, [STEPS]);
 
   return (
     <>

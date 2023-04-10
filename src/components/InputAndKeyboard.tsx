@@ -88,7 +88,7 @@ const CountdownBar = styled.figure`
   position: relative;
   bottom: 3.5em;
   z-index: 1;
-  animation: ${countdownBar} 10s linear 3.5s;
+  animation: ${countdownBar} 30s linear 3s;
   transform-origin: center left;
 `;
 
