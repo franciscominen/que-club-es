@@ -3,7 +3,7 @@ import ClubImage from "@/components/ClubImage";
 import InputAndKeyboard from "@/components/InputAndKeyboard";
 import PlayButtonsAndChances from "@/components/PlayButtonsAndChances";
 import Scoreboard from "@/components/Scoreboard";
-import { slideInBottom } from "@/styles/animations";
+import { slideInBottom, slideInTop } from "@/styles/animations";
 import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import { useRouter } from "next/router";
@@ -108,7 +108,7 @@ const Play = () => {
     PLAYED ? router.push("result") : null;
   }, [PLAYED, router]);
 
-  useEffect(() => {
+/*   useEffect(() => {
     console.log("start timer");
 
     const newIntervalId = setInterval(() => {
@@ -120,13 +120,15 @@ const Play = () => {
     return () => {
       clearInterval(newIntervalId);
     };
-  }, [STEPS]);
+  }, [STEPS]); */
 
   return (
     <>
       <MainContainer>
         <PlayWrapper>
-          <Scoreboard small={false} />
+          <ScoreboardContainer>
+            <Scoreboard small={false} />
+          </ScoreboardContainer>
 
           {showClub ? <AnswerAnimation isCorrect={correct} /> : <ClubImage />}
 
@@ -182,4 +184,8 @@ const BottomContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+`;
+
+const ScoreboardContainer = styled.div`
+  animation: ${slideInTop} 0.7s ease both;
 `;

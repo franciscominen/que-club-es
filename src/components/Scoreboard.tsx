@@ -1,4 +1,4 @@
-import { clubAnimation, slideInTop } from "@/styles/animations";
+import { scaleInCenter, slideInTop } from "@/styles/animations";
 import useStore from "lib/store/state";
 import styled from "styled-components";
 
@@ -11,7 +11,7 @@ const Scoreboard = ({ small }: Props) => {
 
   return (
     <>
-      <ScoreboardContainer>
+      <div>
         <ScoreboardImg
           src="/assets/scoreboard.svg"
           alt=""
@@ -27,16 +27,12 @@ const Scoreboard = ({ small }: Props) => {
             );
           })}
         </ScorboardWrapper>
-      </ScoreboardContainer>
+      </div>
     </>
   );
 };
 
 export default Scoreboard;
-
-const ScoreboardContainer = styled.div`
-  animation: ${slideInTop} 0.8s ease both;
-`
 
 const ScoreboardImg = styled.img<{ small: boolean }>`
   max-width: ${(props) => (props.small ? `10.5em` : `none`)};
@@ -52,6 +48,6 @@ const ScorboardWrapper = styled.div<{ small: boolean }>`
     width: ${(props) => (props.small ? `19px` : `26px`)};
     position: relative;
     left: 9px;
-    animation: ${clubAnimation} .3s ease-in both;
+    animation: ${scaleInCenter} .3s ease-in both;
   }
 `;

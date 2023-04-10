@@ -1,6 +1,7 @@
 import Countdown from "@/components/Countdown";
 import PointsSlider from "@/components/PointsSlider";
 import SocialMediaButtons from "@/components/SocialMediaButtons";
+import { fadeIn, scaleInCenter, slideInLeft } from "@/styles/animations";
 import useStore from "lib/store/state";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -46,7 +47,7 @@ const Result = () => {
             Parece que todavía
             <br /> no jugaste!
           </h3>
-          <SytledButton onClick={goToPlay}>Jugar</SytledButton>
+          <PlayButton onClick={goToPlay}>Jugar</PlayButton>
         </NotPlayedWrapper>
       )}
     </MainContainer>
@@ -80,9 +81,23 @@ const SytledButton = styled.button`
   mix-blend-mode: screen;
   width: 48px;
   height: 48px;
+  animation: ${slideInLeft} 0.3s ease-in 1.5s both;
   img {
     position: relative;
     top: 1px;
+  }
+`;
+
+const PlayButton = styled.button`
+  background: var(--light);
+  padding: 14px 38px;
+  border-radius: 50px;
+  font-size: 24px;
+  mix-blend-mode: screen;
+  transition: all 0.2s;
+  animation: ${fadeIn} 0.4s ease-in 1s both;
+  &:hover {
+    transform: scale(1.05);
   }
 `;
 
@@ -96,11 +111,16 @@ const NotPlayedWrapper = styled.div`
   position: relative;
   bottom: 3em;
 
+  img {
+    animation: ${scaleInCenter} 0.4s ease-in 0.2s both;
+  }
+
   h3 {
     color: var(--light);
     font-size: 24px;
     font-weight: 300;
     text-align: center;
     margin-bottom: 32px;
+    animation: ${fadeIn} 0.4s ease-in 0.5s both;
   }
 `;

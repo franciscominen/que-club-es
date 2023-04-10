@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { countdownBar } from "@/styles/animations";
 import useStore from "lib/store/state";
+import Image from "next/image";
 
 type Props = {
   teamName: string;
@@ -11,16 +12,21 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
   const STEPS = useStore((state) => state.STEPS);
 
   const handleKeyClick = (e: any) => {
-    if (e.target.value === "<") {
-      setTeamName(teamName.slice(0, -1));
-    } else if (e.target.value === "˽") {
-      setTeamName(teamName + " ");
+    const audio = new Audio("/assets/sounds/keyboard-click.mp3");
+    audio.play();
+    const clickedValue = e.currentTarget.value;
+
+    if (clickedValue === "<") {
+      setTeamName((prevTeamName) => prevTeamName.slice(0, -1));
+    } else if (clickedValue === "˽") {
+      setTeamName((prevTeamName) => prevTeamName + " ");
     } else {
-      setTeamName(teamName + e.target.value);
+      setTeamName((prevTeamName) => prevTeamName + clickedValue);
     }
   };
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(teamName);
     setTeamName(e.target.value);
   };
 
@@ -30,6 +36,32 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
     ["˽", "Z", "X", "C", "V", "B", "N", "M", "<"],
   ];
 
+  const handleKeyRender = (key: string): JSX.Element | string => {
+    let keyRender: JSX.Element | string = key;
+    if (key === "˽") {
+      keyRender = (
+        <Image
+          src="/assets/space.svg"
+          alt="˽"
+          width={22}
+          height={22}
+          style={{ position: "relative", top: "8px" }}
+        />
+      );
+    } else if (key === "<") {
+      keyRender = (
+        <Image
+          src="/assets/backspace.svg"
+          alt="<"
+          width={22}
+          height={22}
+          style={{ position: "relative", top: "2px" }}
+        />
+      );
+    }
+    return keyRender;
+  };
+
   return (
     <Wrapper>
       <div style={{ height: "67px" }}>
@@ -38,6 +70,7 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
           value={teamName.toLocaleLowerCase()}
           placeholder="¿Qué club e'?"
           onChange={handleOnChange}
+          maxLength={45}
         />
         <CountdownBar key={STEPS} />
       </div>
@@ -45,7 +78,7 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
         <KeysWrapper key={i}>
           {row.map((key, j) => (
             <KeyButton key={j} value={key} onClick={handleKeyClick}>
-              {key}
+              {handleKeyRender(key)}
             </KeyButton>
           ))}
         </KeysWrapper>
@@ -114,5 +147,8 @@ const KeyButton = styled.button`
   &:hover {
     background-color: var(--light);
     color: var(--dark);
+    img {
+      filter: invert(1);
+    }
   }
 `;

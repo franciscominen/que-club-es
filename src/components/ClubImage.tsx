@@ -1,4 +1,4 @@
-import { clubAnimation } from "@/styles/animations";
+import { scaleInCenter } from "@/styles/animations";
 import useStore from "lib/store/state";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -57,7 +57,7 @@ const ClubImg = styled(Image)`
   margin: 8px 0;
   &.loaded {
     opacity: 1;
-    animation: ${clubAnimation} 0.3s ease-in both;
+    animation: ${scaleInCenter} 0.3s ease-in both;
   }
 `;
 
@@ -68,7 +68,7 @@ const Count = styled.div`
   justify-content: center;
   align-items: center;
   h1 {
-    animation: ${clubAnimation} 0.33s ease-in both;
+    animation: ${scaleInCenter} 0.33s ease-in both;
     font-size: 140px;
     font-weight: 100;
     color: var(--light);

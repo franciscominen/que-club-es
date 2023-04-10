@@ -1,3 +1,4 @@
+import { fadeIn, slideInTop } from "@/styles/animations";
 import moment from "moment-timezone";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
@@ -44,6 +45,7 @@ const CountdownWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  animation: ${slideInTop} 0.3s ease-in-out 1.4s both;
 
   h3 {
     font-weight: 300;
@@ -54,4 +56,4 @@ const CountdownWrapper = styled.div`
     font-weight: 300;
     font-size: 32px;
   }
-`
+`;

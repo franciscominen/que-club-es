@@ -1,3 +1,4 @@
+import { fadeIn } from "@/styles/animations";
 import useStore from "lib/store/state";
 import Image from "next/image";
 import styled from "styled-components";
@@ -52,6 +53,7 @@ const Title = styled.h1`
   font-size: 24px;
   font-weight: 300;
   margin-bottom: 8px;
+  animation: ${fadeIn} .3s ease-in 1.8s both;
 `;
 
 const ButtonsWrapper = styled.div`
@@ -60,6 +62,7 @@ const ButtonsWrapper = styled.div`
   justify-content: center;
   gap: 8px;
   width: 13em;
+  animation: ${fadeIn} .3s ease-in 1.8s both;
 `;
 
 const SocialMediaButton = styled.a<{ continueButton: boolean }>`

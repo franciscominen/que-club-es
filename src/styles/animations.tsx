@@ -110,7 +110,7 @@ const imageLoader = keyframes`
   }
 `;
 
-const clubAnimation = keyframes`
+const scaleInCenter = keyframes`
   0% {
     -webkit-transform: scale(0);
             transform: scale(0);
@@ -136,6 +136,19 @@ const slideInTop = keyframes`
   }
 `;
 
+const slideInLeft = keyframes`
+  0% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+`;
+
 export {
   countdownBar,
   loader,
@@ -143,6 +156,7 @@ export {
   fadeIn,
   slideInBottom,
   imageLoader,
-  clubAnimation,
+  scaleInCenter,
   slideInTop,
+  slideInLeft
 };
