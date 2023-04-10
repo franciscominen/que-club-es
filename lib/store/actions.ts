@@ -6,6 +6,7 @@ const useActions = () => {
     const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
     const PLAYED_TEAMS = useStore((state) => state.PLAYED_TEAMS);
     const SCOREBOARD = useStore((state) => state.SCOREBOARD);
+    const STEPS = useStore((state) => state.STEPS);
 
     const fetchTeams = () => {
         useStore.setState({ IS_LOADING: true });
@@ -28,8 +29,11 @@ const useActions = () => {
         return useStore.setState(state => ({ ...state, POINTS: state.POINTS + 1 }));
     }
 
-    const resetPoints = () => {
-        return useStore.setState(state => ({ ...state, POINTS: 0 }));
+    const resetGame = () => {
+        useStore.setState(state => ({ ...state, POINTS: 0 }));
+        useStore.setState(state => ({ ...state, STEPS: 0 }));
+        useStore.setState(state => ({ ...state, SCOREBOARD: [] }));
+
     }
 
     const setToPlayed = () => {
@@ -55,6 +59,10 @@ const useActions = () => {
         return useStore.setState(state => ({ ...state, SCOREBOARD: SCOREBOARD.concat(value) }));
     }
 
+    const resetScoreboard = (value: string) => {
+        return useStore.setState(state => ({ ...state, SCOREBOARD: [] }));
+    }
+
     return {
         fetchTeams,
         nextStep,
@@ -62,8 +70,9 @@ const useActions = () => {
         setToPlayed,
         setPlayedTeams,
         checkIsPlayed,
-        resetPoints,
-        updateScoreboard
+        resetGame,
+        updateScoreboard,
+        resetScoreboard
     }
 }
 

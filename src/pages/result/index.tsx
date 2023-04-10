@@ -22,10 +22,17 @@ const Result = () => {
     <MainContainer>
       {PLAYED ? (
         <>
+          <SytledButton onClick={goToHome}>
+            <Image
+              src={"/assets/home-icon.svg"}
+              width={24}
+              height={24}
+              alt="<"
+            />
+          </SytledButton>
           <Countdown />
           <PointsSlider points={POINTS} />
           <SocialMediaButtons />
-          <SytledButton onClick={goToHome}>Inicio</SytledButton>
         </>
       ) : (
         <NotPlayedWrapper>
@@ -58,17 +65,25 @@ const MainContainer = styled.main`
   background-position-y: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 16px;
   align-items: center;
-  padding: 10% 0;
+  padding: 3% 0;
 `;
 
 const SytledButton = styled.button`
+  position: absolute;
+  top: 3%;
+  left: 3%;
   background: var(--light);
-  padding: 8px 34px;
-  border-radius: 50px;
+  border-radius: 100%;
   mix-blend-mode: screen;
-  font-size: 24px;
+  width: 48px;
+  height: 48px;
+  img {
+    position: relative;
+    top: 1px;
+  }
 `;
 
 const NotPlayedWrapper = styled.div`

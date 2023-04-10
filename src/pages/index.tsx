@@ -10,7 +10,7 @@ import styled from "styled-components";
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const { resetPoints } = useActions();
+  const { resetGame } = useActions();
   const PLAYED = useStore((state) => state.PLAYED);
 
   const [howToPlay, setHowToPlay] = useState(false);
@@ -23,7 +23,7 @@ const Home: NextPage = () => {
     if (PLAYED) {
       router.push("result");
     } else {
-      resetPoints();
+      resetGame();
       router.push("play");
     }
   };

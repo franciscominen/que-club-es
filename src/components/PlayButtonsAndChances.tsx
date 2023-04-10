@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useState } from "react";
 import styled from "styled-components";
 
 interface Props {
@@ -18,7 +19,11 @@ const PlayButtonsAndChances = ({
 }: Props) => {
   return (
     <Wrapper>
-      <PlayButton continueButton={false} onClick={onPass} disabled={passDisabled}>
+      <PlayButton
+        continueButton={false}
+        onClick={onPass}
+        disabled={passDisabled}
+      >
         PASO
       </PlayButton>
       <ChancesWrapper>
@@ -32,7 +37,7 @@ const PlayButtonsAndChances = ({
       <PlayButton
         continueButton={true}
         onClick={handleAnswer}
-        disabled={!teamName}
+        disabled={!teamName || passDisabled}
       >
         OK
       </PlayButton>
