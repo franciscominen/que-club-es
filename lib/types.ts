@@ -10,9 +10,10 @@ export interface State {
     RANDOM_TEAMS: ITeam[]
     PLAYED_TEAMS: ITeam[]
     PLAYED: boolean
-    STEPS: number | null
+    STEPS: number
     POINTS: number
     IS_LOADING: boolean
+    SCOREBOARD: string[]
 }
 
 export interface Actions {
