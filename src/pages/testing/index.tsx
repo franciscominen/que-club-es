@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Papa from "papaparse";
 
 const Testing = () => {
-  const teamsUrl = process.env.NEXT_PUBLIC_API_ALL_TEAMS;
+/*   const teamsUrl = process.env.NEXT_PUBLIC_API_ALL_TEAMS;
   const [teams, setTeams] = useState([]);
 
   console.log(teams.filter(team => {
@@ -26,11 +26,11 @@ const Testing = () => {
     };
     fetchData();
 
-  }, []);
+  }, []); */
 
   return (
     <>
-      <div style={{ display: "flex", flexWrap: 'wrap', gap: '20px' }}>
+{/*       <div style={{ display: "flex", flexWrap: 'wrap', gap: '20px' }}>
         {teams.map((team) => {
           return (
             <div key={team.id}>
@@ -41,7 +41,7 @@ const Testing = () => {
             </div>
           );
         })}
-      </div>
+      </div> */}
     </>
   );
 };
