@@ -5,6 +5,7 @@ import { fadeIn, scaleInCenter, slideInLeft } from "@/styles/animations";
 import useStore from "lib/store/state";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect, useMemo } from "react";
 import styled from "styled-components";
 
 const Result = () => {
@@ -12,12 +13,25 @@ const Result = () => {
   const POINTS = useStore((state) => state.POINTS);
   const PLAYED = useStore((state) => state.PLAYED);
 
+  const applauseSound = useMemo(() => new Audio("/assets/sounds/applause.wav"), []);
+  const defeatSound = useMemo(() => new Audio("/assets/sounds/silbidos.mp3"), []);
+
   const goToPlay = () => {
     return router.push("/play");
   };
   const goToHome = () => {
     return router.push("/");
   };
+
+  useEffect(() => {
+    if (PLAYED) {
+      if (POINTS >= 3) {
+        applauseSound.play();
+      } else {
+        defeatSound.play();
+      }
+    }
+  }, [PLAYED, POINTS, applauseSound, defeatSound]);
 
   return (
     <MainContainer>

@@ -149,6 +149,20 @@ const slideInLeft = keyframes`
   }
 `;
 
+const cascadeAnimation = keyframes`
+  0% {
+    letter-spacing: 1em;
+    transform: translateZ(300px);
+    filter: blur(12px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateZ(12px);
+    filter: blur(0);
+    opacity: 1;
+  }
+`;
+
 export {
   countdownBar,
   loader,
@@ -158,5 +172,6 @@ export {
   imageLoader,
   scaleInCenter,
   slideInTop,
-  slideInLeft
+  slideInLeft,
+  cascadeAnimation,
 };

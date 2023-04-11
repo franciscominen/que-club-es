@@ -1,11 +1,12 @@
 import BackToHomeButton from "@/components/BackToHomeButton";
 import HowToPlay from "@/components/HowToPlay";
-import { homeTitle, fadeIn } from "@/styles/animations";
+import { homeTitle, fadeIn, cascadeAnimation } from "@/styles/animations";
 import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import { NextPage } from "next";
+import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const Home: NextPage = () => {
@@ -13,7 +14,11 @@ const Home: NextPage = () => {
   const { resetGame } = useActions();
   const PLAYED = useStore((state) => state.PLAYED);
 
+  const startSound = new Audio("/assets/sounds/startgame.mp3");
+  const intro = useRef(new Audio("/assets/sounds/intro.mp3"));
+
   const [howToPlay, setHowToPlay] = useState(false);
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
 
   const handleHowToPlay = () => {
     return setHowToPlay(!howToPlay);
@@ -23,14 +28,38 @@ const Home: NextPage = () => {
     if (PLAYED) {
       router.push("result");
     } else {
+      startSound.play();
       resetGame();
       router.push("play");
     }
   };
 
+  const togglePlayAudio = () => {
+    setIsPlayingAudio(!isPlayingAudio);
+    if (isPlayingAudio) {
+      intro.current.pause();
+    } else {
+      intro.current.muted = false;
+      intro.current.play();
+    }
+  };
+
+  useEffect(() => {
+    intro.current.muted = false;
+    intro.current.play();
+  }, []);
+
   return (
     <MainContainer>
-      <HomeTitle howToPlay={howToPlay}>¿Qué club e’?</HomeTitle>
+      <AudioButton onClick={togglePlayAudio}>
+        {isPlayingAudio ? (
+          <Image src={"assets/unmuted.svg"} alt="" width={22} height={22} />
+        ) : (
+          <Image src={"assets/muted.svg"} alt="" width={22} height={22} />
+        )}
+      </AudioButton>
+
+      <HomeTitle howToPlay={howToPlay}>¿Qué club e’? </HomeTitle>
       {howToPlay ? (
         <>
           <BackToHomeButton handleHowToPlay={handleHowToPlay} />
@@ -49,6 +78,13 @@ const Home: NextPage = () => {
           </Footer>
         </>
       )}
+      <audio
+        ref={intro}
+        src="/assets/sounds/intro.mp3"
+        autoPlay
+        muted
+        loop
+      ></audio>
     </MainContainer>
   );
 };
@@ -75,7 +111,7 @@ const HomeTitle = styled.h1<{ howToPlay: boolean }>`
   font-weight: 100;
   margin-bottom: 1em;
   transition: all 0.2s;
-  animation: ${homeTitle} 1.2s ease-in 0.2s both;
+  animation: ${cascadeAnimation} 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.2s both;
 `;
 
 const StartButton = styled.button`
@@ -122,4 +158,20 @@ const FooterLink = styled.a`
   font-family: var(--alternativeFont);
   cursor: pointer;
   color: #3296b8;
+`;
+
+const AudioButton = styled.button`
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  mix-blend-mode: screen;
+  width: 38px;
+  height: 38px;
+  border-radius: 100%;
+
+  img {
+    position: relative;
+    top: 2px;
+    animation: ${fadeIn} 0.2s ease-in;
+  }
 `;

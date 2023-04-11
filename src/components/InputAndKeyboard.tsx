@@ -10,10 +10,10 @@ type Props = {
 
 const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
   const STEPS = useStore((state) => state.STEPS);
+  const keyboardSound = new Audio("/assets/sounds/keyboard-click.mp3");
 
   const handleKeyClick = (e: any) => {
-    const audio = new Audio("/assets/sounds/keyboard-click.mp3");
-    audio.play();
+    keyboardSound.play()
     const clickedValue = e.currentTarget.value;
 
     if (clickedValue === "<") {
@@ -26,7 +26,6 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
   };
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(teamName);
     setTeamName(e.target.value);
   };
 

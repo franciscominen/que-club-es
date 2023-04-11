@@ -97,8 +97,10 @@ const HomeButton = styled.button`
   padding: 14px 38px;
   margin-bottom: 20px;
   border-radius: 50px;
-  font-size: 28px;
+  font-size: 22px;
   transition: all 0.2s;
+  mix-blend-mode: screen;
+
   &:hover {
     transform: scale(1.05);
   }

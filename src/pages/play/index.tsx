@@ -16,6 +16,9 @@ const Play = () => {
   const PLAYED = useStore((state) => state.PLAYED);
   const STEPS = useStore((state) => state.STEPS);
 
+  const successSound = new Audio("/assets/sounds/success-answer.mp3");
+  const errorSound = new Audio("/assets/sounds/error-answer.mp3");
+
   const {
     incrementPoints,
     setToPlayed,
@@ -37,6 +40,7 @@ const Play = () => {
       setCorrect(false);
       setShowClub(true);
       clearInterval(intervalId as NodeJS.Timeout);
+      errorSound.play();
       setTimeout(() => {
         setShowClub(false);
         updateScoreboard("❌");
@@ -46,6 +50,7 @@ const Play = () => {
       setCorrect(false);
       setShowClub(true);
       clearInterval(intervalId as NodeJS.Timeout);
+      errorSound.play();
       setTimeout(() => {
         setShowClub(false);
         updateScoreboard("❌");
@@ -62,6 +67,7 @@ const Play = () => {
       setCorrect(true);
       setShowClub(true);
       clearInterval(intervalId as NodeJS.Timeout);
+      successSound.play();
       setTimeout(() => {
         setShowClub(false);
         updateScoreboard("✅");
@@ -75,6 +81,7 @@ const Play = () => {
         }, 2500);
       } else {
         clearInterval(intervalId as NodeJS.Timeout);
+        successSound.play();
         setTimeout(() => {
           setPlayedTeams(RANDOM_TEAMS);
           setToPlayed();
@@ -88,6 +95,7 @@ const Play = () => {
   const ifIsNotCorrect = (isCorrectAnswer: boolean) => {
     if (!isCorrectAnswer) {
       if (chances > 0) {
+        errorSound.play();
         setChances(chances - 1);
       } else {
         onPass();
@@ -108,11 +116,8 @@ const Play = () => {
     PLAYED ? router.push("result") : null;
   }, [PLAYED, router]);
 
-/*   useEffect(() => {
-    console.log("start timer");
-
+  useEffect(() => {
     const newIntervalId = setInterval(() => {
-      console.log("onPass");
       onPass();
     }, 33000);
     setIntervalId(newIntervalId);
@@ -120,7 +125,7 @@ const Play = () => {
     return () => {
       clearInterval(newIntervalId);
     };
-  }, [STEPS]); */
+  }, [STEPS]);
 
   return (
     <>
