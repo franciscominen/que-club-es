@@ -11,19 +11,19 @@ const AnswerAnimation = ({ isCorrect }: Props) => {
         <Player
           src="/assets/lotties/check.json"
           autoplay
-          loop={false} // Desactiva el bucle
+          loop={false}
           speed={1.2}
           style={{ height: "236px", width: "236px" }}
-          keepLastFrame={true} // Pausa la animación en el último frame
+          keepLastFrame={true}
         />
       ) : (
         <Player
           src="/assets/lotties/error.json"
           autoplay
-          loop={false} // Desactiva el bucle
+          loop={false}
           speed={1.2}
           style={{ height: "236px", width: "236px" }}
-          keepLastFrame={true} // Pausa la animación en el último frame
+          keepLastFrame={true}
         />
       )}
     </>

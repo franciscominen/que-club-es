@@ -1,6 +1,6 @@
 import BackToHomeButton from "@/components/BackToHomeButton";
 import HowToPlay from "@/components/HowToPlay";
-import { homeTitle, fadeIn, cascadeAnimation } from "@/styles/animations";
+import { fadeIn, cascadeAnimation } from "@/styles/animations";
 import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import { NextPage } from "next";
@@ -111,7 +111,8 @@ const HomeTitle = styled.h1<{ howToPlay: boolean }>`
   font-weight: 100;
   margin-bottom: 1em;
   transition: all 0.2s;
-  animation: ${cascadeAnimation} 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.2s both;
+  animation: ${cascadeAnimation} 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s
+    both;
 `;
 
 const StartButton = styled.button`

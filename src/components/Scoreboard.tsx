@@ -1,4 +1,4 @@
-import { scaleInCenter, slideInTop } from "@/styles/animations";
+import { scaleInCenter } from "@/styles/animations";
 import useStore from "lib/store/state";
 import styled from "styled-components";
 
@@ -48,6 +48,6 @@ const ScorboardWrapper = styled.div<{ small: boolean }>`
     width: ${(props) => (props.small ? `19px` : `26px`)};
     position: relative;
     left: 9px;
-    animation: ${scaleInCenter} .3s ease-in both;
+    animation: ${scaleInCenter} 0.3s ease-in both;
   }
 `;

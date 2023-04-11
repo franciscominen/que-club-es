@@ -1,5 +1,6 @@
 import { fadeIn, scaleInCenter } from "@/styles/animations";
 import useStore from "lib/store/state";
+import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
 import Scoreboard from "./Scoreboard";
@@ -22,7 +23,7 @@ const PointsSlider = ({ points }: any) => {
             {PLAYED_TEAMS.map((team) => {
               return (
                 <li key={team.id}>
-                  <img src={team.img} alt="" style={{ width: "30px" }} />
+                  <Image src={team.img} alt="" width={30} height={30} />
                   <h3>{team.name}</h3>
                 </li>
               );
@@ -90,8 +91,8 @@ const Points = styled.div`
 `;
 
 const CountdownContainer = styled.div`
-  animation: ${fadeIn} .4s ease-in 1s both;
-`
+  animation: ${fadeIn} 0.4s ease-in 1s both;
+`;
 
 const ShowAnswersBtn = styled.button`
   background-color: var(--light);
@@ -110,7 +111,7 @@ const TeamsList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  animation: ${fadeIn} .4s ease-in .1s both;
+  animation: ${fadeIn} 0.4s ease-in 0.1s both;
   li {
     display: flex;
     align-items: center;
