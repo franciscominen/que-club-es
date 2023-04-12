@@ -10,6 +10,23 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+
+          <link rel="preload" href="/assets/backgrounds/bg-home.png" as="image" />
+          <link rel="preload" href="/assets/backgrounds/bg-loader.png" as="image" />
+          <link rel="preload" href="/assets/backgrounds/bg-play.png" as="image" />
+          <link rel="preload" href="/assets/backgrounds/bg-result.png" as="image" />
+
+          <link rel="preload" href="/assets/lotties/check.json" as="json" />
+          <link rel="preload" href="/assets/lotties/error.json" as="json" />
+
+          <link rel="preload" href="/assets/sounds/startgame.mp3" as="audio" />
+          <link rel="preload" href="/assets/sounds/intro.mp3" as="audio" />
+          <link rel="preload" href="/assets/sounds/applause.wav" as="audio" />
+          <link rel="preload" href="/assets/sounds/keyboard-click.mp3" as="audio" />
+          <link rel="preload" href="/assets/sounds/silbidos.mp3" as="audio" />
+          <link rel="preload" href="/assets/sounds/error-answer.mp3" as="audio" />
+          <link rel="preload" href="/assets/sounds/success-answer.mp3" as="audio" />
+
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
