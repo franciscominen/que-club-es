@@ -34,7 +34,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     return true;
   }
 
-  useEffect(() => {
+/*   useEffect(() => {
     const handleRouteChange = (url: any) => {
       useStore.setState({ IS_LOADING: true });
     };
@@ -52,22 +52,11 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       router.events.off("routeChangeComplete", handleRouteChangeComplete);
       router.events.off("routeChangeError", handleRouteChangeComplete);
     };
-  }, [router.events]);
+  }, [router.events]); */
 
   useEffect(() => {
     setIsSSR(false);
     fetchTeams();
-
-    if (checkImagesLoaded()) {
-      useStore.setState({ IS_LOADING: false });
-    } else {
-      const interval = setInterval(() => {
-        if (checkImagesLoaded()) {
-          useStore.setState({ IS_LOADING: false });
-          clearInterval(interval);
-        }
-      }, 100);
-    }
   }, []);
 
   useEffect(() => {
