@@ -20,7 +20,6 @@ type AppPropsWithLayout = AppProps & {
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const { fetchTeams, checkIsPlayed } = useActions();
   const [isSSR, setIsSSR] = useState(true);
-  const IS_LOADING = useStore((state) => state.IS_LOADING);
   const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
 
   const router = useRouter();
@@ -35,7 +34,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     return true;
   }
 
-  /*   useEffect(() => {
+  useEffect(() => {
     const handleRouteChange = (url: any) => {
       useStore.setState({ IS_LOADING: true });
     };
@@ -46,14 +45,12 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
     router.events.on("routeChangeStart", handleRouteChange);
     router.events.on("routeChangeComplete", handleRouteChangeComplete);
-    router.events.on("routeChangeError", handleRouteChangeComplete);
 
     return () => {
       router.events.off("routeChangeStart", handleRouteChange);
       router.events.off("routeChangeComplete", handleRouteChangeComplete);
-      router.events.off("routeChangeError", handleRouteChangeComplete);
     };
-  }, [router.events]); */
+  }, [router.events]);
 
   useEffect(() => {
     setIsSSR(false);

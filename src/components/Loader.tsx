@@ -15,6 +15,9 @@ const Loader = () => {
             priority
           />
         </ImageWrapper>
+        <h2 style={{ color: "var(--light)", fontWeight: "100", marginTop: '8px'}}>
+          Cargando...
+        </h2>
       </MainContainer>
     </>
   );
@@ -34,5 +37,5 @@ const MainContainer = styled.main`
 `;
 
 const ImageWrapper = styled.div`
-    animation: ${loader} 1.5s infinite linear;
-`
+  animation: ${loader} 1.5s infinite linear;
+`;

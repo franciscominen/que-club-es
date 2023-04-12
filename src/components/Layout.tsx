@@ -1,15 +1,19 @@
+import useStore from "lib/store/state";
 import { ReactNode } from "react";
 import styled from "styled-components";
 import Footer from "./Footer";
+import Loader from "./Loader";
 
 interface Props {
   children?: ReactNode;
 }
 
 const Layout = ({ children, ...props }: Props) => {
+  const IS_LOADING = useStore((state) => state.IS_LOADING);
+
   return (
     <MainContainer>
-      {children}
+      {IS_LOADING ? <Loader /> : children}
       <Footer />
     </MainContainer>
   );
