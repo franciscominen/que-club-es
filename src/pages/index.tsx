@@ -53,9 +53,9 @@ const Home: NextPage = () => {
     <MainContainer>
       <AudioButton onClick={togglePlayAudio}>
         {isPlayingAudio ? (
-          <Image src={"assets/unmuted.svg"} alt="" width={22} height={22} />
+          <Image src={"assets/unmuted.svg"} alt="" width={22} height={22} priority={true}/>
         ) : (
-          <Image src={"assets/muted.svg"} alt="" width={22} height={22} />
+          <Image src={"assets/muted.svg"} alt="" width={22} height={22} priority={true}/>
         )}
       </AudioButton>
 

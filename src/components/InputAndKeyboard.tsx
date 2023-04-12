@@ -13,7 +13,7 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
   const keyboardSound = new Audio("/assets/sounds/keyboard-click.mp3");
 
   const handleKeyClick = (e: any) => {
-    keyboardSound.play()
+    keyboardSound.play();
     const clickedValue = e.currentTarget.value;
 
     if (clickedValue === "<") {
@@ -45,6 +45,7 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
           width={22}
           height={22}
           style={{ position: "relative", top: "8px" }}
+          priority={true}
         />
       );
     } else if (key === "<") {
@@ -55,6 +56,7 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
           width={22}
           height={22}
           style={{ position: "relative", top: "2px" }}
+          priority={true}
         />
       );
     }

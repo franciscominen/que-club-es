@@ -49,6 +49,7 @@ const Result = () => {
               width={24}
               height={24}
               alt="<"
+              priority={true}
             />
           </SytledButton>
           <Countdown />

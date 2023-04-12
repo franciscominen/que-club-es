@@ -28,10 +28,22 @@ const PlayButtonsAndChances = ({
       </PlayButton>
       <ChancesWrapper>
         {chances === 1 ? (
-          <Image src="/assets/chances-icon.svg" alt="" width={40} height={40} />
+          <Image
+            src="/assets/chances-icon.svg"
+            alt=""
+            width={40}
+            height={40}
+            priority={true}
+          />
         ) : null}
         {chances >= 0 ? (
-          <Image src="/assets/chances-icon.svg" alt="" width={40} height={40} />
+          <Image
+            src="/assets/chances-icon.svg"
+            alt=""
+            width={40}
+            height={40}
+            priority={true}
+          />
         ) : null}
       </ChancesWrapper>
       <PlayButton

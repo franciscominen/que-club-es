@@ -26,6 +26,7 @@ const SocialMediaButtons = () => {
             alt="Twitter"
             width={35}
             height={35}
+            priority={true}
           />
         </SocialMediaButton>
         <SocialMediaButton
@@ -38,6 +39,7 @@ const SocialMediaButtons = () => {
             alt="WhatsApp"
             width={35}
             height={35}
+            priority={true}
           />
         </SocialMediaButton>
       </ButtonsWrapper>
@@ -53,7 +55,7 @@ const Title = styled.h1`
   font-size: 24px;
   font-weight: 300;
   margin-bottom: 8px;
-  animation: ${fadeIn} .3s ease-in 1.8s both;
+  animation: ${fadeIn} 0.3s ease-in 1.8s both;
 `;
 
 const ButtonsWrapper = styled.div`
@@ -62,7 +64,7 @@ const ButtonsWrapper = styled.div`
   justify-content: center;
   gap: 8px;
   width: 13em;
-  animation: ${fadeIn} .3s ease-in 1.8s both;
+  animation: ${fadeIn} 0.3s ease-in 1.8s both;
 `;
 
 const SocialMediaButton = styled.a<{ continueButton: boolean }>`

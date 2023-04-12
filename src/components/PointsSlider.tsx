@@ -23,7 +23,13 @@ const PointsSlider = ({ points }: any) => {
             {PLAYED_TEAMS.map((team) => {
               return (
                 <li key={team.id}>
-                  <Image src={team.img} alt="" width={30} height={30} />
+                  <Image
+                    src={team.img}
+                    alt=""
+                    width={30}
+                    height={30}
+                    priority={true}
+                  />
                   <h3>{team.name}</h3>
                 </li>
               );
