@@ -13,8 +13,14 @@ const Result = () => {
   const POINTS = useStore((state) => state.POINTS);
   const PLAYED = useStore((state) => state.PLAYED);
 
-  const applauseSound = useMemo(() => new Audio("/assets/sounds/applause.wav"), []);
-  const defeatSound = useMemo(() => new Audio("/assets/sounds/silbidos.mp3"), []);
+  const applauseSound = useMemo(
+    () => new Audio("/assets/sounds/applause.wav"),
+    []
+  );
+  const defeatSound = useMemo(
+    () => new Audio("/assets/sounds/silbidos.mp3"),
+    []
+  );
 
   const goToPlay = () => {
     return router.push("/play");
@@ -71,13 +77,6 @@ const Result = () => {
 export default Result;
 
 const MainContainer = styled.main`
-  width: 100%;
-  min-height: 100vh;
-  margin: 0 auto;
-  background-image: url("/assets/backgrounds/bg-result.svg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position-y: center;
   display: flex;
   flex-direction: column;
   justify-content: center;

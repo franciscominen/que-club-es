@@ -156,14 +156,6 @@ const Play = () => {
 export default Play;
 
 const MainContainer = styled.main`
-  width: 100%;
-  height: 100vh;
-  margin: 0 auto;
-  background-image: url("/assets/backgrounds/bg-play.svg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position-y: center;
-  background-position-x: right;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

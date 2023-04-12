@@ -50,10 +50,6 @@ const HowToPlay = ({ handleHowToPlay }: any) => {
         />
         <HomeButton onClick={handleHowToPlay}>Inicio</HomeButton>
       </TextsWrapper>
-      <Footer>
-        <span>¿Qué club e’?</span> © 2023 v1.0.0 All rights reserved | developed
-        by esk4s
-      </Footer>
     </HowToPlayWrapper>
   );
 };
@@ -104,12 +100,4 @@ const HomeButton = styled.button`
   &:hover {
     transform: scale(1.05);
   }
-`;
-
-const Footer = styled.footer`
-  color: var(--light);
-  font-size: 12px;
-  font-weight: bold;
-  font-family: var(--alternativeFont);
-  text-align: center;
 `;

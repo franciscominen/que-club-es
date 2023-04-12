@@ -7,6 +7,7 @@ import useStore from "lib/store/state";
 import GlobalStyle from "@/styles/globals";
 import Loader from "@/components/Loader";
 import { useRouter } from "next/router";
+import Layout from "@/components/Layout";
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -34,7 +35,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     return true;
   }
 
-/*   useEffect(() => {
+  /*   useEffect(() => {
     const handleRouteChange = (url: any) => {
       useStore.setState({ IS_LOADING: true });
     };
@@ -101,13 +102,9 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         />
       </Head>
       <GlobalStyle />
-      {/* <Component {...pageProps} /> */}
-      {IS_LOADING ? (
-        <h1 style={{ color: "black" }}>Cargando...</h1>
-      ) : (
+      <Layout>
         <Component {...pageProps} />
-      )}
-      {/* {IS_LOADING ? <Loader /> : <Component {...pageProps} />} */}
+      </Layout>
     </>
   );
 }

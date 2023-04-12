@@ -71,11 +71,6 @@ const Home: NextPage = () => {
           <TutorialButton onClick={handleHowToPlay}>
             ¿Qué es esto?
           </TutorialButton>
-
-          <Footer>
-            <span>¿Qué club e’?</span> © 2023 v1.0.0 All rights reserved |
-            <FooterLink> developed by Esk4s</FooterLink>.
-          </Footer>
         </>
       )}
       <audio
@@ -137,24 +132,6 @@ const TutorialButton = styled.button`
   &:hover {
     transform: scale(1.05);
   }
-`;
-
-const Footer = styled.footer`
-  text-align: center;
-  background-color: var(--dark);
-  color: var(--light);
-  font-family: var(--alternativeFont);
-  font-size: 10px;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  padding: 4px 0;
-`;
-
-const FooterLink = styled.a`
-  font-family: var(--alternativeFont);
-  cursor: pointer;
-  color: #3296b8;
 `;
 
 const AudioButton = styled.button`

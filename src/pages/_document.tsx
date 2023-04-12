@@ -12,11 +12,11 @@ class MyDocument extends Document {
         <Head>
 
           <link rel="preload" href="/assets/backgrounds/bg-home.svg" as="image" />
-          <link rel="preload" href="/assets/backgrounds/bg-loader.svg" as="image" />
+{/*           <link rel="preload" href="/assets/backgrounds/bg-loader.svg" as="image" />
           <link rel="preload" href="/assets/backgrounds/bg-play.svg" as="image" />
-          <link rel="preload" href="/assets/backgrounds/bg-result.svg" as="image" />
+          <link rel="preload" href="/assets/backgrounds/bg-result.svg" as="image" /> */}
           
-          <link rel="preload" href="/assets/back-icon.svg" as="image" />
+{/*           <link rel="preload" href="/assets/back-icon.svg" as="image" />
           <link rel="preload" href="/assets/backspace.svg" as="image" />
           <link rel="preload" href="/assets/chances-icon.svg" as="image" />
           <link rel="preload" href="/assets/wsp-icon.svg" as="image" />
@@ -26,7 +26,7 @@ class MyDocument extends Document {
           <link rel="preload" href="/assets/circle.svg" as="image" />
           <link rel="preload" href="/assets/cross.svg" as="image" />
           <link rel="preload" href="/assets/space.svg" as="image" />
-          <link rel="preload" href="/assets/image-loader.svg" as="image" />
+          <link rel="preload" href="/assets/image-loader.svg" as="image" /> */}
 
           <link rel="preload" href="/assets/lotties/check.json" as="fetch" />
           <link rel="preload" href="/assets/lotties/error.json" as="fetch" />
