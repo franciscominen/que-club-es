@@ -37,7 +37,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     <>
       <Head>
         <link rel="icon" type="image/png" href="/assets/favicon.png" />
-        <title>¿Qué club e?</title>
+        <title>¿Qué club e’?</title>
 
         <meta property="og:url" content="https://queclube.vercel.app/" />
         <meta property="og:type" content="website" />
