@@ -30,7 +30,6 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     checkIsPlayed();
   }, [RANDOM_TEAMS]);
 
-
   if (isSSR) return null;
 
   return (
@@ -69,7 +68,8 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         />
       </Head>
       <GlobalStyle />
-      {IS_LOADING ? <Loader /> : <Component {...pageProps} />}
+      <Component {...pageProps} />
+      {/* {IS_LOADING ? <Loader /> : <Component {...pageProps} />} */}
     </>
   );
 }
