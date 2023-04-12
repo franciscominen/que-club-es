@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        background-image: url("/assets/backgrounds/bg-loader.png");
+        background-image: url("/assets/backgrounds/bg-home.svg");
         background-size: cover;
         background-repeat: no-repeat;
         background-position-y: center;

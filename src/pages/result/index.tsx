@@ -74,7 +74,7 @@ const MainContainer = styled.main`
   width: 100%;
   min-height: 100vh;
   margin: 0 auto;
-  background-image: url("/assets/backgrounds/bg-result.png");
+  background-image: url("/assets/backgrounds/bg-result.svg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position-y: center;

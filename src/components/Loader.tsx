@@ -27,10 +27,6 @@ const MainContainer = styled.main`
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  background-image: url("/assets/backgrounds/bg-loader.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position-y: center;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -95,10 +95,6 @@ const MainContainer = styled.main`
   max-width: 100%;
   min-height: 100vh;
   margin: 0 auto;
-  background-image: url("/assets/backgrounds/bg-home.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position-y: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
