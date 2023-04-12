@@ -27,11 +27,11 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   useEffect(() => {
     const handleRouteChange = (url: any) => {
-      setLoading(true);
+      useStore.setState({ IS_LOADING: true });
     };
 
     const handleRouteChangeComplete = () => {
-      setLoading(false);
+      useStore.setState({ IS_LOADING: false });
     };
 
     router.events.on("routeChangeStart", handleRouteChange);
@@ -93,7 +93,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       </Head>
       <GlobalStyle />
       {/* <Component {...pageProps} /> */}
-      {loading ? (
+      {IS_LOADING ? (
         <h1 style={{ color: "black" }}>Cargando...</h1>
       ) : (
         <Component {...pageProps} />
