@@ -4,7 +4,7 @@ const nextConfig = {
     appDir: false,
   },
   images: {
-    domains: ['www.mundoascenso.com.ar'],
+    domains: ['www.mundoascenso.com.ar', '1.bp.blogspot.com'],
     remotePatterns: [
       {
         protocol: "https",

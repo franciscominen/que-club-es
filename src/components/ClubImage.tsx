@@ -7,8 +7,8 @@ import styled from "styled-components";
 const ClubImage = () => {
   const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
   const STEPS = useStore((state) => state.STEPS);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [showLoader, setShowLoader] = useState(false);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [showCount, setShowCount] = useState(false);
   const [count, setCount] = useState(3);
 
   useEffect(() => {
@@ -21,9 +21,9 @@ const ClubImage = () => {
       });
     }, 1000);
 
-    setShowLoader(true);
+    setShowCount(true);
     setTimeout(() => {
-      setShowLoader(false);
+      setShowCount(false);
     }, 3000);
 
     return () => clearInterval(intervalId);
@@ -31,7 +31,7 @@ const ClubImage = () => {
 
   return (
     <>
-      {showLoader ? (
+      {showCount ? (
         <Count>
           <h1 key={count}>{count}</h1>
         </Count>
@@ -41,9 +41,9 @@ const ClubImage = () => {
           alt="Please Reload"
           width={220}
           height={220}
-          loading="lazy"
-          onLoad={() => setIsLoaded(true)}
-          className={isLoaded ? "loaded" : ""}
+          onLoad={() => setIsImageLoaded(true)}
+          className={isImageLoaded ? "loaded" : ""}
+          priority={true}
         />
       )}
     </>
@@ -56,8 +56,8 @@ const ClubImg = styled(Image)`
   opacity: 0;
   margin: 8px 0;
   &.loaded {
-    opacity: 1;
     animation: ${scaleInCenter} 0.3s ease-in both;
+    opacity: 1;
   }
 `;
 

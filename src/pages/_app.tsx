@@ -23,7 +23,16 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
 
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+
+  function checkImagesLoaded() {
+    const images = document.getElementsByTagName("img");
+    for (let i = 0; i < images.length; i++) {
+      if (!images[i].complete) {
+        return false;
+      }
+    }
+    return true;
+  }
 
   useEffect(() => {
     const handleRouteChange = (url: any) => {
@@ -48,6 +57,17 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   useEffect(() => {
     setIsSSR(false);
     fetchTeams();
+
+    if (checkImagesLoaded()) {
+      useStore.setState({ IS_LOADING: false });
+    } else {
+      const interval = setInterval(() => {
+        if (checkImagesLoaded()) {
+          useStore.setState({ IS_LOADING: false });
+          clearInterval(interval);
+        }
+      }, 100);
+    }
   }, []);
 
   useEffect(() => {
