@@ -10,7 +10,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-{/* 
+
           <link rel="preload" href="/assets/backgrounds/bg-home.svg" as="image" />
           <link rel="preload" href="/assets/backgrounds/bg-loader.svg" as="image" />
           <link rel="preload" href="/assets/backgrounds/bg-play.svg" as="image" />
@@ -37,7 +37,7 @@ class MyDocument extends Document {
           <link rel="preload" href="/assets/sounds/keyboard-click.mp3" as="audio" />
           <link rel="preload" href="/assets/sounds/silbidos.mp3" as="audio" />
           <link rel="preload" href="/assets/sounds/error-answer.mp3" as="audio" />
-          <link rel="preload" href="/assets/sounds/success-answer.mp3" as="audio" /> */}
+          <link rel="preload" href="/assets/sounds/success-answer.mp3" as="audio" />
 
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
