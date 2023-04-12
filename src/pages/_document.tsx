@@ -15,9 +15,21 @@ class MyDocument extends Document {
           <link rel="preload" href="/assets/backgrounds/bg-loader.png" as="image" />
           <link rel="preload" href="/assets/backgrounds/bg-play.png" as="image" />
           <link rel="preload" href="/assets/backgrounds/bg-result.png" as="image" />
+          
+          <link rel="preload" href="/assets/back-icon.svg" as="image" />
+          <link rel="preload" href="/assets/backspace.svg" as="image" />
+          <link rel="preload" href="/assets/chances-icon.svg" as="image" />
+          <link rel="preload" href="/assets/wsp-icon.svg" as="image" />
+          <link rel="preload" href="/assets/twitter-icon.svg" as="image" />
+          <link rel="preload" href="/assets/scoreboard.svg" as="image" />
+          <link rel="preload" href="/assets/home-icon.svg" as="image" />
+          <link rel="preload" href="/assets/circle.svg" as="image" />
+          <link rel="preload" href="/assets/cross.svg" as="image" />
+          <link rel="preload" href="/assets/space.svg" as="image" />
+          <link rel="preload" href="/assets/image-loader.svg" as="image" />
 
-          <link rel="preload" href="/assets/lotties/check.json" as="json" />
-          <link rel="preload" href="/assets/lotties/error.json" as="json" />
+          <link rel="preload" href="/assets/lotties/check.json" as="fetch" />
+          <link rel="preload" href="/assets/lotties/error.json" as="fetch" />
 
           <link rel="preload" href="/assets/sounds/startgame.mp3" as="audio" />
           <link rel="preload" href="/assets/sounds/intro.mp3" as="audio" />
