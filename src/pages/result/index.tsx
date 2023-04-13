@@ -1,7 +1,7 @@
 import Countdown from "@/components/Countdown";
 import PointsSlider from "@/components/PointsSlider";
 import SocialMediaButtons from "@/components/SocialMediaButtons";
-import { fadeIn, scaleInCenter, slideInLeft } from "@/styles/animations";
+import { fadeIn, scaleInCenter } from "@/styles/animations";
 import useStore from "lib/store/state";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -42,7 +42,7 @@ const Result = () => {
         <>
           <Countdown />
           <PointsSlider points={POINTS} />
-          <SocialMediaButtons />
+          <SocialMediaButtons isArcade={false} />
         </>
       ) : (
         <NotPlayedWrapper>

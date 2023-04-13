@@ -3,14 +3,22 @@ import useStore from "lib/store/state";
 import Image from "next/image";
 import styled from "styled-components";
 
-const SocialMediaButtons = () => {
+interface Props {
+  isArcade: boolean;
+}
+
+const SocialMediaButtons = ({ isArcade }: Props) => {
   const SCOREBOARD = useStore((state) => state.SCOREBOARD);
   const POINTS = useStore((state) => state.POINTS);
+  const ARCADE_STEPS = useStore((state) => state.ARCADE_STEPS);
   const appUrl = `https://queclube.vercel.app/`;
 
   const tweetScoreboard = SCOREBOARD.join("");
   const twitterMessage = `https://twitter.com/intent/tweet?text=${tweetScoreboard}%0ALe pegué a ${POINTS} de los 5 escudos de la fecha de hoy. A ver vos que onda? ${appUrl}`;
   const wspMessage = `whatsapp://send?text=${tweetScoreboard}%0ALe pegué a ${POINTS} de los 5 escudos de la fecha de hoy. A ver vos que onda? ${appUrl}`;
+
+  const arcadeTwitterMessage = `https://twitter.com/intent/tweet?text=Metí una racha de ${ARCADE_STEPS} clubes en Modo Arcade. A ver vos que onda? ${appUrl}`;
+  const arcadeWspMessage = `whatsapp://send?text=Metí una racha de ${ARCADE_STEPS} clubes en Modo Arcade. A ver vos que onda? ${appUrl}`;
 
   return (
     <div>
@@ -18,7 +26,7 @@ const SocialMediaButtons = () => {
       <ButtonsWrapper>
         <SocialMediaButton
           continueButton={false}
-          href={twitterMessage}
+          href={isArcade ? arcadeTwitterMessage : twitterMessage}
           target="_blank"
         >
           <Image
@@ -31,7 +39,7 @@ const SocialMediaButtons = () => {
         </SocialMediaButton>
         <SocialMediaButton
           continueButton={true}
-          href={wspMessage}
+          href={isArcade ? arcadeWspMessage : wspMessage}
           target="_blank"
         >
           <Image
@@ -76,9 +84,9 @@ const SocialMediaButton = styled.a<{ continueButton: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: .1s;
+  transition: 0.1s;
   &:hover {
     background-color: ${(props) =>
-    props.continueButton ? `#61df95` : `#6cb5df`};
+      props.continueButton ? `#61df95` : `#6cb5df`};
   }
 `;

@@ -11,7 +11,7 @@ import styled from "styled-components";
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const { resetGame } = useActions();
+  const { resetGame, fetchAllTeams, resetArcadePoints } = useActions();
   const PLAYED = useStore((state) => state.PLAYED);
 
   const startSound = new Audio("/assets/sounds/startgame.mp3");
@@ -32,6 +32,12 @@ const Home: NextPage = () => {
       resetGame();
       router.push("play");
     }
+  };
+
+  const goToArcadeMode = () => {
+    resetArcadePoints();
+    fetchAllTeams();
+    router.push("/arcade");
   };
 
   const togglePlayAudio = () => {
@@ -78,7 +84,8 @@ const Home: NextPage = () => {
         </>
       ) : (
         <>
-          <StartButton onClick={onClickPlay}>Empezar</StartButton>
+          <StartButton onClick={onClickPlay}>Comenzar</StartButton>
+          <StartButton onClick={goToArcadeMode}>Arcade</StartButton>
           <TutorialButton onClick={handleHowToPlay}>
             ¿Qué es esto?
           </TutorialButton>
@@ -123,7 +130,8 @@ const HomeTitle = styled.h1<{ howToPlay: boolean }>`
 
 const StartButton = styled.button`
   background: var(--light);
-  padding: 14px 38px;
+  padding: 10px;
+  width: 7em;
   margin-bottom: 20px;
   border-radius: 50px;
   font-size: 28px;

@@ -133,7 +133,11 @@ const Play = () => {
         <Scoreboard small={false} />
       </ScoreboardContainer>
 
-      {showClub ? <AnswerAnimation isCorrect={correct} /> : <ClubImage />}
+      {showClub ? (
+        <AnswerAnimation isCorrect={correct} />
+      ) : (
+        <ClubImage imageSource={RANDOM_TEAMS[STEPS]?.img} steps={STEPS} />
+      )}
 
       <BottomContainer>
         <PlayButtonsAndChances

@@ -5,6 +5,18 @@ import { ITeam } from "lib/types";
 import Papa from "papaparse";
 
 const api = {
+    getAllTeams: async () => {
+        const teamsUrl = process.env.NEXT_PUBLIC_API_ALL_TEAMS;
+        const res = await fetch(`${teamsUrl}`);
+        const data = await res.text();
+        const teams: ITeam[] = Papa.parse<ITeam>(data, {
+            header: true,
+            dynamicTyping: true,
+            skipEmptyLines: true,
+        }).data;
+
+        return teams;
+    },
     setFiveRandomTeams: async () => {
         const teamsUrl = process.env.NEXT_PUBLIC_API_ALL_TEAMS;
         const res = await fetch(`${teamsUrl}`);

@@ -7,10 +7,12 @@ export interface ITeam {
 };
 
 export interface State {
+    ALL_TEAMS: ITeam[]
     RANDOM_TEAMS: ITeam[]
     PLAYED_TEAMS: ITeam[]
     PLAYED: boolean
     STEPS: number
+    ARCADE_STEPS: number
     POINTS: number
     IS_LOADING: boolean
     SCOREBOARD: string[]

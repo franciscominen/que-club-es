@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { blink, countdownBar, typing } from "@/styles/animations";
 import useStore from "lib/store/state";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 type Props = {
   teamName: string;
@@ -10,6 +11,7 @@ type Props = {
 
 const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
   const STEPS = useStore((state) => state.STEPS);
+  const inputRef = useRef<HTMLInputElement>(null);
   const keyboardSound = new Audio("/assets/sounds/keyboard-click.mp3");
 
   const handleKeyClick = (e: any) => {
@@ -63,14 +65,31 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
     return keyRender;
   };
 
+  useEffect(() => {
+    if (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    ) {
+      // Dispositivo móvil
+      inputRef.current?.blur();
+    } else {
+      // Escritorio
+      inputRef.current?.focus();
+    }
+  }, []);
+
   return (
     <Wrapper>
       <InputContainer>
         <TeamNameInput
+          autoFocus
           type="text"
           value={teamName.toLocaleLowerCase()}
           onChange={handleOnChange}
           maxLength={45}
+          setColor={!teamName.length}
+          ref={inputRef}
         />
         <CountdownBar key={STEPS} />
         <div
@@ -115,9 +134,9 @@ const InputContainer = styled.div`
   }
 `;
 
-const TeamNameInput = styled.input`
-  color: var(--dark);
-  background-color: #ffffff42;
+const TeamNameInput = styled.input<{ setColor: boolean }>`
+  color: ${(props) => (props.setColor ? `transparent` : `var(--dark)`)};
+  background-color: transparent;
   width: 100%;
   font-size: 24px;
   padding: 4px;
@@ -127,7 +146,7 @@ const TeamNameInput = styled.input`
   text-transform: capitalize;
   margin-bottom: 8px;
   position: relative;
-  z-index: 2;
+  z-index: 3;
   &:focus {
     outline: none;
   }
@@ -147,8 +166,8 @@ const Placeholder = styled.h2`
   animation: ${typing} 3s steps(20), ${blink} 1s step-end infinite;
   white-space: nowrap;
   overflow: hidden;
-  border-right: 3px solid;
-  z-index: 10;
+  border-right: 1px solid;
+  z-index: 2;
   height: 35px;
   position: relative;
   bottom: 4em;

@@ -5,10 +5,12 @@ import { persist } from 'zustand/middleware'
 const useStore = create<State>()(
     persist(
         (set) => ({
+            ALL_TEAMS: [],
             RANDOM_TEAMS: [],
             PLAYED_TEAMS: [],
             PLAYED: false,
             STEPS: 0,
+            ARCADE_STEPS: 0,
             POINTS: 0,
             IS_LOADING: false,
             SCOREBOARD: [],
@@ -16,7 +18,7 @@ const useStore = create<State>()(
         {
             name: 'PLAYED',
             partialize: (state) => ({
-                POINTS: state.POINTS, PLAYED_TEAMS: state.PLAYED_TEAMS, SCOREBOARD: state.SCOREBOARD, STEPS: state.STEPS
+                POINTS: state.POINTS, PLAYED_TEAMS: state.PLAYED_TEAMS, SCOREBOARD: state.SCOREBOARD, STEPS: state.STEPS, ARCADE_STEPS: state.ARCADE_STEPS
             }),
         }
     )

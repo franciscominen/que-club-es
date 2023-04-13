@@ -4,9 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const ClubImage = () => {
-  const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
-  const STEPS = useStore((state) => state.STEPS);
+const ClubImage = ({ imageSource, steps }: any) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [showCount, setShowCount] = useState(false);
   const [count, setCount] = useState(3);
@@ -27,7 +25,7 @@ const ClubImage = () => {
     }, 3000);
 
     return () => clearInterval(intervalId);
-  }, [STEPS]);
+  }, [steps]);
 
   return (
     <>
@@ -38,7 +36,7 @@ const ClubImage = () => {
       ) : (
         <ClubImg className={isImageLoaded ? "loaded" : ""}>
           <Image
-            src={RANDOM_TEAMS[STEPS]?.img}
+            src={imageSource}
             alt="Please Reload"
             fill
             onLoad={() => setIsImageLoaded(true)}
