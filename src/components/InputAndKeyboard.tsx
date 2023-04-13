@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { countdownBar } from "@/styles/animations";
+import { blink, countdownBar, typing } from "@/styles/animations";
 import useStore from "lib/store/state";
 import Image from "next/image";
 
@@ -65,16 +65,27 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
 
   return (
     <Wrapper>
-      <div style={{ height: "67px" }}>
+      <InputContainer>
         <TeamNameInput
           type="text"
           value={teamName.toLocaleLowerCase()}
-          placeholder="¿Qué club e'?"
           onChange={handleOnChange}
           maxLength={45}
         />
         <CountdownBar key={STEPS} />
-      </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          {!teamName.length && (
+            <Placeholder key={STEPS}>¿Qué club e’?</Placeholder>
+          )}
+        </div>
+      </InputContainer>
       {keys.map((row, i) => (
         <KeysWrapper key={i}>
           {row.map((key, j) => (
@@ -96,6 +107,14 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
+const InputContainer = styled.div`
+  height: 68px;
+
+  @media (max-width: 376px) {
+    height: 54px;
+  }
+`;
+
 const TeamNameInput = styled.input`
   color: var(--dark);
   background-color: #ffffff42;
@@ -112,18 +131,53 @@ const TeamNameInput = styled.input`
   &:focus {
     outline: none;
   }
+
+  @media (max-width: 376px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 768px) {
+    pointer-events: none;
+  }
+`;
+
+const Placeholder = styled.h2`
+  width: 10.2ch;
+  padding: 0 2px;
+  animation: ${typing} 3s steps(20), ${blink} 1s step-end infinite;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  z-index: 10;
+  height: 35px;
+  position: relative;
+  bottom: 4em;
+  font-size: 24px;
+  color: grey;
+  font-weight: 100;
+
+  @media (max-width: 376px) {
+    font-size: 20px;
+    height: 30px;
+    bottom: 4.3em;
+  }
 `;
 
 const CountdownBar = styled.figure`
   background-color: var(--light);
   width: 99%;
   margin: 0 auto;
-  height: 44px;
+  height: 45px;
   position: relative;
   bottom: 3.5em;
   z-index: 1;
   animation: ${countdownBar} 30s linear 3s;
   transform-origin: center left;
+
+  @media (max-width: 376px) {
+    height: 41px;
+    bottom: 3.2em;
+  }
 `;
 
 const KeysWrapper = styled.div`

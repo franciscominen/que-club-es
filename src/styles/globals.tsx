@@ -17,10 +17,12 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         // overflow-x: hidden;
         font-family: var(--principalFont);
+        user-select: none;
     }
 
     body {
         background: var(--dark);
+        overflow: hidden;
     }
 
     button {

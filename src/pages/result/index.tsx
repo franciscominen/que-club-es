@@ -25,9 +25,6 @@ const Result = () => {
   const goToPlay = () => {
     return router.push("/play");
   };
-  const goToHome = () => {
-    return router.push("/");
-  };
 
   useEffect(() => {
     if (PLAYED) {
@@ -43,15 +40,6 @@ const Result = () => {
     <MainContainer>
       {PLAYED ? (
         <>
-          <SytledButton onClick={goToHome}>
-            <Image
-              src={"/assets/home-icon.svg"}
-              width={24}
-              height={24}
-              alt="<"
-              priority={true}
-            />
-          </SytledButton>
           <Countdown />
           <PointsSlider points={POINTS} />
           <SocialMediaButtons />
@@ -80,26 +68,11 @@ export default Result;
 const MainContainer = styled.main`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 16px;
+  justify-content: space-between;
+  // gap: 16px;
   align-items: center;
-  padding: 3% 0;
-`;
-
-const SytledButton = styled.button`
-  position: absolute;
-  top: 3%;
-  left: 3%;
-  background: var(--light);
-  border-radius: 100%;
-  mix-blend-mode: screen;
-  width: 48px;
-  height: 48px;
-  animation: ${slideInLeft} 0.3s ease-in 1.5s both;
-  img {
-    position: relative;
-    top: 1px;
-  }
+  padding: 1em 2% 2.5em 2%;
+  height: 100vh;
 `;
 
 const PlayButton = styled.button`

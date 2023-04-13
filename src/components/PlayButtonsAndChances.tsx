@@ -79,6 +79,11 @@ const PlayButton = styled.button<{ continueButton: boolean }>`
   &:disabled {
     background-color: #797979;
   }
+
+  @media (max-width: 376px) {
+    font-size: 20px;
+    padding: 8px 0;
+  }
 `;
 
 const ChancesWrapper = styled.div`

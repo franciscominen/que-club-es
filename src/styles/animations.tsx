@@ -163,6 +163,18 @@ const cascadeAnimation = keyframes`
   }
 `;
 
+const typing = keyframes`
+  from {
+    width: 0
+  }
+`;
+
+const blink = keyframes`
+  50% {
+    border-color: transparent
+  }
+`;
+
 export {
   countdownBar,
   loader,
@@ -174,4 +186,6 @@ export {
   slideInTop,
   slideInLeft,
   cascadeAnimation,
+  typing,
+  blink
 };

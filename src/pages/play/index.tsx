@@ -128,61 +128,58 @@ const Play = () => {
   }, [STEPS]);
 
   return (
-    <>
-      <MainContainer>
-        <PlayWrapper>
-          <ScoreboardContainer>
-            <Scoreboard small={false} />
-          </ScoreboardContainer>
+    <PlayWrapper>
+      <ScoreboardContainer>
+        <Scoreboard small={false} />
+      </ScoreboardContainer>
 
-          {showClub ? <AnswerAnimation isCorrect={correct} /> : <ClubImage />}
+      {showClub ? <AnswerAnimation isCorrect={correct} /> : <ClubImage />}
 
-          <BottomContainer>
-            <PlayButtonsAndChances
-              handleAnswer={handleAnswer}
-              onPass={onPass}
-              chances={chances}
-              teamName={teamName}
-              passDisabled={showClub}
-            />
-            <InputAndKeyboard teamName={teamName} setTeamName={setTeamName} />
-          </BottomContainer>
-        </PlayWrapper>
-      </MainContainer>
-    </>
+      <BottomContainer>
+        <PlayButtonsAndChances
+          handleAnswer={handleAnswer}
+          onPass={onPass}
+          chances={chances}
+          teamName={teamName}
+          passDisabled={showClub}
+        />
+        <InputAndKeyboard teamName={teamName} setTeamName={setTeamName} />
+      </BottomContainer>
+    </PlayWrapper>
   );
 };
 
 export default Play;
 
-const MainContainer = styled.main`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding-top: 16px;
-  overflow-y: hidden;
-`;
-
 const PlayWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  // gap: 16px;
   width: 100%;
-  max-width: 500px;
-  padding: 0 4%;
+  height: 100%;
+  max-width: 550px;
+  width: 100%;
+  padding: 1em 2% 2.5em 2%;
+  margin: 0 auto;
+  height: 100vh;
 `;
 
 const BottomContainer = styled.div`
+  flex: 0 0 auto;
   width: 100%;
   animation: ${slideInBottom} 0.7s ease both;
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  @media (max-width: 376px) {
+    gap: 8px;
+  }
 `;
 
 const ScoreboardContainer = styled.div`
+  flex: 0 0 auto;
   animation: ${slideInTop} 0.7s ease both;
 `;

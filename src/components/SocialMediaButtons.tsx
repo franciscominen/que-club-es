@@ -76,4 +76,9 @@ const SocialMediaButton = styled.a<{ continueButton: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: .1s;
+  &:hover {
+    background-color: ${(props) =>
+    props.continueButton ? `#61df95` : `#6cb5df`};
+  }
 `;

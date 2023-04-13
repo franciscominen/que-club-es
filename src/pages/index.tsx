@@ -53,16 +53,27 @@ const Home: NextPage = () => {
     <MainContainer>
       <AudioButton onClick={togglePlayAudio}>
         {isPlayingAudio ? (
-          <Image src={"assets/unmuted.svg"} alt="" width={22} height={22} priority={true}/>
+          <Image
+            src={"assets/unmuted.svg"}
+            alt=""
+            width={22}
+            height={22}
+            priority={true}
+          />
         ) : (
-          <Image src={"assets/muted.svg"} alt="" width={22} height={22} priority={true}/>
+          <Image
+            src={"assets/muted.svg"}
+            alt=""
+            width={22}
+            height={22}
+            priority={true}
+          />
         )}
       </AudioButton>
 
       <HomeTitle howToPlay={howToPlay}>¿Qué club e’? </HomeTitle>
       {howToPlay ? (
         <>
-          <BackToHomeButton handleHowToPlay={handleHowToPlay} />
           <HowToPlay handleHowToPlay={handleHowToPlay} />
         </>
       ) : (
@@ -104,6 +115,10 @@ const HomeTitle = styled.h1<{ howToPlay: boolean }>`
   transition: all 0.2s;
   animation: ${cascadeAnimation} 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s
     both;
+
+  @media (max-width: 376px) {
+    font-size: ${(props) => (props.howToPlay ? "2em" : "3em")};
+  }
 `;
 
 const StartButton = styled.button`
@@ -117,6 +132,10 @@ const StartButton = styled.button`
   animation: ${fadeIn} 0.4s ease-in 1s both;
   &:hover {
     transform: scale(1.05);
+  }
+  @media (max-width: 376px) {
+    padding: 10px 32px;
+    font-size: 24px;
   }
 `;
 
@@ -136,8 +155,8 @@ const TutorialButton = styled.button`
 
 const AudioButton = styled.button`
   position: absolute;
-  top: 5%;
-  right: 5%;
+  top: 2%;
+  right: 2%;
   mix-blend-mode: screen;
   width: 38px;
   height: 38px;

@@ -107,6 +107,10 @@ const ShowAnswersBtn = styled.button`
   font-size: 18px;
   mix-blend-mode: screen;
   animation: ${fadeIn} 0.4s ease-in 0.1s both;
+  transition: .1s;
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 const ShowPointsBtn = styled(ShowAnswersBtn)`
