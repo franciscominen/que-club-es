@@ -1,5 +1,6 @@
 import { scaleInCenter } from "@/styles/animations";
 import useStore from "lib/store/state";
+import Image from "next/image";
 import styled from "styled-components";
 
 interface Props {
@@ -17,6 +18,8 @@ const Scoreboard = ({ small }: Props) => {
           alt=""
           style={{ position: "absolute" }}
           small={small}
+          priority={true}
+          fill
         />
         <ScorboardWrapper small={small}>
           {SCOREBOARD.map((score: string, index: number) => {
@@ -34,8 +37,10 @@ const Scoreboard = ({ small }: Props) => {
 
 export default Scoreboard;
 
-const ScoreboardImg = styled.img<{ small: boolean }>`
+const ScoreboardImg = styled(Image)<{ small: boolean }>`
   max-width: ${(props) => (props.small ? `10.5em` : `none`)};
+  max-height: ${(props) => (props.small ? `2.5em` : `none`)};
+  top: ${(props) => (props.small ? `9.1em` : `none`)}!important;
 `;
 
 const ScorboardWrapper = styled.div<{ small: boolean }>`
@@ -44,6 +49,7 @@ const ScorboardWrapper = styled.div<{ small: boolean }>`
   width: ${(props) => (props.small ? `168px` : `210px`)};
   height: ${(props) => (props.small ? `36px` : `45px`)};
   gap: ${(props) => (props.small ? `14px` : `16px`)};
+
   img {
     width: ${(props) => (props.small ? `19px` : `26px`)};
     position: relative;

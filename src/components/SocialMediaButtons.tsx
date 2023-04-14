@@ -3,14 +3,22 @@ import useStore from "lib/store/state";
 import Image from "next/image";
 import styled from "styled-components";
 
-const SocialMediaButtons = () => {
+interface Props {
+  isArcade: boolean;
+}
+
+const SocialMediaButtons = ({ isArcade }: Props) => {
   const SCOREBOARD = useStore((state) => state.SCOREBOARD);
   const POINTS = useStore((state) => state.POINTS);
+  const ARCADE_STEPS = useStore((state) => state.ARCADE_STEPS);
   const appUrl = `https://queclube.vercel.app/`;
 
   const tweetScoreboard = SCOREBOARD.join("");
   const twitterMessage = `https://twitter.com/intent/tweet?text=${tweetScoreboard}%0ALe pegué a ${POINTS} de los 5 escudos de la fecha de hoy. A ver vos que onda? ${appUrl}`;
   const wspMessage = `whatsapp://send?text=${tweetScoreboard}%0ALe pegué a ${POINTS} de los 5 escudos de la fecha de hoy. A ver vos que onda? ${appUrl}`;
+
+  const arcadeTwitterMessage = `https://twitter.com/intent/tweet?text=Metí una racha de ${ARCADE_STEPS} clubes en Modo Arcade. A ver vos que onda? ${appUrl}`;
+  const arcadeWspMessage = `whatsapp://send?text=Metí una racha de ${ARCADE_STEPS} clubes en Modo Arcade. A ver vos que onda? ${appUrl}`;
 
   return (
     <div>
@@ -18,7 +26,7 @@ const SocialMediaButtons = () => {
       <ButtonsWrapper>
         <SocialMediaButton
           continueButton={false}
-          href={twitterMessage}
+          href={isArcade ? arcadeTwitterMessage : twitterMessage}
           target="_blank"
         >
           <Image
@@ -26,11 +34,12 @@ const SocialMediaButtons = () => {
             alt="Twitter"
             width={35}
             height={35}
+            priority={true}
           />
         </SocialMediaButton>
         <SocialMediaButton
           continueButton={true}
-          href={wspMessage}
+          href={isArcade ? arcadeWspMessage : wspMessage}
           target="_blank"
         >
           <Image
@@ -38,6 +47,7 @@ const SocialMediaButtons = () => {
             alt="WhatsApp"
             width={35}
             height={35}
+            priority={true}
           />
         </SocialMediaButton>
       </ButtonsWrapper>
@@ -53,7 +63,7 @@ const Title = styled.h1`
   font-size: 24px;
   font-weight: 300;
   margin-bottom: 8px;
-  animation: ${fadeIn} .3s ease-in 1.8s both;
+  animation: ${fadeIn} 0.3s ease-in 1.8s both;
 `;
 
 const ButtonsWrapper = styled.div`
@@ -62,7 +72,7 @@ const ButtonsWrapper = styled.div`
   justify-content: center;
   gap: 8px;
   width: 13em;
-  animation: ${fadeIn} .3s ease-in 1.8s both;
+  animation: ${fadeIn} 0.3s ease-in 1.8s both;
 `;
 
 const SocialMediaButton = styled.a<{ continueButton: boolean }>`
@@ -74,4 +84,9 @@ const SocialMediaButton = styled.a<{ continueButton: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.1s;
+  &:hover {
+    background-color: ${(props) =>
+      props.continueButton ? `#61df95` : `#6cb5df`};
+  }
 `;

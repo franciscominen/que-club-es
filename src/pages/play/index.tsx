@@ -3,7 +3,7 @@ import ClubImage from "@/components/ClubImage";
 import InputAndKeyboard from "@/components/InputAndKeyboard";
 import PlayButtonsAndChances from "@/components/PlayButtonsAndChances";
 import Scoreboard from "@/components/Scoreboard";
-import { slideInBottom, slideInTop } from "@/styles/animations";
+import { fadeIn, slideInTop } from "@/styles/animations";
 import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import { useRouter } from "next/router";
@@ -15,9 +15,12 @@ const Play = () => {
   const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
   const PLAYED = useStore((state) => state.PLAYED);
   const STEPS = useStore((state) => state.STEPS);
+  const APP_SOUND_MUTED = useStore((state) => state.APP_SOUND_MUTED);
 
   const successSound = new Audio("/assets/sounds/success-answer.mp3");
   const errorSound = new Audio("/assets/sounds/error-answer.mp3");
+  successSound.muted = APP_SOUND_MUTED;
+  errorSound.muted = APP_SOUND_MUTED;
 
   const {
     incrementPoints,
@@ -128,69 +131,62 @@ const Play = () => {
   }, [STEPS]);
 
   return (
-    <>
-      <MainContainer>
-        <PlayWrapper>
-          <ScoreboardContainer>
-            <Scoreboard small={false} />
-          </ScoreboardContainer>
+    <PlayWrapper>
+      <ScoreboardContainer>
+        <Scoreboard small={false} />
+      </ScoreboardContainer>
 
-          {showClub ? <AnswerAnimation isCorrect={correct} /> : <ClubImage />}
+      {showClub ? (
+        <AnswerAnimation isCorrect={correct} />
+      ) : (
+        <ClubImage imageSource={RANDOM_TEAMS[STEPS]?.img} steps={STEPS} />
+      )}
 
-          <BottomContainer>
-            <PlayButtonsAndChances
-              handleAnswer={handleAnswer}
-              onPass={onPass}
-              chances={chances}
-              teamName={teamName}
-              passDisabled={showClub}
-            />
-            <InputAndKeyboard teamName={teamName} setTeamName={setTeamName} />
-          </BottomContainer>
-        </PlayWrapper>
-      </MainContainer>
-    </>
+      <BottomContainer >
+        <PlayButtonsAndChances
+          handleAnswer={handleAnswer}
+          onPass={onPass}
+          chances={chances}
+          teamName={teamName}
+          passDisabled={showClub}
+        />
+        <InputAndKeyboard teamName={teamName} setTeamName={setTeamName} />
+      </BottomContainer>
+    </PlayWrapper>
   );
 };
 
 export default Play;
 
-const MainContainer = styled.main`
-  width: 100%;
-  height: 100vh;
-  margin: 0 auto;
-  background-image: url("/assets/backgrounds/bg-play.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position-y: center;
-  background-position-x: right;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding-top: 16px;
-  overflow-y: hidden;
-`;
-
 const PlayWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  // gap: 16px;
   width: 100%;
-  max-width: 500px;
-  padding: 0 4%;
+  height: 100%;
+  max-width: 550px;
+  width: 100%;
+  padding: 1em 2% 2.5em 2%;
+  margin: 0 auto;
+  height: 100vh;
 `;
 
-const BottomContainer = styled.div`
+const BottomContainer = styled.form`
+  flex: 0 0 auto;
   width: 100%;
-  animation: ${slideInBottom} 0.7s ease both;
+  animation: ${fadeIn} 0.7s ease both;
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  @media (max-width: 376px) {
+    gap: 8px;
+  }
 `;
 
 const ScoreboardContainer = styled.div`
+  flex: 0 0 auto;
   animation: ${slideInTop} 0.7s ease both;
 `;

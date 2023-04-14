@@ -28,10 +28,22 @@ const PlayButtonsAndChances = ({
       </PlayButton>
       <ChancesWrapper>
         {chances === 1 ? (
-          <Image src="/assets/chances-icon.svg" alt="" width={40} height={40} />
+          <Image
+            src="/assets/chances-icon.svg"
+            alt=""
+            width={40}
+            height={40}
+            priority={true}
+          />
         ) : null}
         {chances >= 0 ? (
-          <Image src="/assets/chances-icon.svg" alt="" width={40} height={40} />
+          <Image
+            src="/assets/chances-icon.svg"
+            alt=""
+            width={40}
+            height={40}
+            priority={true}
+          />
         ) : null}
       </ChancesWrapper>
       <PlayButton
@@ -66,6 +78,11 @@ const PlayButton = styled.button<{ continueButton: boolean }>`
 
   &:disabled {
     background-color: #797979;
+  }
+
+  @media (max-width: 376px) {
+    font-size: 20px;
+    padding: 8px 0;
   }
 `;
 

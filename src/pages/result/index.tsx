@@ -1,7 +1,7 @@
 import Countdown from "@/components/Countdown";
 import PointsSlider from "@/components/PointsSlider";
 import SocialMediaButtons from "@/components/SocialMediaButtons";
-import { fadeIn, scaleInCenter, slideInLeft } from "@/styles/animations";
+import { fadeIn, scaleInCenter } from "@/styles/animations";
 import useStore from "lib/store/state";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -12,15 +12,21 @@ const Result = () => {
   const router = useRouter();
   const POINTS = useStore((state) => state.POINTS);
   const PLAYED = useStore((state) => state.PLAYED);
+  const APP_SOUND_MUTED = useStore((state) => state.APP_SOUND_MUTED);
 
-  const applauseSound = useMemo(() => new Audio("/assets/sounds/applause.wav"), []);
-  const defeatSound = useMemo(() => new Audio("/assets/sounds/silbidos.mp3"), []);
+  const applauseSound = useMemo(
+    () => new Audio("/assets/sounds/applause.wav"),
+    []
+  );
+  const defeatSound = useMemo(
+    () => new Audio("/assets/sounds/silbidos.mp3"),
+    []
+  );
+  applauseSound.muted = APP_SOUND_MUTED;
+  defeatSound.muted = APP_SOUND_MUTED;
 
   const goToPlay = () => {
     return router.push("/play");
-  };
-  const goToHome = () => {
-    return router.push("/");
   };
 
   useEffect(() => {
@@ -37,17 +43,9 @@ const Result = () => {
     <MainContainer>
       {PLAYED ? (
         <>
-          <SytledButton onClick={goToHome}>
-            <Image
-              src={"/assets/home-icon.svg"}
-              width={24}
-              height={24}
-              alt="<"
-            />
-          </SytledButton>
           <Countdown />
           <PointsSlider points={POINTS} />
-          <SocialMediaButtons />
+          <SocialMediaButtons isArcade={false} />
         </>
       ) : (
         <NotPlayedWrapper>
@@ -71,35 +69,13 @@ const Result = () => {
 export default Result;
 
 const MainContainer = styled.main`
-  width: 100%;
-  min-height: 100vh;
-  margin: 0 auto;
-  background-image: url("/assets/backgrounds/bg-result.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position-y: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 16px;
+  justify-content: space-between;
+  // gap: 16px;
   align-items: center;
-  padding: 3% 0;
-`;
-
-const SytledButton = styled.button`
-  position: absolute;
-  top: 3%;
-  left: 3%;
-  background: var(--light);
-  border-radius: 100%;
-  mix-blend-mode: screen;
-  width: 48px;
-  height: 48px;
-  animation: ${slideInLeft} 0.3s ease-in 1.5s both;
-  img {
-    position: relative;
-    top: 1px;
-  }
+  padding: 1em 2% 2.5em 2%;
+  height: 100vh;
 `;
 
 const PlayButton = styled.button`

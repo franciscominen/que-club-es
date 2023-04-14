@@ -15,6 +15,9 @@ const Loader = () => {
             priority
           />
         </ImageWrapper>
+        <h2 style={{ color: "var(--light)", fontWeight: "100", marginTop: '8px'}}>
+          Cargando...
+        </h2>
       </MainContainer>
     </>
   );
@@ -27,10 +30,6 @@ const MainContainer = styled.main`
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  background-image: url("/assets/backgrounds/bg-loader.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position-y: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,5 +37,5 @@ const MainContainer = styled.main`
 `;
 
 const ImageWrapper = styled.div`
-    animation: ${loader} 1.5s infinite linear;
-`
+  animation: ${loader} 1.5s infinite linear;
+`;

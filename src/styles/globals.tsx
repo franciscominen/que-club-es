@@ -17,13 +17,12 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         // overflow-x: hidden;
         font-family: var(--principalFont);
+        user-select: none;
     }
 
     body {
-        background-image: url("/assets/backgrounds/bg-loader.png");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position-y: center;
+        background: var(--dark);
+        overflow: hidden;
     }
 
     button {

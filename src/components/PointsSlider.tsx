@@ -23,7 +23,13 @@ const PointsSlider = ({ points }: any) => {
             {PLAYED_TEAMS.map((team) => {
               return (
                 <li key={team.id}>
-                  <Image src={team.img} alt="" width={30} height={30} />
+                  <Image
+                    src={team.img}
+                    alt=""
+                    width={30}
+                    height={30}
+                    priority={true}
+                  />
                   <h3>{team.name}</h3>
                 </li>
               );
@@ -101,6 +107,10 @@ const ShowAnswersBtn = styled.button`
   font-size: 18px;
   mix-blend-mode: screen;
   animation: ${fadeIn} 0.4s ease-in 0.1s both;
+  transition: .1s;
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 const ShowPointsBtn = styled(ShowAnswersBtn)`

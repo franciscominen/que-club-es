@@ -5,7 +5,8 @@ import Head from "next/head";
 import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import GlobalStyle from "@/styles/globals";
-import Loader from "@/components/Loader";
+import { useRouter } from "next/router";
+import Layout from "@/components/Layout";
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -16,14 +17,34 @@ type AppPropsWithLayout = AppProps & {
 };
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  const { fetchTeams, checkIsPlayed } = useActions();
+  const { fetchFiveTeams, checkIsPlayed, fetchAllTeams } = useActions();
   const [isSSR, setIsSSR] = useState(true);
-  const IS_LOADING = useStore((state) => state.IS_LOADING);
   const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = (url: any) => {
+      useStore.setState({ IS_LOADING: true });
+    };
+
+    const handleRouteChangeComplete = () => {
+      useStore.setState({ IS_LOADING: false });
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+    router.events.on("routeChangeComplete", handleRouteChangeComplete);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+      router.events.off("routeChangeComplete", handleRouteChangeComplete);
+    };
+  }, [router.events]);
 
   useEffect(() => {
     setIsSSR(false);
-    fetchTeams();
+    fetchFiveTeams();
+    fetchAllTeams();
   }, []);
 
   useEffect(() => {
@@ -68,8 +89,9 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         />
       </Head>
       <GlobalStyle />
-      <Component {...pageProps} />
-      {/* {IS_LOADING ? <Loader /> : <Component {...pageProps} />} */}
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </>
   );
 }

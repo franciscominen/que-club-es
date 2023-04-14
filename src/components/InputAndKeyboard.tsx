@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { countdownBar } from "@/styles/animations";
+import { blink, countdownBar, typing } from "@/styles/animations";
 import useStore from "lib/store/state";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 type Props = {
   teamName: string;
@@ -10,10 +11,9 @@ type Props = {
 
 const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
   const STEPS = useStore((state) => state.STEPS);
-  const keyboardSound = new Audio("/assets/sounds/keyboard-click.mp3");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleKeyClick = (e: any) => {
-    keyboardSound.play()
     const clickedValue = e.currentTarget.value;
 
     if (clickedValue === "<") {
@@ -45,6 +45,7 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
           width={22}
           height={22}
           style={{ position: "relative", top: "8px" }}
+          priority={true}
         />
       );
     } else if (key === "<") {
@@ -55,24 +56,53 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
           width={22}
           height={22}
           style={{ position: "relative", top: "2px" }}
+          priority={true}
         />
       );
     }
     return keyRender;
   };
 
+  useEffect(() => {
+    if (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    ) {
+      // Dispositivo móvil
+      inputRef.current?.blur();
+    } else {
+      // Escritorio
+      inputRef.current?.focus();
+    }
+  }, []);
+
   return (
     <Wrapper>
-      <div style={{ height: "67px" }}>
+      <InputContainer>
         <TeamNameInput
+          autoFocus
           type="text"
           value={teamName.toLocaleLowerCase()}
-          placeholder="¿Qué club e'?"
           onChange={handleOnChange}
           maxLength={45}
+          setColor={!teamName.length}
+          ref={inputRef}
         />
         <CountdownBar key={STEPS} />
-      </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          {!teamName.length && (
+            <Placeholder key={STEPS}>¿Qué club e’?</Placeholder>
+          )}
+        </div>
+      </InputContainer>
       {keys.map((row, i) => (
         <KeysWrapper key={i}>
           {row.map((key, j) => (
@@ -94,9 +124,17 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const TeamNameInput = styled.input`
-  color: var(--dark);
-  background-color: #ffffff42;
+const InputContainer = styled.div`
+  height: 68px;
+
+  @media (max-width: 376px) {
+    height: 54px;
+  }
+`;
+
+const TeamNameInput = styled.input<{ setColor: boolean }>`
+  color: ${(props) => (props.setColor ? `transparent` : `var(--dark)`)};
+  background-color: transparent;
   width: 100%;
   font-size: 24px;
   padding: 4px;
@@ -106,9 +144,39 @@ const TeamNameInput = styled.input`
   text-transform: capitalize;
   margin-bottom: 8px;
   position: relative;
-  z-index: 2;
+  z-index: 3;
   &:focus {
     outline: none;
+  }
+
+  @media (max-width: 376px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 768px) {
+    pointer-events: none;
+  }
+`;
+
+const Placeholder = styled.h2`
+  width: 10.2ch;
+  padding: 0 2px;
+  animation: ${typing} 3s steps(20), ${blink} 1s step-end infinite;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 1px solid;
+  z-index: 2;
+  height: 35px;
+  position: relative;
+  bottom: 4em;
+  font-size: 24px;
+  color: grey;
+  font-weight: 100;
+
+  @media (max-width: 376px) {
+    font-size: 20px;
+    height: 30px;
+    bottom: 4.3em;
   }
 `;
 
@@ -116,12 +184,17 @@ const CountdownBar = styled.figure`
   background-color: var(--light);
   width: 99%;
   margin: 0 auto;
-  height: 44px;
+  height: 45px;
   position: relative;
   bottom: 3.5em;
   z-index: 1;
   animation: ${countdownBar} 30s linear 3s;
   transform-origin: center left;
+
+  @media (max-width: 376px) {
+    height: 41px;
+    bottom: 3.2em;
+  }
 `;
 
 const KeysWrapper = styled.div`
