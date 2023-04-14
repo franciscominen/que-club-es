@@ -5,7 +5,6 @@ import Head from "next/head";
 import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import GlobalStyle from "@/styles/globals";
-import Loader from "@/components/Loader";
 import { useRouter } from "next/router";
 import Layout from "@/components/Layout";
 
@@ -18,21 +17,11 @@ type AppPropsWithLayout = AppProps & {
 };
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  const { fetchTeams, checkIsPlayed } = useActions();
+  const { fetchFiveTeams, checkIsPlayed, fetchAllTeams } = useActions();
   const [isSSR, setIsSSR] = useState(true);
   const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
 
   const router = useRouter();
-
-  function checkImagesLoaded() {
-    const images = document.getElementsByTagName("img");
-    for (let i = 0; i < images.length; i++) {
-      if (!images[i].complete) {
-        return false;
-      }
-    }
-    return true;
-  }
 
   useEffect(() => {
     const handleRouteChange = (url: any) => {
@@ -54,7 +43,8 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   useEffect(() => {
     setIsSSR(false);
-    fetchTeams();
+    fetchFiveTeams();
+    fetchAllTeams();
   }, []);
 
   useEffect(() => {

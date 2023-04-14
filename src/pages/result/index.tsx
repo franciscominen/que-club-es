@@ -1,7 +1,7 @@
 import Countdown from "@/components/Countdown";
 import PointsSlider from "@/components/PointsSlider";
 import SocialMediaButtons from "@/components/SocialMediaButtons";
-import { fadeIn, scaleInCenter, slideInLeft } from "@/styles/animations";
+import { fadeIn, scaleInCenter } from "@/styles/animations";
 import useStore from "lib/store/state";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -12,6 +12,7 @@ const Result = () => {
   const router = useRouter();
   const POINTS = useStore((state) => state.POINTS);
   const PLAYED = useStore((state) => state.PLAYED);
+  const APP_SOUND_MUTED = useStore((state) => state.APP_SOUND_MUTED);
 
   const applauseSound = useMemo(
     () => new Audio("/assets/sounds/applause.wav"),
@@ -21,6 +22,8 @@ const Result = () => {
     () => new Audio("/assets/sounds/silbidos.mp3"),
     []
   );
+  applauseSound.muted = APP_SOUND_MUTED;
+  defeatSound.muted = APP_SOUND_MUTED;
 
   const goToPlay = () => {
     return router.push("/play");
@@ -42,7 +45,7 @@ const Result = () => {
         <>
           <Countdown />
           <PointsSlider points={POINTS} />
-          <SocialMediaButtons />
+          <SocialMediaButtons isArcade={false} />
         </>
       ) : (
         <NotPlayedWrapper>

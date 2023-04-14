@@ -1,14 +1,26 @@
 import api from "@/pages/api/api";
-import { Actions, ITeam } from "lib/types";
+import { ITeam } from "lib/types";
+import { useCallback } from "react";
 import useStore from "./state";
 
 const useActions = () => {
     const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
     const PLAYED_TEAMS = useStore((state) => state.PLAYED_TEAMS);
     const SCOREBOARD = useStore((state) => state.SCOREBOARD);
-    const STEPS = useStore((state) => state.STEPS);
 
-    const fetchTeams = () => {
+    const fetchAllTeams = useCallback(async () => {
+        useStore.setState({ IS_LOADING: true });
+        try {
+            const teams = await api.getAllTeams();
+            useStore.setState((state) => ({ ...state, ALL_TEAMS: teams.sort(() => Math.random() - 0.5) }));
+            useStore.setState({ IS_LOADING: false });
+        } catch (error) {
+            console.log('API Error:', error);
+            useStore.setState({ IS_LOADING: false });
+        }
+    }, []);
+
+    const fetchFiveTeams = () => {
         useStore.setState({ IS_LOADING: true });
         try {
             return api.getFiveRandomTeams((teams: ITeam[]) => {
@@ -29,11 +41,18 @@ const useActions = () => {
         return useStore.setState(state => ({ ...state, POINTS: state.POINTS + 1 }));
     }
 
+    const incrementArcadePoints = () => {
+        return useStore.setState(state => ({ ...state, ARCADE_STEPS: state.ARCADE_STEPS + 1 }));
+    }
+
     const resetGame = () => {
         useStore.setState(state => ({ ...state, POINTS: 0 }));
         useStore.setState(state => ({ ...state, STEPS: 0 }));
         useStore.setState(state => ({ ...state, SCOREBOARD: [] }));
+    }
 
+    const resetArcadePoints = () => {
+        return useStore.setState(state => ({ ...state, ARCADE_STEPS: 0 }));
     }
 
     const setToPlayed = () => {
@@ -64,7 +83,7 @@ const useActions = () => {
     }
 
     return {
-        fetchTeams,
+        fetchFiveTeams,
         nextStep,
         incrementPoints,
         setToPlayed,
@@ -72,7 +91,10 @@ const useActions = () => {
         checkIsPlayed,
         resetGame,
         updateScoreboard,
-        resetScoreboard
+        resetScoreboard,
+        fetchAllTeams,
+        incrementArcadePoints,
+        resetArcadePoints
     }
 }
 
