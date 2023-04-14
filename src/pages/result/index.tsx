@@ -12,6 +12,7 @@ const Result = () => {
   const router = useRouter();
   const POINTS = useStore((state) => state.POINTS);
   const PLAYED = useStore((state) => state.PLAYED);
+  const APP_SOUND_MUTED = useStore((state) => state.APP_SOUND_MUTED);
 
   const applauseSound = useMemo(
     () => new Audio("/assets/sounds/applause.wav"),
@@ -21,6 +22,8 @@ const Result = () => {
     () => new Audio("/assets/sounds/silbidos.mp3"),
     []
   );
+  applauseSound.muted = APP_SOUND_MUTED;
+  defeatSound.muted = APP_SOUND_MUTED;
 
   const goToPlay = () => {
     return router.push("/play");

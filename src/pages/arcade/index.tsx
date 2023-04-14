@@ -2,7 +2,7 @@ import AnswerAnimation from "@/components/AnswerAnimation";
 import ArcadeChancesAndButton from "@/components/ArcadeChancesAndButton";
 import ClubImage from "@/components/ClubImage";
 import InputAndKeyboard from "@/components/InputAndKeyboard";
-import { slideInBottom } from "@/styles/animations";
+import { fadeIn } from "@/styles/animations";
 import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import { useRouter } from "next/router";
@@ -14,9 +14,12 @@ const Arcade = () => {
   const { incrementArcadePoints } = useActions();
   const ALL_TEAMS = useStore((state) => state.ALL_TEAMS);
   const ARCADE_STEPS = useStore((state) => state.ARCADE_STEPS);
+  const APP_SOUND_MUTED = useStore((state) => state.APP_SOUND_MUTED);
 
   const successSound = new Audio("/assets/sounds/success-answer.mp3");
   const errorSound = new Audio("/assets/sounds/error-answer.mp3");
+  successSound.muted = APP_SOUND_MUTED;
+  errorSound.muted = APP_SOUND_MUTED;
 
   const [teamName, setTeamName] = useState("");
   const [correct, setCorrect] = useState(false);
@@ -57,14 +60,15 @@ const Arcade = () => {
     return;
   };
 
-  const handleAnswer = () => {
+  const handleAnswer = (event: any) => {
+    event.preventDefault();
     const isCorrectAnswer =
       teamName.toLowerCase() === ALL_TEAMS[ARCADE_STEPS].name.toLowerCase();
 
     ifIsCorrect(isCorrectAnswer);
     ifIsNotCorrect(isCorrectAnswer);
   };
-/* 
+  
   useEffect(() => {
     const newIntervalId = setInterval(() => {
       setCorrect(false);
@@ -81,7 +85,7 @@ const Arcade = () => {
     return () => {
       clearInterval(newIntervalId);
     };
-  }, [ARCADE_STEPS]); */
+  }, [ARCADE_STEPS]);
 
   return (
     <ArcadeContainer>
@@ -99,12 +103,8 @@ const Arcade = () => {
           steps={ARCADE_STEPS}
         />
       )}
-      <BottomContainer>
-        <ArcadeChancesAndButton
-          chances={chances}
-          handleAnswer={handleAnswer}
-          teamName={teamName}
-        />
+      <BottomContainer onSubmit={handleAnswer}>
+        <ArcadeChancesAndButton chances={chances} teamName={teamName} />
         <InputAndKeyboard teamName={teamName} setTeamName={setTeamName} />
       </BottomContainer>
     </ArcadeContainer>
@@ -127,10 +127,10 @@ const ArcadeContainer = styled.div`
   height: 100vh;
 `;
 
-const BottomContainer = styled.div`
+const BottomContainer = styled.form`
   flex: 0 0 auto;
   width: 100%;
-  animation: ${slideInBottom} 0.7s ease both;
+  animation: ${fadeIn} 0.7s ease both;
   display: flex;
   flex-direction: column;
   gap: 16px;

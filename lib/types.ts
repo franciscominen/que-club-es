@@ -16,6 +16,8 @@ export interface State {
     POINTS: number
     IS_LOADING: boolean
     SCOREBOARD: string[]
+    APP_SOUND_MUTED: boolean
+    SHOW_SOUND_MODAL: boolean
 }
 
 export interface Actions {

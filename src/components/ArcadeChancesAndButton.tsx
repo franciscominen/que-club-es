@@ -1,7 +1,12 @@
 import Image from "next/image";
 import styled from "styled-components";
 
-const ArcadeChancesAndButton = ({ chances, handleAnswer, teamName }: any) => {
+interface Props {
+  chances: number,
+  teamName: string
+}
+
+const ArcadeChancesAndButton = ({ chances, teamName }: Props) => {
   return (
     <StyledWrapper>
       <ChancesWrapper>
@@ -25,7 +30,7 @@ const ArcadeChancesAndButton = ({ chances, handleAnswer, teamName }: any) => {
         ) : null}
       </ChancesWrapper>
 
-      <StyledButton onClick={handleAnswer} disabled={!teamName}>
+      <StyledButton type="submit" disabled={!teamName}>
         LO CONOZCO!
       </StyledButton>
     </StyledWrapper>

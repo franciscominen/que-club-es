@@ -3,7 +3,7 @@ import ClubImage from "@/components/ClubImage";
 import InputAndKeyboard from "@/components/InputAndKeyboard";
 import PlayButtonsAndChances from "@/components/PlayButtonsAndChances";
 import Scoreboard from "@/components/Scoreboard";
-import { slideInBottom, slideInTop } from "@/styles/animations";
+import { fadeIn, slideInTop } from "@/styles/animations";
 import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import { useRouter } from "next/router";
@@ -15,9 +15,12 @@ const Play = () => {
   const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
   const PLAYED = useStore((state) => state.PLAYED);
   const STEPS = useStore((state) => state.STEPS);
+  const APP_SOUND_MUTED = useStore((state) => state.APP_SOUND_MUTED);
 
   const successSound = new Audio("/assets/sounds/success-answer.mp3");
   const errorSound = new Audio("/assets/sounds/error-answer.mp3");
+  successSound.muted = APP_SOUND_MUTED;
+  errorSound.muted = APP_SOUND_MUTED;
 
   const {
     incrementPoints,
@@ -139,7 +142,7 @@ const Play = () => {
         <ClubImage imageSource={RANDOM_TEAMS[STEPS]?.img} steps={STEPS} />
       )}
 
-      <BottomContainer>
+      <BottomContainer >
         <PlayButtonsAndChances
           handleAnswer={handleAnswer}
           onPass={onPass}
@@ -170,10 +173,10 @@ const PlayWrapper = styled.div`
   height: 100vh;
 `;
 
-const BottomContainer = styled.div`
+const BottomContainer = styled.form`
   flex: 0 0 auto;
   width: 100%;
-  animation: ${slideInBottom} 0.7s ease both;
+  animation: ${fadeIn} 0.7s ease both;
   display: flex;
   flex-direction: column;
   gap: 16px;

@@ -5,7 +5,6 @@ import Head from "next/head";
 import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import GlobalStyle from "@/styles/globals";
-import Loader from "@/components/Loader";
 import { useRouter } from "next/router";
 import Layout from "@/components/Layout";
 

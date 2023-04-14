@@ -12,10 +12,8 @@ type Props = {
 const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
   const STEPS = useStore((state) => state.STEPS);
   const inputRef = useRef<HTMLInputElement>(null);
-  const keyboardSound = new Audio("/assets/sounds/keyboard-click.mp3");
 
   const handleKeyClick = (e: any) => {
-    keyboardSound.play();
     const clickedValue = e.currentTarget.value;
 
     if (clickedValue === "<") {

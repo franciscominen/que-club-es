@@ -14,6 +14,8 @@ const useStore = create<State>()(
             POINTS: 0,
             IS_LOADING: false,
             SCOREBOARD: [],
+            APP_SOUND_MUTED: true,
+            SHOW_SOUND_MODAL: true,
         }),
         {
             name: 'PLAYED',

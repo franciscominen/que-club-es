@@ -1,6 +1,7 @@
+import ActiveSoundModal from "@/components/ActiveSoundModal";
 import BackToHomeButton from "@/components/BackToHomeButton";
 import HowToPlay from "@/components/HowToPlay";
-import { fadeIn, cascadeAnimation } from "@/styles/animations";
+import { fadeIn, cascadeAnimation, typing, blink } from "@/styles/animations";
 import useActions from "lib/store/actions";
 import useStore from "lib/store/state";
 import { NextPage } from "next";
@@ -13,12 +14,14 @@ const Home: NextPage = () => {
   const router = useRouter();
   const { resetGame, fetchAllTeams, resetArcadePoints } = useActions();
   const PLAYED = useStore((state) => state.PLAYED);
+  const APP_SOUND_MUTED = useStore((state) => state.APP_SOUND_MUTED);
+  const SHOW_SOUND_MODAL = useStore((state) => state.SHOW_SOUND_MODAL);
 
   const startSound = new Audio("/assets/sounds/startgame.mp3");
   const intro = useRef(new Audio("/assets/sounds/intro.mp3"));
+  startSound.muted = APP_SOUND_MUTED;
 
   const [howToPlay, setHowToPlay] = useState(false);
-  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
 
   const handleHowToPlay = () => {
     return setHowToPlay(!howToPlay);
@@ -35,70 +38,47 @@ const Home: NextPage = () => {
   };
 
   const goToArcadeMode = () => {
+    startSound.play();
     resetArcadePoints();
     fetchAllTeams();
     router.push("/arcade");
   };
 
-  const togglePlayAudio = () => {
-    setIsPlayingAudio(!isPlayingAudio);
-    if (isPlayingAudio) {
-      intro.current.pause();
-    } else {
-      intro.current.muted = false;
-      intro.current.play();
-    }
-  };
-
   useEffect(() => {
-    intro.current.muted = false;
+    intro.current.muted = APP_SOUND_MUTED;
     intro.current.play();
-  }, []);
+  }, [APP_SOUND_MUTED]);
 
   return (
-    <MainContainer>
-      <AudioButton onClick={togglePlayAudio}>
-        {isPlayingAudio ? (
-          <Image
-            src={"assets/unmuted.svg"}
-            alt=""
-            width={22}
-            height={22}
-            priority={true}
-          />
-        ) : (
-          <Image
-            src={"assets/muted.svg"}
-            alt=""
-            width={22}
-            height={22}
-            priority={true}
-          />
-        )}
-      </AudioButton>
-
-      <HomeTitle howToPlay={howToPlay}>¿Qué club e’? </HomeTitle>
-      {howToPlay ? (
-        <>
-          <HowToPlay handleHowToPlay={handleHowToPlay} />
-        </>
+    <>
+      {SHOW_SOUND_MODAL ? (
+        <ActiveSoundModal />
       ) : (
-        <>
-          <StartButton onClick={onClickPlay}>Comenzar</StartButton>
-          <StartButton onClick={goToArcadeMode}>Arcade</StartButton>
-          <TutorialButton onClick={handleHowToPlay}>
-            ¿Qué es esto?
-          </TutorialButton>
-        </>
+        <MainContainer>
+          {howToPlay ? (
+            <>
+              <HowToPlay handleHowToPlay={handleHowToPlay} />
+            </>
+          ) : (
+            <>
+              <HomeTitle>¿Qué club e’? </HomeTitle>
+              <StartButton onClick={onClickPlay}>Comenzar</StartButton>
+              <StartButton onClick={goToArcadeMode}>Arcade</StartButton>
+              <TutorialButton onClick={handleHowToPlay}>
+                ¿Qué es esto?
+              </TutorialButton>
+            </>
+          )}
+          <audio
+            ref={intro}
+            src="/assets/sounds/intro.mp3"
+            autoPlay
+            muted
+            loop
+          ></audio>
+        </MainContainer>
       )}
-      <audio
-        ref={intro}
-        src="/assets/sounds/intro.mp3"
-        autoPlay
-        muted
-        loop
-      ></audio>
-    </MainContainer>
+    </>
   );
 };
 
@@ -114,17 +94,24 @@ const MainContainer = styled.main`
   align-items: center;
 `;
 
-const HomeTitle = styled.h1<{ howToPlay: boolean }>`
-  font-size: ${(props) => (props.howToPlay ? "2.2em" : "3.5em")};
+const HomeTitle = styled.h1`
+  width: 10.1ch;
+  padding: 0 5px;
+  animation: ${typing} 2.5s steps(20), ${blink} 1s step-end infinite;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 1px solid;
+  z-index: 2;
+  height: 63px;
+  line-height: 1;
+  font-size: 3.5em;
   color: var(--light);
   font-weight: 100;
   margin-bottom: 1em;
-  transition: all 0.2s;
-  animation: ${cascadeAnimation} 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s
-    both;
 
-  @media (max-width: 376px) {
-    font-size: ${(props) => (props.howToPlay ? "2em" : "3em")};
+  @media (max-width: 426px) {
+    font-size: 3em;
+    height: 55px;
   }
 `;
 
@@ -158,21 +145,5 @@ const TutorialButton = styled.button`
 
   &:hover {
     transform: scale(1.05);
-  }
-`;
-
-const AudioButton = styled.button`
-  position: absolute;
-  top: 2%;
-  right: 2%;
-  mix-blend-mode: screen;
-  width: 38px;
-  height: 38px;
-  border-radius: 100%;
-
-  img {
-    position: relative;
-    top: 2px;
-    animation: ${fadeIn} 0.2s ease-in;
   }
 `;

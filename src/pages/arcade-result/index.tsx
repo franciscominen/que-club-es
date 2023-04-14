@@ -4,17 +4,38 @@ import styled from "styled-components";
 import SocialMediaButtons from "@/components/SocialMediaButtons";
 import { useRouter } from "next/router";
 import useActions from "lib/store/actions";
+import { useEffect, useMemo } from "react";
 
 export default function ArcadeResult() {
   const router = useRouter();
   const { fetchAllTeams, resetArcadePoints } = useActions();
   const ARCADE_STEPS = useStore((state) => state.ARCADE_STEPS);
+  const APP_SOUND_MUTED = useStore((state) => state.APP_SOUND_MUTED);
+
+  const applauseSound = useMemo(
+    () => new Audio("/assets/sounds/applause.wav"),
+    []
+  );
+  const defeatSound = useMemo(
+    () => new Audio("/assets/sounds/silbidos.mp3"),
+    []
+  );
+  applauseSound.muted = APP_SOUND_MUTED;
+  defeatSound.muted = APP_SOUND_MUTED;
 
   const goToArcadeMode = () => {
     resetArcadePoints();
     fetchAllTeams();
     router.push("/arcade");
   };
+
+  useEffect(() => {
+    if (ARCADE_STEPS >= 5) {
+      applauseSound.play();
+    } else {
+      defeatSound.play();
+    }
+  }, [ARCADE_STEPS, applauseSound, defeatSound]);
 
   return (
     <MainContainer>
@@ -90,7 +111,7 @@ const StyledButton = styled.button`
   font-size: 22px;
   transition: all 0.2s;
   mix-blend-mode: screen;
-  animation: ${slideInBottom} .3s ease-in 1s both;
+  animation: ${slideInBottom} 0.3s ease-in 1s both;
   &:hover {
     transform: scale(1.05);
   }
