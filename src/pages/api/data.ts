@@ -7,6 +7,4 @@ export default async function handler(_req: NextApiRequest, res: NextApiResponse
     res.status(200)
         .setHeader('Clear-Storage', 'true')
         .json(datos);
-
-
 }
