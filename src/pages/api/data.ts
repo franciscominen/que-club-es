@@ -1,4 +1,36 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import api from "./api";
+
+const USERNAME = 'miusuario';
+const PASSWORD = 'mipassword';
+const AUTH_HEADER = `Basic ${Buffer.from(`${USERNAME}:${PASSWORD}`).toString('base64')}`;
+
+function authenticate(req: NextApiRequest) {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || authHeader !== AUTH_HEADER) {
+        return false;
+    }
+
+    return true;
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    const isAuthenticated = authenticate(req);
+
+    if (!isAuthenticated) {
+        res.status(401).send('Acceso no autorizado');
+        return;
+    }
+
+    const datos = await api.setFiveRandomTeams();
+
+    res.status(200)
+        .setHeader('Clear-Storage', 'true')
+        .json(datos);
+}
+
+/* import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import api from "./api";
 import { User } from "lib/types";
@@ -87,3 +119,4 @@ export default async function dataHandler(
         res.status(500).send("Error al obtener los datos");
     }
 }
+ */
