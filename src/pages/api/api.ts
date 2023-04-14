@@ -1,8 +1,20 @@
 import { database } from "lib/firebase";
 import firebase from 'firebase/compat/app';
 
-import { ITeam } from "lib/types";
+import { ITeam, User } from "lib/types";
 import Papa from "papaparse";
+import axios from "axios";
+
+type GetUserResponse = {
+    success: boolean;
+    message: string;
+    user?: User;
+    data?: any;
+    status?: number;
+    id?: string;
+    username?: string;
+    role?: string;
+};
 
 const api = {
     getAllTeams: async () => {
@@ -61,7 +73,21 @@ const api = {
             .onSnapshot(snapshot => callback(
                 snapshot.docs.map(doc => ({ ...(doc.data() as ITeam), id: doc.id }))
             ))
-    }
+    },
+    getUser: async (username: string, password: string): Promise<GetUserResponse> => {
+        try {
+            const response = await axios.get('/api/user', {
+                params: {
+                    username: username,
+                    password: password,
+                },
+            });
+            return { success: true, message: 'Usuario obtenido correctamente', user: response.data };
+        } catch (error) {
+            console.error(error);
+            return { success: false, message: 'No se pudo obtener el usuario' };
+        }
+    },
 }
 
 export default api
