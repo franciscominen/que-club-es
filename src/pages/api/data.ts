@@ -1,29 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import api from "./api";
 
-const USERNAME = 'miusuario';
-const PASSWORD = 'mipassword';
-const AUTH_HEADER = `Basic ${Buffer.from(`${USERNAME}:${PASSWORD}`).toString('base64')}`;
+export default async function handler(_req: NextApiRequest, res: NextApiResponse) {
+    const datos = await api.setFiveRandomTeams();
 
-function authenticate(req: NextApiRequest) {
-    const authHeader = req.headers.authorization;
-
-    if (!authHeader || authHeader !== AUTH_HEADER) {
-        return false;
-    }
-
-    return true;
-}
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const isAuthenticated = authenticate(req);
-
-    if (!isAuthenticated) {
-        res.status(401).send('Acceso no autorizado');
+    if (_req.query.key !== 'sharedKey') {
+        res.status(404).end();
         return;
     }
-
-    const datos = await api.setFiveRandomTeams();
 
     res.status(200)
         .setHeader('Clear-Storage', 'true')
