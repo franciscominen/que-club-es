@@ -3,7 +3,7 @@ import api from "./api";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     // Verificar la presencia y el valor del parámetro de consulta compartido
-    if (req.query.key !== 'sharedKey') {
+    if (req.query.key !== process.env.NEXT_PUBLIC_CRONJOB_KEY) {
         res.status(404).end();
         return;
     }
