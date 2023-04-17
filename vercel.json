@@ -2,7 +2,6 @@
     "crons": [
         {
             "path": "/api/cron?key=$NEXT_PUBLIC_CRONJOB_KEY",
-            "command": "curl https://queclube.vercel.app/api/cron?key=$NEXT_PUBLIC_CRONJOB_KEY",
             "schedule": "59 8 * * *"
         }
     ]
