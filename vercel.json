@@ -1,8 +1,0 @@
-{
-    "crons": [
-        {
-            "path": "/api/data?key=cronjobkey1989",
-            "schedule": "59 8 * * *"
-        }
-    ]
-}
