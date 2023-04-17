@@ -216,7 +216,7 @@ const KeyButton = styled.button`
   font-size: 16px;
   font-family: var(--alternativeFont);
   font-weight: 500;
-  transition: all 0.1s;
+  transition: all 0s;
   &:hover {
     background-color: var(--light);
     color: var(--dark);
