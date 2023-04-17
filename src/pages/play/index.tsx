@@ -124,7 +124,7 @@ const Play = () => {
     PLAYED ? router.push("result") : null;
   }, [PLAYED, router]);
 
-  /*   useEffect(() => {
+  useEffect(() => {
     const newIntervalId = setInterval(() => {
       onPass();
     }, 33000);
@@ -133,7 +133,7 @@ const Play = () => {
     return () => {
       clearInterval(newIntervalId);
     };
-  }, [STEPS]); */
+  }, [STEPS]);
 
   return (
     <PlayWrapper>
