@@ -1,0 +1,8 @@
+{
+    "crons": [
+        {
+            "command": "curl https://mi-proyecto.vercel.app/api/cron?key=$NEXT_PUBLIC_CRONJOB_KEY",
+            "schedule": "59 8 * * *"
+        }
+    ]
+}
