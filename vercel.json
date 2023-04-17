@@ -1,0 +1,8 @@
+{
+    "crons": [
+        {
+            "path": "/api/cron?key=cronjobkey1989",
+            "schedule": "59 8 * * *"
+        }
+    ]
+}
