@@ -14,6 +14,7 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleKeyClick = (e: any) => {
+    e.preventDefault();
     const clickedValue = e.currentTarget.value;
 
     if (clickedValue === "<") {
