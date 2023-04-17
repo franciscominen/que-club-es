@@ -1,7 +1,7 @@
 {
     "crons": [
         {
-            "path": "/api/cron?key=${process.env.NEXT_PUBLIC_CRONJOB_KEY}",
+            "path": "/api/cron?key=`${process.env.NEXT_PUBLIC_CRONJOB_KEY}`",
             "schedule": "59 8 * * *"
         }
     ]
