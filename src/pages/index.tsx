@@ -86,7 +86,7 @@ export default Home;
 
 const MainContainer = styled.main`
   max-width: 100%;
-  min-height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
