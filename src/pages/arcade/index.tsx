@@ -68,7 +68,7 @@ const Arcade = () => {
     ifIsCorrect(isCorrectAnswer);
     ifIsNotCorrect(isCorrectAnswer);
   };
-  
+
   useEffect(() => {
     const newIntervalId = setInterval(() => {
       setCorrect(false);
@@ -119,12 +119,10 @@ const ArcadeContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: calc(var(--vh, 1vh) * 100);
   max-width: 550px;
-  width: 100%;
   padding: 1em 2% 2.5em 2%;
   margin: 0 auto;
-  height: 100vh;
 `;
 
 const BottomContainer = styled.form`

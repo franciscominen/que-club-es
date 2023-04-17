@@ -3,7 +3,6 @@ import { useState } from "react";
 import styled from "styled-components";
 
 interface Props {
-  handleAnswer: () => void;
   onPass: () => void;
   chances: number;
   teamName: string;
@@ -11,7 +10,6 @@ interface Props {
 }
 
 const PlayButtonsAndChances = ({
-  handleAnswer,
   onPass,
   chances,
   teamName,
@@ -20,6 +18,7 @@ const PlayButtonsAndChances = ({
   return (
     <Wrapper>
       <PlayButton
+        type="button"
         continueButton={false}
         onClick={onPass}
         disabled={passDisabled}
@@ -47,8 +46,8 @@ const PlayButtonsAndChances = ({
         ) : null}
       </ChancesWrapper>
       <PlayButton
+        type="submit"
         continueButton={true}
-        onClick={handleAnswer}
         disabled={!teamName || passDisabled}
       >
         OK

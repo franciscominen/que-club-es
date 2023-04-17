@@ -97,17 +97,22 @@ const Play = () => {
 
   const ifIsNotCorrect = (isCorrectAnswer: boolean) => {
     if (!isCorrectAnswer) {
+      console.log("Chances: ", chances);
+
       if (chances > 0) {
         errorSound.play();
         setChances(chances - 1);
+        console.log("Chances");
       } else {
+        console.log("On Pass");
         onPass();
       }
     }
     return;
   };
 
-  const handleAnswer = () => {
+  const handleAnswer = (event: any) => {
+    event.preventDefault();
     const isCorrectAnswer =
       teamName.toLowerCase() === RANDOM_TEAMS[STEPS].name.toLowerCase();
 
@@ -119,7 +124,7 @@ const Play = () => {
     PLAYED ? router.push("result") : null;
   }, [PLAYED, router]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     const newIntervalId = setInterval(() => {
       onPass();
     }, 33000);
@@ -128,7 +133,7 @@ const Play = () => {
     return () => {
       clearInterval(newIntervalId);
     };
-  }, [STEPS]);
+  }, [STEPS]); */
 
   return (
     <PlayWrapper>
@@ -142,9 +147,8 @@ const Play = () => {
         <ClubImage imageSource={RANDOM_TEAMS[STEPS]?.img} steps={STEPS} />
       )}
 
-      <BottomContainer >
+      <BottomContainer onSubmit={handleAnswer}>
         <PlayButtonsAndChances
-          handleAnswer={handleAnswer}
           onPass={onPass}
           chances={chances}
           teamName={teamName}
@@ -165,12 +169,10 @@ const PlayWrapper = styled.div`
   align-items: center;
   // gap: 16px;
   width: 100%;
-  height: 100%;
+  height: calc(var(--vh, 1vh) * 100);
   max-width: 550px;
-  width: 100%;
   padding: 1em 2% 2.5em 2%;
   margin: 0 auto;
-  height: 100vh;
 `;
 
 const BottomContainer = styled.form`
