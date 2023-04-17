@@ -22,7 +22,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
 
   const router = useRouter();
-
+  
   useEffect(() => {
     const handleRouteChange = (url: any) => {
       useStore.setState({ IS_LOADING: true });

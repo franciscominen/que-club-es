@@ -1,4 +1,20 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import api from "./api";
+
+export default async function handler(_req: NextApiRequest, res: NextApiResponse) {
+    const datos = await api.setFiveRandomTeams();
+
+    if (_req.query.key !== 'sharedKey') {
+        res.status(404).end();
+        return;
+    }
+
+    res.status(200)
+        .setHeader('Clear-Storage', 'true')
+        .json(datos);
+}
+
+/* import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import api from "./api";
 import { User } from "lib/types";
@@ -87,3 +103,4 @@ export default async function dataHandler(
         res.status(500).send("Error al obtener los datos");
     }
 }
+ */

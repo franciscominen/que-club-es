@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/data",
+      "path": "/api/data?key=sharedKey",
       "schedule": "59 8 * * *"
     }
   ]

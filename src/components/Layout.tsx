@@ -16,6 +16,9 @@ const Layout = ({ children, ...props }: Props) => {
   const IS_LOADING = useStore((state) => state.IS_LOADING);
   const APP_SOUND_MUTED = useStore((state) => state.APP_SOUND_MUTED);
 
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+
   const togglePlayAudio = () => {
     useStore.setState((state) => ({
       ...state,
@@ -85,7 +88,7 @@ const MainContainer = styled.main`
   background-repeat: no-repeat;
   background-position-y: center;
   max-width: 100%;
-  min-height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   // padding: 2% 0;
 `;
 
