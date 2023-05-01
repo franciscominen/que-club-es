@@ -75,7 +75,7 @@ const MainContainer = styled.main`
   // gap: 16px;
   align-items: center;
   padding: 1em 2% 2.5em 2%;
-  height: calc(var(--vh, 1vh) * 100);
+  height: calc(var(--vh, 1vh) * 95);
 `;
 
 const PlayButton = styled.button`

@@ -169,7 +169,7 @@ const PlayWrapper = styled.div`
   align-items: center;
   // gap: 16px;
   width: 100%;
-  height: calc(var(--vh, 1vh) * 100);
+  height: calc(var(--vh, 1vh) * 90);
   max-width: 550px;
   padding: 1em 2% 2.5em 2%;
   margin: 0 auto;

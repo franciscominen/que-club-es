@@ -119,7 +119,7 @@ const ArcadeContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: calc(var(--vh, 1vh) * 100);
+  height: calc(var(--vh, 1vh) * 90);
   max-width: 550px;
   padding: 1em 2% 2.5em 2%;
   margin: 0 auto;

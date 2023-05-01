@@ -64,7 +64,7 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
     return keyRender;
   };
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
@@ -76,7 +76,7 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
       // Escritorio
       inputRef.current?.focus();
     }
-  }, []);
+  }, []); */
 
   return (
     <Wrapper>
@@ -135,7 +135,7 @@ const InputContainer = styled.div`
 
 const TeamNameInput = styled.input<{ setColor: boolean }>`
   color: ${(props) => (props.setColor ? `transparent` : `var(--dark)`)};
-  background-color: transparent;
+  background-color: #ffffff70;
   width: 100%;
   font-size: 24px;
   padding: 4px;

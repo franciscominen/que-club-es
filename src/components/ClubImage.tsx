@@ -51,7 +51,7 @@ const ClubImage = ({ imageSource, steps }: any) => {
 export default ClubImage;
 
 const ClubImg = styled.div`
-  max-height: calc(68vh - 200px);
+  max-height: calc(60vh - 200px);
   position: relative;
   opacity: 0;
   padding: 16px 0;
