@@ -39,19 +39,19 @@ export default Scoreboard;
 
 const ScoreboardImg = styled(Image)<{ small: boolean }>`
   max-width: ${(props) => (props.small ? `10.5em` : `none`)};
-  max-height: ${(props) => (props.small ? `2.5em` : `none`)};
+  max-height: ${(props) => (props.small ? `2.5em` : `2.4em`)};
   top: ${(props) => (props.small ? `9.1em` : `none`)}!important;
 `;
 
 const ScorboardWrapper = styled.div<{ small: boolean }>`
   display: flex;
   align-items: center;
-  width: ${(props) => (props.small ? `168px` : `210px`)};
-  height: ${(props) => (props.small ? `36px` : `45px`)};
-  gap: ${(props) => (props.small ? `14px` : `16px`)};
+  width: ${(props) => (props.small ? `168px` : `184px`)};
+  height: ${(props) => (props.small ? `36px` : `39px`)};
+  gap: ${(props) => (props.small ? `14px` : `12px`)};
 
   img {
-    width: ${(props) => (props.small ? `19px` : `26px`)};
+    width: ${(props) => (props.small ? `19px` : `24px`)};
     position: relative;
     left: 9px;
     animation: ${scaleInCenter} 0.3s ease-in both;

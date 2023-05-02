@@ -10,13 +10,16 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-
-          <link rel="preload" href="/assets/backgrounds/bg-home.svg" as="image" />
-{/*           <link rel="preload" href="/assets/backgrounds/bg-loader.svg" as="image" />
+          <link
+            rel="preload"
+            href="/assets/backgrounds/bg-home.svg"
+            as="image"
+          />
+          {/* <link rel="preload" href="/assets/backgrounds/bg-loader.svg" as="image" />
           <link rel="preload" href="/assets/backgrounds/bg-play.svg" as="image" />
           <link rel="preload" href="/assets/backgrounds/bg-result.svg" as="image" /> */}
-          
-{/*           <link rel="preload" href="/assets/back-icon.svg" as="image" />
+
+          {/* <link rel="preload" href="/assets/back-icon.svg" as="image" />
           <link rel="preload" href="/assets/backspace.svg" as="image" />
           <link rel="preload" href="/assets/chances-icon.svg" as="image" />
           <link rel="preload" href="/assets/wsp-icon.svg" as="image" />
@@ -31,13 +34,13 @@ class MyDocument extends Document {
           <link rel="preload" href="/assets/lotties/check.json" as="fetch" />
           <link rel="preload" href="/assets/lotties/error.json" as="fetch" />
 
-          <link rel="preload" href="/assets/sounds/startgame.mp3" as="audio" />
+          {/* <link rel="preload" href="/assets/sounds/startgame.mp3" as="audio" />
           <link rel="preload" href="/assets/sounds/intro.mp3" as="audio" />
           <link rel="preload" href="/assets/sounds/applause.wav" as="audio" />
           <link rel="preload" href="/assets/sounds/keyboard-click.mp3" as="audio" />
           <link rel="preload" href="/assets/sounds/silbidos.mp3" as="audio" />
           <link rel="preload" href="/assets/sounds/error-answer.mp3" as="audio" />
-          <link rel="preload" href="/assets/sounds/success-answer.mp3" as="audio" />
+          <link rel="preload" href="/assets/sounds/success-answer.mp3" as="audio" /> */}
 
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -55,10 +58,7 @@ class MyDocument extends Document {
 
           <meta property="og:url" content="https://queclube.vercel.app/" />
           <meta property="og:type" content="website" />
-          <meta
-            property="og:title"
-            content="¿Qué club e’?"
-          />
+          <meta property="og:title" content="¿Qué club e’?" />
           <meta
             property="og:description"
             content="Cinco escudos aleatorios del Fútbol Argentino cada 24hs. Los sacas? 🤔"
@@ -75,10 +75,7 @@ class MyDocument extends Document {
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@superlista_ar" />
           <meta name="twitter:creator" content="@franminen" />
-          <meta
-            name="twitter:title"
-            content="¿Qué club e’?"
-          />
+          <meta name="twitter:title" content="¿Qué club e’?" />
           <meta
             name="twitter:description"
             content="Cinco escudos aleatorios del Fútbol Argentino cada 24hs. Los sacas? 🤔"

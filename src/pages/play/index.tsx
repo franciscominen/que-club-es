@@ -124,7 +124,7 @@ const Play = () => {
     PLAYED ? router.push("result") : null;
   }, [PLAYED, router]);
 
-  useEffect(() => {
+/*   useEffect(() => {
     const newIntervalId = setInterval(() => {
       onPass();
     }, 33000);
@@ -133,7 +133,7 @@ const Play = () => {
     return () => {
       clearInterval(newIntervalId);
     };
-  }, [STEPS]);
+  }, [STEPS]); */
 
   return (
     <PlayWrapper>
@@ -169,10 +169,16 @@ const PlayWrapper = styled.div`
   align-items: center;
   // gap: 16px;
   width: 100%;
-  height: calc(var(--vh, 1vh) * 90);
+  height: calc(var(--vh, 1vh) * 100);
   max-width: 550px;
   padding: 1em 2% 2.5em 2%;
   margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    height: calc(var(--vh, 1vh) * 90);
+    justify-content: flex-start;
+    gap: 16px;
+  }
 `;
 
 const BottomContainer = styled.form`

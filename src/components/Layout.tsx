@@ -38,8 +38,6 @@ const Layout = ({ children, ...props }: Props) => {
     }
   };
 
-  console.log(APP_SOUND_MUTED);
-
   const goToHome = () => {
     return router.push("/");
   };

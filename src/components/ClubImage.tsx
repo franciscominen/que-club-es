@@ -70,8 +70,8 @@ const ClubImg = styled.div`
 `;
 
 const Count = styled.div`
-  max-height: calc(68vh - 200px);
-  max-width: calc(68vh - 200px);
+  max-height: calc(60vh - 200px);
+  max-width: calc(60vh - 200px);
   display: flex;
   justify-content: center;
   align-items: center;
