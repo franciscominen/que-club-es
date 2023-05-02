@@ -1,16 +1,13 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import api from "./api";
+import middleware from './middleware'
+import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
+import api from './api'
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    // Verificar la presencia y el valor del parámetro de consulta compartido
-    /* if (req.query.key !== process.env.NEXT_PUBLIC_CRONJOB_KEY) {
-        res.status(404).end();
-        return;
-    } */
-
+const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     const datos = await api.setFiveRandomTeams();
 
     res.status(200)
         .setHeader('Clear-Storage', 'true')
         .json(datos);
 }
+
+export default middleware(handler)

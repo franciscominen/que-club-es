@@ -64,19 +64,9 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
     return keyRender;
   };
 
-  /*   useEffect(() => {
-    if (
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      )
-    ) {
-      // Dispositivo móvil
-      inputRef.current?.blur();
-    } else {
-      // Escritorio
-      inputRef.current?.focus();
-    }
-  }, []); */
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   return (
     <Wrapper>
@@ -152,10 +142,6 @@ const TeamNameInput = styled.input<{ setColor: boolean }>`
 
   @media (max-width: 376px) {
     font-size: 20px;
-  }
-
-  @media (max-width: 768px) {
-    pointer-events: none;
   }
 `;
 
