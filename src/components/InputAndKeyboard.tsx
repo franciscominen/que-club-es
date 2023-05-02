@@ -190,10 +190,6 @@ const KeysWrapper = styled.div`
   justify-content: center;
   gap: 4px;
   margin-bottom: 8px;
-
-  @media (max-width: 768px) {
-    display: none;
-  }
 `;
 
 const KeyButton = styled.button`

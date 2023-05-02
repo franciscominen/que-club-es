@@ -1,12 +1,10 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import api from './api';
 
-const MY_APP_SECRET_TOKEN = 'mySecretToken'; // La clave secreta compartida con EasyCron
-
 const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const token = req.headers['x-queclube-token'] as string;
   
-  if (!token || token !== MY_APP_SECRET_TOKEN) {
+  if (!token || token !== process.env.NEXT_PUBLIC_CRONJOB_AUTH_TOKEN) {
     res.status(401).send('Acceso no autorizado');
     return;
   }
