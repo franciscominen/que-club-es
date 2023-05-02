@@ -10,4 +10,4 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
         .json(datos);
 }
 
-export default middleware(handler)
+export default handler
