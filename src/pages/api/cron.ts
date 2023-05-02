@@ -1,20 +1,21 @@
-import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
-import api from './api'
+import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+import api from './api';
+
+const MY_APP_SECRET_TOKEN = 'mySecretToken'; // La clave secreta compartida con EasyCron
 
 const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-    const cronJobSecret = process.env.NEXT_PUBLIC_CRONJOB_AUTH_TOKEN;
+  const token = req.headers['x-queclube-token'] as string;
+  
+  if (!token || token !== MY_APP_SECRET_TOKEN) {
+    res.status(401).send('Acceso no autorizado');
+    return;
+  }
 
-    if (req.headers['cron-job'] !== cronJobSecret) {
-        res.status(401).send('Acceso no autorizado');
-        return;
-    }
+  const datos = await api.setFiveRandomTeams();
 
-    const datos = await api.setFiveRandomTeams();
-
-    res.status(200)
-        .setHeader('Clear-Storage', 'true')
-        .setHeader('Cron-Job', `${cronJobSecret}`)
-        .json(datos);
-}
+  res.status(200)
+    .setHeader('Clear-Storage', 'true')
+    .json(datos);
+};
 
 export default handler;
