@@ -124,7 +124,7 @@ const Play = () => {
     PLAYED ? router.push("result") : null;
   }, [PLAYED, router]);
 
-/*   useEffect(() => {
+  useEffect(() => {
     const newIntervalId = setInterval(() => {
       onPass();
     }, 33000);
@@ -133,7 +133,7 @@ const Play = () => {
     return () => {
       clearInterval(newIntervalId);
     };
-  }, [STEPS]); */
+  }, [STEPS]);
 
   return (
     <PlayWrapper>
@@ -141,11 +141,13 @@ const Play = () => {
         <Scoreboard small={false} />
       </ScoreboardContainer>
 
-      {showClub ? (
-        <AnswerAnimation isCorrect={correct} />
-      ) : (
-        <ClubImage imageSource={RANDOM_TEAMS[STEPS]?.img} steps={STEPS} />
-      )}
+      <div style={{ height: "calc(60vh - 200px)", margin: "8px 0" }}>
+        {showClub ? (
+          <AnswerAnimation isCorrect={correct} />
+        ) : (
+          <ClubImage imageSource={RANDOM_TEAMS[STEPS]?.img} steps={STEPS} />
+        )}
+      </div>
 
       <BottomContainer onSubmit={handleAnswer}>
         <PlayButtonsAndChances
@@ -173,9 +175,9 @@ const PlayWrapper = styled.div`
   max-width: 550px;
   padding: 1em 2% 2.5em 2%;
   margin: 0 auto;
-  
+
   @media (max-width: 768px) {
-    height: calc(var(--vh, 1vh) * 90);
+    height: calc(var(--vh, 1vh) * 85);
     justify-content: flex-start;
     gap: 16px;
   }

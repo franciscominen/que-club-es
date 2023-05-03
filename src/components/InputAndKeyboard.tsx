@@ -97,7 +97,7 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
       {keys.map((row, i) => (
         <KeysWrapper key={i}>
           {row.map((key, j) => (
-            <KeyButton key={j} value={key} onClick={handleKeyClick}>
+            <KeyButton key={j} value={key} onClick={handleKeyClick} bg={key}>
               {handleKeyRender(key)}
             </KeyButton>
           ))}
@@ -192,11 +192,12 @@ const KeysWrapper = styled.div`
   margin-bottom: 8px;
 `;
 
-const KeyButton = styled.button`
-  width: 100%;
+const KeyButton = styled.button<{ bg: string }>`
+  width: ${(props) => (props.bg === "<" || props.bg === "˽" ? `125%` : `100%`)};
   height: 48px;
   color: var(--light);
-  background-color: transparent;
+  background-color: ${(props) =>
+    props.bg === "<" || props.bg === "˽" ? `var(--light)` : `transparent`};
   border: 2px solid var(--light);
   border-radius: 4px;
   font-size: 16px;
@@ -206,8 +207,8 @@ const KeyButton = styled.button`
   &:hover {
     background-color: var(--light);
     color: var(--dark);
-    img {
-      filter: invert(1);
-    }
+  }
+  img {
+    filter: invert(1);
   }
 `;

@@ -94,15 +94,16 @@ const Arcade = () => {
           {ARCADE_STEPS} <span>Pts</span>
         </h1>
       </PointsContainer>
-
-      {showClub ? (
-        <AnswerAnimation isCorrect={correct} />
-      ) : (
-        <ClubImage
-          imageSource={ALL_TEAMS[ARCADE_STEPS]?.img}
-          steps={ARCADE_STEPS}
-        />
-      )}
+      <div style={{ height: "calc(60vh - 200px)", margin: "8px 0" }}>
+        {showClub ? (
+          <AnswerAnimation isCorrect={correct} />
+        ) : (
+          <ClubImage
+            imageSource={ALL_TEAMS[ARCADE_STEPS]?.img}
+            steps={ARCADE_STEPS}
+          />
+        )}
+      </div>
       <BottomContainer onSubmit={handleAnswer}>
         <ArcadeChancesAndButton chances={chances} teamName={teamName} />
         <InputAndKeyboard teamName={teamName} setTeamName={setTeamName} />

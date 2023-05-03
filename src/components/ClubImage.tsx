@@ -51,10 +51,10 @@ const ClubImage = ({ imageSource, steps }: any) => {
 export default ClubImage;
 
 const ClubImg = styled.div`
-  max-height: calc(60vh - 200px);
-  position: relative;
+  height: calc(60vh - 200px);
+  // position: relative;
   opacity: 0;
-  padding: 16px 0;
+  padding: 0;
   &.loaded {
     animation: ${scaleInCenter} 0.3s ease-in both;
     opacity: 1;
@@ -63,15 +63,11 @@ const ClubImg = styled.div`
   img {
     position: relative !important;
   }
-
-  @media (max-width: 376px) {
-    padding: 8px;
-  }
 `;
 
 const Count = styled.div`
-  max-height: calc(60vh - 200px);
-  max-width: calc(60vh - 200px);
+  height: calc(60vh - 200px);
+  width: calc(60vh - 200px);
   display: flex;
   justify-content: center;
   align-items: center;
