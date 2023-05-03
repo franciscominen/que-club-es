@@ -141,7 +141,7 @@ const Play = () => {
         <Scoreboard small={false} />
       </ScoreboardContainer>
 
-      <div style={{ height: "calc(60vh - 200px)", margin: "8px 0" }}>
+      <div style={{ height: "calc(60vh - 200px)", width: "100%" }}>
         {showClub ? (
           <AnswerAnimation isCorrect={correct} />
         ) : (
@@ -169,7 +169,6 @@ const PlayWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  // gap: 16px;
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
   max-width: 550px;

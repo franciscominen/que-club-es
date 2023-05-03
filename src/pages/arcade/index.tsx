@@ -94,7 +94,7 @@ const Arcade = () => {
           {ARCADE_STEPS} <span>Pts</span>
         </h1>
       </PointsContainer>
-      <div style={{ height: "calc(60vh - 200px)", margin: "8px 0" }}>
+      <div style={{ height: "calc(60vh - 200px)", width: "100%" }}>
         {showClub ? (
           <AnswerAnimation isCorrect={correct} />
         ) : (

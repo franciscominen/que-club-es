@@ -32,7 +32,7 @@ const AnswerAnimation = ({ isCorrect }: Props) => {
 export default AnswerAnimation;
 
 const AnimationPlayer = styled(Player)`
+  width: 100%;
   height: calc(60vh - 200px);
-  width: calc(60vh - 200px);
   object-fit: contain;
 `;
