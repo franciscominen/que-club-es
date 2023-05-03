@@ -120,7 +120,7 @@ const Play = () => {
     ifIsNotCorrect(isCorrectAnswer);
   };
 
-/*   useEffect(() => {
+  useEffect(() => {
     PLAYED ? router.push("result") : null;
   }, [PLAYED, router]);
 
@@ -133,7 +133,7 @@ const Play = () => {
     return () => {
       clearInterval(newIntervalId);
     };
-  }, [STEPS]); */
+  }, [STEPS]);
 
   return (
     <PlayWrapper>
