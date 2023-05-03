@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { ReactNode, useState } from "react";
 import styled from "styled-components";
+import AbandonGameModal from "./AbandonGameModal";
 import Footer from "./Footer";
 import Loader from "./Loader";
 
@@ -15,6 +16,7 @@ const Layout = ({ children, ...props }: Props) => {
   const router = useRouter();
   const IS_LOADING = useStore((state) => state.IS_LOADING);
   const APP_SOUND_MUTED = useStore((state) => state.APP_SOUND_MUTED);
+  const [showModal, setShowModal] = useState(false);
 
   let vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty("--vh", `${vh}px`);
@@ -39,6 +41,9 @@ const Layout = ({ children, ...props }: Props) => {
   };
 
   const goToHome = () => {
+    if (router.pathname === "/play") {
+      return setShowModal(true);
+    }
     return router.push("/");
   };
 
@@ -53,6 +58,9 @@ const Layout = ({ children, ...props }: Props) => {
           priority={true}
         />
       </SytledButton>
+
+      {showModal && <AbandonGameModal setShowModal={setShowModal} />}
+
       <AudioButton onClick={togglePlayAudio}>
         {!APP_SOUND_MUTED ? (
           <Image

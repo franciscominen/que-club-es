@@ -33,6 +33,6 @@ export default AnswerAnimation;
 
 const AnimationPlayer = styled(Player)`
   width: 100%;
-  height: calc(60vh - 200px);
+  height: calc(58vh - 200px);
   object-fit: contain;
 `;

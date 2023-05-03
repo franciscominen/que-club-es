@@ -120,7 +120,7 @@ const Play = () => {
     ifIsNotCorrect(isCorrectAnswer);
   };
 
-  useEffect(() => {
+/*   useEffect(() => {
     PLAYED ? router.push("result") : null;
   }, [PLAYED, router]);
 
@@ -133,7 +133,7 @@ const Play = () => {
     return () => {
       clearInterval(newIntervalId);
     };
-  }, [STEPS]);
+  }, [STEPS]); */
 
   return (
     <PlayWrapper>
@@ -141,7 +141,7 @@ const Play = () => {
         <Scoreboard small={false} />
       </ScoreboardContainer>
 
-      <div style={{ height: "calc(60vh - 200px)", width: "100%" }}>
+      <div style={{ height: "calc(58vh - 200px)", width: "100%" }}>
         {showClub ? (
           <AnswerAnimation isCorrect={correct} />
         ) : (
@@ -156,7 +156,11 @@ const Play = () => {
           teamName={teamName}
           passDisabled={showClub}
         />
-        <InputAndKeyboard teamName={teamName} setTeamName={setTeamName} />
+        <InputAndKeyboard
+          teamName={teamName}
+          setTeamName={setTeamName}
+          countdownKey={STEPS}
+        />
       </BottomContainer>
     </PlayWrapper>
   );

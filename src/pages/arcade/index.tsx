@@ -94,7 +94,7 @@ const Arcade = () => {
           {ARCADE_STEPS} <span>Pts</span>
         </h1>
       </PointsContainer>
-      <div style={{ height: "calc(60vh - 200px)", width: "100%" }}>
+      <div style={{ height: "calc(58vh - 200px)", width: "100%" }}>
         {showClub ? (
           <AnswerAnimation isCorrect={correct} />
         ) : (
@@ -106,7 +106,11 @@ const Arcade = () => {
       </div>
       <BottomContainer onSubmit={handleAnswer}>
         <ArcadeChancesAndButton chances={chances} teamName={teamName} />
-        <InputAndKeyboard teamName={teamName} setTeamName={setTeamName} />
+        <InputAndKeyboard
+          teamName={teamName}
+          setTeamName={setTeamName}
+          countdownKey={ARCADE_STEPS}
+        />
       </BottomContainer>
     </ArcadeContainer>
   );

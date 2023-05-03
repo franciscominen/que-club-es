@@ -1,16 +1,15 @@
 import styled from "styled-components";
 import { blink, countdownBar, typing } from "@/styles/animations";
-import useStore from "lib/store/state";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 type Props = {
   teamName: string;
   setTeamName: React.Dispatch<React.SetStateAction<string>>;
+  countdownKey: number;
 };
 
-const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
-  const STEPS = useStore((state) => state.STEPS);
+const InputAndKeyboard = ({ teamName, setTeamName, countdownKey }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleKeyClick = (e: any) => {
@@ -80,7 +79,7 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
           setColor={!teamName.length}
           ref={inputRef}
         />
-        <CountdownBar key={STEPS} />
+        <CountdownBar key={countdownKey} />
         <div
           style={{
             display: "flex",
@@ -90,7 +89,7 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
           }}
         >
           {!teamName.length && (
-            <Placeholder key={STEPS}>¿Qué club e’?</Placeholder>
+            <Placeholder key={countdownKey}>¿Qué club e’?</Placeholder>
           )}
         </div>
       </InputContainer>
