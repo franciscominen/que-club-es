@@ -201,11 +201,12 @@ const KeyButton = styled.button<{ bg: string }>`
   border-radius: 4px;
   font-size: 16px;
   font-family: var(--alternativeFont);
-  font-weight: 500;
+  font-weight: 600;
   transition: all 0s;
-  &:hover {
+  &:active {
     background-color: var(--light);
     color: var(--dark);
+    box-shadow: inset 0 2px 3px hsla(0, 0%, 0%, 0.1);
   }
   img {
     filter: invert(1);

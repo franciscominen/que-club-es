@@ -4,7 +4,13 @@ const Footer = () => {
   return (
     <StyledFooter>
       <span>¿Qué club e’?</span> © 2023 v1.0.0 All rights reserved | developed
-      by <FooterLink>esk4s</FooterLink>
+      by
+      <FooterLink
+        href="https://www.linkedin.com/in/franciscominen/"
+        target="_blank"
+      >
+        esk4s
+      </FooterLink>
     </StyledFooter>
   );
 };
