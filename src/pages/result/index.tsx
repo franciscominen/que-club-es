@@ -12,6 +12,7 @@ const Result = () => {
   const router = useRouter();
   const POINTS = useStore((state) => state.POINTS);
   const PLAYED = useStore((state) => state.PLAYED);
+  const STEPS = useStore((state) => state.STEPS);
   const APP_SOUND_MUTED = useStore((state) => state.APP_SOUND_MUTED);
 
   const applauseSound = useMemo(
@@ -44,7 +45,22 @@ const Result = () => {
       {PLAYED ? (
         <>
           <Countdown />
-          <PointsSlider points={POINTS} />
+          {STEPS === 4 ? (
+            <PointsSlider points={POINTS} />
+          ) : (
+            <AbandonMessage>
+              <Image
+                src="/assets/red-card.png"
+                alt="Red Card"
+                width={80}
+                height={80}
+              />
+              <h3>
+                Abandonaste la <br />
+                fecha de hoy.
+              </h3>
+            </AbandonMessage>
+          )}
           <SocialMediaButtons isArcade={false} />
         </>
       ) : (
@@ -112,5 +128,22 @@ const NotPlayedWrapper = styled.div`
     text-align: center;
     margin-bottom: 32px;
     animation: ${fadeIn} 0.4s ease-in 0.5s both;
+  }
+`;
+
+const AbandonMessage = styled.div`
+  animation: ${scaleInCenter} 0.3s ease-in 0.2s both;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding-top: 22px;
+  h3 {
+    color: var(--light);
+    text-align: center;
+    font-weight: 100;
+    line-height: 1.3;
+    font-size: 22px;
   }
 `;

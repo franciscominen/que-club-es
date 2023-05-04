@@ -138,7 +138,7 @@ const Play = () => {
   return (
     <PlayWrapper>
       <ScoreboardContainer>
-        <Scoreboard small={false} />
+        <Scoreboard small={"false"} />
       </ScoreboardContainer>
 
       <div style={{ height: "calc(58vh - 200px)", width: "100%" }}>

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import useActions from "lib/store/actions";
+import useStore from "lib/store/state";
 
 type Props = {
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -9,9 +10,12 @@ type Props = {
 
 const AbandonGameModal = ({ setShowModal }: Props) => {
   const router = useRouter();
-  const { setToPlayed } = useActions();
+  const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
+
+  const { setToPlayed, setPlayedTeams } = useActions();
 
   const onQuitGame = () => {
+    setPlayedTeams(RANDOM_TEAMS);
     setToPlayed();
     setShowModal(false);
     return router.push("/");

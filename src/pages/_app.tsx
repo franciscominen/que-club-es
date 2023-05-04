@@ -17,12 +17,18 @@ type AppPropsWithLayout = AppProps & {
 };
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  const { fetchFiveTeams, checkIsPlayed, fetchAllTeams } = useActions();
+  const {
+    fetchFiveTeams,
+    checkIsPlayed,
+    fetchAllTeams,
+    setToPlayed,
+    setPlayedTeams,
+  } = useActions();
   const [isSSR, setIsSSR] = useState(true);
   const RANDOM_TEAMS = useStore((state) => state.RANDOM_TEAMS);
 
   const router = useRouter();
-  
+
   useEffect(() => {
     const handleRouteChange = (url: any) => {
       useStore.setState({ IS_LOADING: true });
@@ -50,6 +56,22 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   useEffect(() => {
     checkIsPlayed();
   }, [RANDOM_TEAMS]);
+
+  useEffect(() => {
+    const handleRouteChange = (url: any, { shallow }: any) => {
+      if (url === "/" && router.asPath === "/play") {
+        console.log("El usuario ha regresado de la ruta /play a la ruta /");
+        setPlayedTeams(RANDOM_TEAMS);
+        return setToPlayed();
+      }
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [router.asPath]);
 
   if (isSSR) return null;
 
