@@ -1,11 +1,8 @@
 import { scaleInCenter } from "@/styles/animations";
-import useStore from "lib/store/state";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const ClubImage = ({ imageSource, steps }: any) => {
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [showCount, setShowCount] = useState(false);
   const [count, setCount] = useState(3);
 

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import useActions from "lib/store/actions";
 
 type Props = {
-  setShowModal: any;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const AbandonGameModal = ({ setShowModal }: Props) => {
