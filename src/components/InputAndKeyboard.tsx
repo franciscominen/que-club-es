@@ -1,16 +1,15 @@
 import styled from "styled-components";
 import { blink, countdownBar, typing } from "@/styles/animations";
-import useStore from "lib/store/state";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 type Props = {
   teamName: string;
   setTeamName: React.Dispatch<React.SetStateAction<string>>;
+  countdownKey: number;
 };
 
-const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
-  const STEPS = useStore((state) => state.STEPS);
+const InputAndKeyboard = ({ teamName, setTeamName, countdownKey }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleKeyClick = (e: any) => {
@@ -65,17 +64,7 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
   };
 
   useEffect(() => {
-    if (
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      )
-    ) {
-      // Dispositivo móvil
-      inputRef.current?.blur();
-    } else {
-      // Escritorio
-      inputRef.current?.focus();
-    }
+    inputRef.current?.focus();
   }, []);
 
   return (
@@ -90,7 +79,7 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
           setColor={!teamName.length}
           ref={inputRef}
         />
-        <CountdownBar key={STEPS} />
+        <CountdownBar key={countdownKey} />
         <div
           style={{
             display: "flex",
@@ -100,14 +89,14 @@ const InputAndKeyboard = ({ teamName, setTeamName }: Props) => {
           }}
         >
           {!teamName.length && (
-            <Placeholder key={STEPS}>¿Qué club e’?</Placeholder>
+            <Placeholder key={countdownKey}>¿Qué club e’?</Placeholder>
           )}
         </div>
       </InputContainer>
       {keys.map((row, i) => (
         <KeysWrapper key={i}>
           {row.map((key, j) => (
-            <KeyButton key={j} value={key} onClick={handleKeyClick}>
+            <KeyButton key={j} value={key} onClick={handleKeyClick} bg={key}>
               {handleKeyRender(key)}
             </KeyButton>
           ))}
@@ -135,7 +124,7 @@ const InputContainer = styled.div`
 
 const TeamNameInput = styled.input<{ setColor: boolean }>`
   color: ${(props) => (props.setColor ? `transparent` : `var(--dark)`)};
-  background-color: transparent;
+  background-color: #ffffff70;
   width: 100%;
   font-size: 24px;
   padding: 4px;
@@ -152,10 +141,6 @@ const TeamNameInput = styled.input<{ setColor: boolean }>`
 
   @media (max-width: 376px) {
     font-size: 20px;
-  }
-
-  @media (max-width: 768px) {
-    pointer-events: none;
   }
 `;
 
@@ -206,22 +191,23 @@ const KeysWrapper = styled.div`
   margin-bottom: 8px;
 `;
 
-const KeyButton = styled.button`
-  width: 100%;
+const KeyButton = styled.button<{ bg: string }>`
+  width: ${(props) => (props.bg === "<" || props.bg === "˽" ? `125%` : `100%`)};
   height: 48px;
   color: var(--light);
-  background-color: transparent;
+  background-color: ${(props) =>
+    props.bg === "<" || props.bg === "˽" ? `var(--light)` : `transparent`};
   border: 2px solid var(--light);
   border-radius: 4px;
   font-size: 16px;
   font-family: var(--alternativeFont);
   font-weight: 500;
-  transition: all 0.1s;
+  transition: all 0s;
   &:hover {
     background-color: var(--light);
     color: var(--dark);
-    img {
-      filter: invert(1);
-    }
+  }
+  img {
+    filter: invert(1);
   }
 `;

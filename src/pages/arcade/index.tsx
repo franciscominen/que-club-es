@@ -94,18 +94,23 @@ const Arcade = () => {
           {ARCADE_STEPS} <span>Pts</span>
         </h1>
       </PointsContainer>
-
-      {showClub ? (
-        <AnswerAnimation isCorrect={correct} />
-      ) : (
-        <ClubImage
-          imageSource={ALL_TEAMS[ARCADE_STEPS]?.img}
-          steps={ARCADE_STEPS}
-        />
-      )}
+      <div style={{ height: "calc(58vh - 200px)", width: "100%" }}>
+        {showClub ? (
+          <AnswerAnimation isCorrect={correct} />
+        ) : (
+          <ClubImage
+            imageSource={ALL_TEAMS[ARCADE_STEPS]?.img}
+            steps={ARCADE_STEPS}
+          />
+        )}
+      </div>
       <BottomContainer onSubmit={handleAnswer}>
         <ArcadeChancesAndButton chances={chances} teamName={teamName} />
-        <InputAndKeyboard teamName={teamName} setTeamName={setTeamName} />
+        <InputAndKeyboard
+          teamName={teamName}
+          setTeamName={setTeamName}
+          countdownKey={ARCADE_STEPS}
+        />
       </BottomContainer>
     </ArcadeContainer>
   );
@@ -123,6 +128,12 @@ const ArcadeContainer = styled.div`
   max-width: 550px;
   padding: 1em 2% 2.5em 2%;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    height: calc(var(--vh, 1vh) * 90);
+    justify-content: flex-start;
+    gap: 16px;
+  }
 `;
 
 const BottomContainer = styled.form`

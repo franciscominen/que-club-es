@@ -1,11 +1,8 @@
 import { scaleInCenter } from "@/styles/animations";
-import useStore from "lib/store/state";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const ClubImage = ({ imageSource, steps }: any) => {
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [showCount, setShowCount] = useState(false);
   const [count, setCount] = useState(3);
 
@@ -34,15 +31,11 @@ const ClubImage = ({ imageSource, steps }: any) => {
           <h1 key={count}>{count}</h1>
         </Count>
       ) : (
-        <ClubImg className={isImageLoaded ? "loaded" : ""}>
-          <Image
-            src={imageSource}
-            alt="Please Reload"
-            fill
-            onLoad={() => setIsImageLoaded(true)}
-            priority={true}
-          />
-        </ClubImg>
+        <ClubImg
+          src={imageSource}
+          alt="Please Reload"
+          className={!showCount ? "loaded" : ""}
+        />
       )}
     </>
   );
@@ -50,35 +43,30 @@ const ClubImage = ({ imageSource, steps }: any) => {
 
 export default ClubImage;
 
-const ClubImg = styled.div`
-  max-height: calc(68vh - 200px);
-  position: relative;
+const ClubImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   opacity: 0;
-  padding: 16px 0;
+  padding: 0;
   &.loaded {
     animation: ${scaleInCenter} 0.3s ease-in both;
     opacity: 1;
   }
-
-  img {
-    position: relative !important;
-  }
-
-  @media (max-width: 376px) {
-    padding: 8px;
-  }
 `;
 
 const Count = styled.div`
-  width: 236px;
-  height: 236px;
+  width: 100%;
+  height: 100%
   display: flex;
   justify-content: center;
   align-items: center;
+  object-fit: contain;
   h1 {
     animation: ${scaleInCenter} 0.33s ease-in both;
     font-size: 140px;
     font-weight: 100;
     color: var(--light);
+    text-align: center;
   }
 `;

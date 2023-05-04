@@ -20,20 +20,22 @@ const PointsSlider = ({ points }: any) => {
         <PointsWrapper>
           <TeamsList>
             <Title>Clubes:</Title>
-            {PLAYED_TEAMS.map((team) => {
-              return (
-                <li key={team.id}>
-                  <Image
-                    src={team.img}
-                    alt=""
-                    width={30}
-                    height={30}
-                    priority={true}
-                  />
-                  <h3>{team.name}</h3>
-                </li>
-              );
-            })}
+            <>
+              {PLAYED_TEAMS.map((team) => {
+                return (
+                  <li key={team.id}>
+                    <Image
+                      src={team.img}
+                      alt=""
+                      width={30}
+                      height={30}
+                      priority={true}
+                    />
+                    <h3>{team.name}</h3>
+                  </li>
+                );
+              })}
+            </>
           </TeamsList>
           <ShowPointsBtn onClick={handleToggle}>Ver puntuación</ShowPointsBtn>
         </PointsWrapper>
@@ -46,7 +48,7 @@ const PointsSlider = ({ points }: any) => {
               <span>Pts</span>
             </Points>
             <CountdownContainer>
-              <Scoreboard small={true} />
+              <Scoreboard small={"true"} />
             </CountdownContainer>
           </div>
           <ShowAnswersBtn onClick={handleToggle}>Ver respuestas</ShowAnswersBtn>
@@ -107,7 +109,7 @@ const ShowAnswersBtn = styled.button`
   font-size: 18px;
   mix-blend-mode: screen;
   animation: ${fadeIn} 0.4s ease-in 0.1s both;
-  transition: .1s;
+  transition: 0.1s;
   &:hover {
     transform: scale(1.05);
   }

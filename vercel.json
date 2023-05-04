@@ -1,8 +1,0 @@
-{
-  "crons": [
-    {
-      "path": "/api/data?key=sharedKey",
-      "schedule": "59 8 * * *"
-    }
-  ]
-}

@@ -78,7 +78,7 @@ const useActions = () => {
         return useStore.setState(state => ({ ...state, SCOREBOARD: SCOREBOARD.concat(value) }));
     }
 
-    const resetScoreboard = (value: string) => {
+    const resetScoreboard = () => {
         return useStore.setState(state => ({ ...state, SCOREBOARD: [] }));
     }
 
@@ -94,7 +94,7 @@ const useActions = () => {
         resetScoreboard,
         fetchAllTeams,
         incrementArcadePoints,
-        resetArcadePoints
+        resetArcadePoints,
     }
 }
 

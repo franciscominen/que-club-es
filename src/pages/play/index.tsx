@@ -124,7 +124,7 @@ const Play = () => {
     PLAYED ? router.push("result") : null;
   }, [PLAYED, router]);
 
-  /*   useEffect(() => {
+  useEffect(() => {
     const newIntervalId = setInterval(() => {
       onPass();
     }, 33000);
@@ -133,19 +133,21 @@ const Play = () => {
     return () => {
       clearInterval(newIntervalId);
     };
-  }, [STEPS]); */
+  }, [STEPS]);
 
   return (
     <PlayWrapper>
       <ScoreboardContainer>
-        <Scoreboard small={false} />
+        <Scoreboard small={"false"} />
       </ScoreboardContainer>
 
-      {showClub ? (
-        <AnswerAnimation isCorrect={correct} />
-      ) : (
-        <ClubImage imageSource={RANDOM_TEAMS[STEPS]?.img} steps={STEPS} />
-      )}
+      <div style={{ height: "calc(58vh - 200px)", width: "100%" }}>
+        {showClub ? (
+          <AnswerAnimation isCorrect={correct} />
+        ) : (
+          <ClubImage imageSource={RANDOM_TEAMS[STEPS]?.img} steps={STEPS} />
+        )}
+      </div>
 
       <BottomContainer onSubmit={handleAnswer}>
         <PlayButtonsAndChances
@@ -154,7 +156,11 @@ const Play = () => {
           teamName={teamName}
           passDisabled={showClub}
         />
-        <InputAndKeyboard teamName={teamName} setTeamName={setTeamName} />
+        <InputAndKeyboard
+          teamName={teamName}
+          setTeamName={setTeamName}
+          countdownKey={STEPS}
+        />
       </BottomContainer>
     </PlayWrapper>
   );
@@ -167,12 +173,17 @@ const PlayWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  // gap: 16px;
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
   max-width: 550px;
   padding: 1em 2% 2.5em 2%;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    height: calc(var(--vh, 1vh) * 85);
+    justify-content: flex-start;
+    gap: 16px;
+  }
 `;
 
 const BottomContainer = styled.form`
