@@ -20,7 +20,11 @@ const useStore = create<State>()(
         {
             name: 'PLAYED',
             partialize: (state) => ({
-                POINTS: state.POINTS, PLAYED_TEAMS: state.PLAYED_TEAMS, SCOREBOARD: state.SCOREBOARD, STEPS: state.STEPS, ARCADE_STEPS: state.ARCADE_STEPS
+                POINTS: state.POINTS,
+                PLAYED_TEAMS: state.PLAYED_TEAMS,
+                SCOREBOARD: state.SCOREBOARD,
+                STEPS: state.STEPS,
+                ARCADE_STEPS: state.ARCADE_STEPS
             }),
         }
     )
