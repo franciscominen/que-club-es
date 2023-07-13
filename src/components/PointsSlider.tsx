@@ -66,6 +66,7 @@ const PointsWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 20em;
+  max-width: 17em;
 `;
 
 const Title = styled.h1`
@@ -133,6 +134,8 @@ const TeamsList = styled.ul`
     h3 {
       font-weight: 100;
       font-size: 18px;
+      line-height: 1.1;
+      margin-left: 4px;
     }
   }
 `;
