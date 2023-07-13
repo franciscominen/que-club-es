@@ -33,4 +33,5 @@ const FooterLink = styled.a`
   font-family: var(--alternativeFont);
   cursor: pointer;
   color: #3296b8;
+  margin-left: 3px;
 `;
