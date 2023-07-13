@@ -16,6 +16,8 @@ const Layout = ({ children, ...props }: Props) => {
   const router = useRouter();
   const IS_LOADING = useStore((state) => state.IS_LOADING);
   const APP_SOUND_MUTED = useStore((state) => state.APP_SOUND_MUTED);
+  const isPlayScreen = router.pathname === "/play";
+  const isArcadeScreen = router.pathname ==="/arcade"
   const [showModal, setShowModal] = useState(false);
 
   let vh = window.innerHeight * 0.01;
@@ -41,7 +43,7 @@ const Layout = ({ children, ...props }: Props) => {
   };
 
   const goToHome = () => {
-    if (router.pathname === "/play") {
+    if (isPlayScreen) {
       return setShowModal(true);
     }
     return router.push("/");
@@ -81,7 +83,7 @@ const Layout = ({ children, ...props }: Props) => {
         )}
       </AudioButton>
       {IS_LOADING ? <Loader /> : children}
-      <Footer />
+      {isPlayScreen || isArcadeScreen ? null : <Footer />}
     </MainContainer>
   );
 };
