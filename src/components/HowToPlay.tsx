@@ -7,17 +7,17 @@ const HowToPlay = ({ handleHowToPlay }: any) => {
       <TextsWrapper>
         <p>
           <span>¿Qué club e’?</span> Es un Web Quiz que se basa
-          <br /> en adivinar el nombre de cinco escudos
-          <br /> pertenecientes a clubes del Futbol Argentino.
+        en adivinar el nombre de cinco escudos
+        pertenecientes a clubes del Futbol Argentino.
         </p>
         <p>
           Los escudos comprenden desde la Liga Profesional
-          <br /> hasta la Primera D, pasando por las 6 categorías.
+        hasta la Primera D, pasando por las 6 categorías.
         </p>
         <p>
           Al clickear en Jugar, deberas escribir el nombre
-          <br /> del equipo al cual pertenece el escudo en pantalla.
-          <br /> Contando con 2 chances y 30 segundos por escudo.
+        del equipo al cual pertenece el escudo en pantalla.
+        Contando con 2 chances y 30 segundos por escudo.
         </p>
         <img
           src="/assets/howtoplay/1.svg"
@@ -26,22 +26,22 @@ const HowToPlay = ({ handleHowToPlay }: any) => {
         />
         <p>
           Por cada escudo que aciertes sumaras 1 punto.
-          <br /> Pudiendo lograr un maximo de 5 puntos.
+        Pudiendo lograr un maximo de 5 puntos.
         </p>
         <p>
           Al finalizar, veras tu puntaje final y las respuestas
-          <br /> de los escudos de hoy.
+        de los escudos de hoy.
         </p>
         <img src="/assets/howtoplay/2.svg" alt="" />
         <p>
           El contador, indica el tiempo restante para que los
-          <br /> cinco escudos se actualicen y poder volver a jugar,
-          <br /> esto pasa una vez por dia.
+        cinco escudos se actualicen y poder volver a jugar,
+        esto pasa una vez por dia.
         </p>
         <img src="/assets/howtoplay/3.svg" alt="" />
         <p>
           Finalmente, podes compartir tu resultado del
-          <br /> dia con quien quieras.
+        dia con quien quieras.
         </p>
         <img
           src="/assets/howtoplay/4.svg"
@@ -58,7 +58,7 @@ export default HowToPlay;
 
 const HowToPlayWrapper = styled.div`
   max-width: 700px;
-  padding: 0 5%;
+  padding: 1em 5% 0 5%;
   height: 80vh;
   overflow-y: overlay;
   animation: ${fadeIn} 0.4s ease-in 0.2s both;

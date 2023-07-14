@@ -60,7 +60,6 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   useEffect(() => {
     const handleRouteChange = (url: any, { shallow }: any) => {
       if (url === "/" && router.asPath === "/play") {
-        console.log("El usuario ha regresado de la ruta /play a la ruta /");
         setPlayedTeams(RANDOM_TEAMS);
         return setToPlayed();
       }

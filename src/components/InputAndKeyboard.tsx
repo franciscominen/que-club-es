@@ -170,9 +170,9 @@ const CountdownBar = styled.figure`
   background-color: var(--light);
   width: 99%;
   margin: 0 auto;
-  height: 45px;
+  height: 47px;
   position: relative;
-  bottom: 3.5em;
+  bottom: 3.6em;
   z-index: 1;
   animation: ${countdownBar} 30s linear 3s;
   transform-origin: center left;

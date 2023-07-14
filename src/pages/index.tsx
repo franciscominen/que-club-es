@@ -54,7 +54,7 @@ const Home: NextPage = () => {
       {SHOW_SOUND_MODAL ? (
         <ActiveSoundModal />
       ) : (
-        <MainContainer>
+        <MainContainer bg={howToPlay}>
           {howToPlay ? (
             <>
               <HowToPlay handleHowToPlay={handleHowToPlay} />
@@ -84,7 +84,7 @@ const Home: NextPage = () => {
 
 export default Home;
 
-const MainContainer = styled.main`
+const MainContainer = styled.main<{ bg: boolean }>`
   max-width: 100%;
   height: calc(var(--vh, 1vh) * 100);
   margin: 0 auto;
@@ -92,6 +92,7 @@ const MainContainer = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: ${(props) => (props.bg ? `#000000bd` : `transparent`)};
 `;
 
 const HomeTitle = styled.h1`

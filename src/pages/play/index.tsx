@@ -97,14 +97,10 @@ const Play = () => {
 
   const ifIsNotCorrect = (isCorrectAnswer: boolean) => {
     if (!isCorrectAnswer) {
-      console.log("Chances: ", chances);
-
       if (chances > 0) {
         errorSound.play();
         setChances(chances - 1);
-        console.log("Chances");
       } else {
-        console.log("On Pass");
         onPass();
       }
     }
